@@ -1,0 +1,21 @@
+.modelContainer {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  min-height: 600px; /* Increased from 500px to give more vertical space */
+  background-color: transparent !important; /* Ensure container background is transparent */
+}
+
+.modelContainer:active {
+  cursor: grabbing;
+}
+
+/* Ensure Three.js canvas is fully transparent */
+.modelContainer canvas {
+  background-color: transparent !important;
+}
+
+/* Fix for any potential wrapper elements */
+.modelContainer > div {
+  background-color: transparent !important;
+}
