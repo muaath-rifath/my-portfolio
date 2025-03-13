@@ -1,8 +1,8 @@
 {
-  "name": "personal-portfolio",
+  "name": "my-portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://muaathrifath.vercel.app/",
+  "homepage": "https://muaathrifath.tech/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
