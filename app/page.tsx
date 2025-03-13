@@ -1,5 +1,5 @@
+import HomeContent from "@/components/home-content";
 import { Metadata } from "next";
-import { HeroSection } from "@/components/hero-section";
 
 export const metadata: Metadata = {
   title: "Muaath Rifath",
@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <HeroSection />;
+  return <HomeContent />;
 }
