@@ -5,16 +5,22 @@ import { Inter as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider";
 import Topbar from "@/components/Topbar";
+import { BackgroundElements } from "@/components/background-elements";
+import { LayoutBootSequence } from "@/components/layout-boot-sequence";
 import localFont from 'next/font/local';
+import { Suspense } from "react";
+
 const pyeongChangPeace = localFont({
   src: '../public/fonts/PyeongChangPeace-Bold.woff2',
   variable: '--font-pyeongchang'
 })
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'Muaath Rifath',
   description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.',
+  metadataBase: new URL('https://portfolio.muaathrifath.com'),
   openGraph: {
     description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.'
   },
@@ -22,7 +28,6 @@ export const metadata: Metadata = {
     description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.'
   }
 };
-
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -43,17 +48,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          <Topbar />
-          <main className="flex">
-            <section className="flex w-full z-10">
-
-              {children}
-
-            </section>
-
-          </main>
+          <LayoutBootSequence />
+          <Suspense fallback={null}>
+            <BackgroundElements />
+            <Topbar />
+            <main className="flex">
+              <section className="flex w-full z-10">
+                {children}
+              </section>
+            </main>
+          </Suspense>
         </ThemeProvider>
-
       </body>
     </html>
   )
