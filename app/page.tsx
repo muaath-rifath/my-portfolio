@@ -1,4 +1,5 @@
-import HomeContent from "@/components/home-content";
+import { HeroSection } from "@/components/hero-section";
+import { AboutSection } from "@/components/about-section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,5 +16,15 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <HomeContent />;
+  return (
+    <div className="relative w-full overflow-hidden">
+      <main className="relative z-10">
+        {/* Hero Section */}
+        <HeroSection />
+        
+        {/* About Section */}
+        <AboutSection />
+      </main>
+    </div>
+  );
 }
