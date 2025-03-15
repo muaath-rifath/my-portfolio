@@ -1,10 +1,10 @@
 "use client";
-
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import styles from "./about-section.module.css";
 
 export function AboutSection() {
   const { theme } = useTheme();
@@ -46,7 +46,7 @@ export function AboutSection() {
           {/* Split mobile layout into a flex layout with image "floating" on the side */}
           <div className="relative">
             {/* Profile Image - Positioned to the right side, floating above text with increased z-index */}
-            <div className="relative w-[160px] h-[160px] float-right ml-4 mb-4" style={{ zIndex: 999 }}>
+            <div className={`relative w-[160px] h-[160px] float-right ml-4 mb-4 ${styles.zHighest}`}>
               <div className="absolute inset-0 rounded-xl shadow-xl overflow-hidden bg-white">
                 {/* Gradient background for the image - BEHIND the image */}
                 <div className="absolute inset-0 bg-gradient-to-br dark:from-[#0a1f30] dark:via-[#0e3320] dark:to-[#1a1a2e] from-[#e6f0eb] via-[#d0e0d8] to-[#c0c0d0] z-0"></div>
@@ -62,7 +62,6 @@ export function AboutSection() {
                     alt="Muaath Rifath" 
                     fill
                     className="object-contain"
-                    style={{ objectFit: "contain" }}
                     priority
                   />
                 </div>
@@ -128,7 +127,7 @@ export function AboutSection() {
       {/* Desktop view (side by side) */}
       <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
         {/* Profile image with circuit board overlay and gradient effect - INCREASED SIZE and Z-INDEX */}
-        <div className="relative h-[450px] lg:h-[550px] flex items-center justify-center" style={{ zIndex: 100 }}>
+        <div className={`relative h-[450px] lg:h-[550px] flex items-center justify-center ${styles.zHigh}`}>
           <div className="absolute top-[15%] left-[10%] w-12 h-12 border-2 dark:border-[#1a1a2e]/60 border-[#c0c0d0]/60 opacity-40 rotate-45 z-10"></div>
           <div className="absolute bottom-[15%] right-[10%] w-16 h-8 border-2 dark:border-[#1a1a2e]/60 border-[#c0c0d0]/60 opacity-40 z-10"></div>
           <div className="absolute top-[80%] left-[15%] w-6 h-6 rounded-full border-2 dark:border-[#1a4a1f]/60 border-[#7e9c83]/60 opacity-60 z-10"></div>
@@ -166,7 +165,6 @@ export function AboutSection() {
                 alt="Muaath Rifath" 
                 fill
                 className="object-contain"
-                style={{ objectFit: "contain" }}
                 priority
               />
             </div>
