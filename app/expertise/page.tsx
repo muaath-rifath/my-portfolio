@@ -186,101 +186,132 @@ const educations: Education[] = [
 
 const ExpertiseSection: React.FC = () => {
   return (
-    <section>
+    <section className="relative w-full overflow-hidden">
+      {/* Circuit trace decorations - similar to Topbar */}
+      <div className="fixed inset-0 z-0 opacity-10 pointer-events-none">
+        <div className="h-[1px] w-3/4 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute top-40 left-0"></div>
+        <div className="h-[1px] w-1/2 dark:bg-[#8fffaa]/20 bg-[#006b42]/20 absolute top-60 right-0"></div>
+        <div className="h-[1px] w-1/3 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute bottom-40 left-1/4"></div>
+        
+        {/* Nodes */}
+        <div className="absolute right-12 top-72 h-2 w-2 rounded-full dark:bg-[#8fffaa]/60 bg-[#006b42]/60"></div>
+        <div className="absolute right-28 top-96 h-1 w-1 rounded-full dark:bg-[#8fffaa]/40 bg-[#006b42]/40"></div>
+        <div className="absolute left-20 top-80 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></div>
+        
+        {/* Vertical traces */}
+        <div className="w-[1px] h-40 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute top-40 left-1/3"></div>
+        <div className="w-[1px] h-60 dark:bg-[#8fffaa]/20 bg-[#006b42]/20 absolute top-20 right-1/4"></div>
+      </div>
+      
       {/* Programming Languages Section */}
-      <section className="w-full mt-20">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="lg:mx-10 lg:px-8 pl-4 pt-4">
-            <h2 className="font-bold tracking-tight text-gray-800 dark:text-white font-star text-3xl">Programming Languages</h2>
+      <section className="w-full mt-20 relative">
+        <div className="container px-4 sm:px-6">
+          <div className="relative z-10 mb-8">
+            <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
+              <span className="dark:text-white text-[#006b42]">Programming Languages</span>
+              <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
+            </h2>
           </div>
-          <div className="mx-10 lg:ml-40 mt-10 flex flex-wrap justify-center lg:justify-normal gap-8">
+          <div className="mt-10 flex flex-wrap justify-center gap-6">
             {programmingLanguages.map((language, index) => (
               <Card 
                 key={index}
                 className={cn(
-                  'p-4 h-full shadow-card',
-                  'rounded-lg shadow-lg hover:scale-105 border border-gray-300',
-                  'transform bg-gray-50 transition-all hover:scale-105 rounded-lg'
+                  'p-4 h-full relative group',
+                  'rounded-lg border dark:border-gray-700 border-gray-200',
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:scale-105 hover:shadow-lg'
                 )}
               >
-                <div className="bg-primary-500 flex justify-evenly items-center flex-col">
-                  <div className="bg-white rounded-full">
+                <div className="flex justify-center items-center flex-col relative">
+                  {/* Circuit decoration around icon */}
+                  <div className="absolute inset-0 rounded-lg dark:bg-[#8fffaa]/5 bg-[#006b42]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="bg-white rounded-full p-1 relative mb-2">
                     <Image
                       src={language.imagePath}
                       alt={language.name}
-                      height={0}
-                      sizes="100vw"
-                      width={0}
+                      height={48}
+                      width={48}
                       className="w-16 h-16 filter-none rounded-full" 
                     />
+                    <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
-                  <h3 className="dark:text-white text-[15px] font-bold text-center Nanum">{language.name}</h3>
+                  <h3 className="dark:text-white text-[#006b42] text-base font-medium font-mono text-center">{language.name}</h3>
                 </div>
               </Card>
             ))}
           </div>
         </div>
       </section>
-      <section className="w-full mt-10">
-        <div className="px-4 sm:px-6 lg:px-8">
-        <div className="lg:mx-10 lg:px-8 pl-4 pt-4">
-            <h2 className="font-bold tracking-tight text-gray-800 dark:text-white font-star text-3xl">Frameworks</h2>
+      <section className="w-full mt-16 relative">
+        <div className="container px-4 sm:px-6">
+          <div className="relative z-10 mb-8">
+            <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
+              <span className="dark:text-white text-[#006b42]">Frameworks</span>
+              <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
+            </h2>
           </div>
-          <div className="mx-10 lg:ml-40 mt-10 flex flex-wrap justify-center lg:justify-normal gap-8">
-          {frameworks.map((framework, index) => (
+          <div className="mt-10 flex flex-wrap justify-center gap-6">
+            {frameworks.map((framework, index) => (
               <Card 
                 key={index}
                 className={cn(
-                  'w-24 p-4 h-full shadow-card',
-                  'rounded-lg shadow-lg hover:scale-105 border border-gray-300',
-                  'transform bg-gray-50 transition-all hover:scale-105 rounded-lg'
+                  'p-4 h-full relative group',
+                  'rounded-lg border dark:border-gray-700 border-gray-200',
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:scale-105 hover:shadow-lg'
                 )}
               >
-                <div className="bg-primary-500 flex justify-evenly items-center flex-col">
-                  <div className="bg-white rounded-full">
+                <div className="flex justify-center items-center flex-col relative">
+                  {/* Circuit decoration around icon */}
+                  <div className="absolute inset-0 rounded-lg dark:bg-[#8fffaa]/5 bg-[#006b42]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="bg-white rounded-full p-1 relative mb-2">
                     <Image
                       src={framework.imagePath}
                       alt={framework.name}
-                      height={0}
-                      sizes="100vw"
-                      width={0}
+                      height={48}
+                      width={48}
                       className="w-16 h-16 filter-none rounded-full" 
                     />
+                    <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
-                  <h3 className="dark:text-white text-[15px] font-bold text-center Nanum">{framework.name}</h3>
+                  <h3 className="dark:text-white text-[#006b42] text-base font-medium font-mono text-center">{framework.name}</h3>
                 </div>
               </Card>
             ))}
           </div>
         </div>
       </section>
-      <section className="w-full mt-10">
-        <div className="px-4 sm:px-6 lg:px-8">
-        <div className="lg:mx-10 lg:px-8 pl-4 pt-4">
-            <h2 className="font-bold tracking-tight text-gray-800 dark:text-white font-star text-3xl">Tools & Infra</h2>
+      <section className="w-full mt-16 relative">
+        <div className="container px-4 sm:px-6">
+          <div className="relative z-10 mb-8">
+            <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
+              <span className="dark:text-white text-[#006b42]">Tools & Infra</span>
+              <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
+            </h2>
           </div>
-          <div className="mx-10 lg:ml-40 mt-10 flex flex-wrap justify-center lg:justify-normal gap-8">
-          {tools_and_infra.map((tools_and_infra, index) => (
+          <div className="mt-10 flex flex-wrap justify-center gap-6">
+            {tools_and_infra.map((tool, index) => (
               <Card 
                 key={index}
                 className={cn(
-                  'p-4 h-full shadow-card',
-                  'rounded-lg shadow-lg hover:scale-105 border border-gray-300',
-                  'transform bg-gray-50 transition-all hover:scale-105 rounded-lg'
+                  'p-4 h-full relative group',
+                  'rounded-lg border dark:border-gray-700 border-gray-200',
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:scale-105 hover:shadow-lg'
                 )}
               >
-                <div className="bg-primary-500 flex justify-evenly items-center flex-col">
-                  <div className="bg-white rounded-full">
+                <div className="flex justify-center items-center flex-col relative">
+                  {/* Circuit decoration around icon */}
+                  <div className="absolute inset-0 rounded-lg dark:bg-[#8fffaa]/5 bg-[#006b42]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="bg-white rounded-full p-1 relative mb-2">
                     <Image
-                      src={tools_and_infra.imagePath}
-                      alt={tools_and_infra.name}
-                      height={0}
-                      sizes="100vw"
-                      width={0}
-                      className="w-16 h-16 filter-none object-cover rounded-full" 
+                      src={tool.imagePath}
+                      alt={tool.name}
+                      height={48}
+                      width={48}
+                      className="w-16 h-16 filter-none rounded-full object-cover" 
                     />
+                    <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
-                  <h3 className="dark:text-white text-[15px] font-bold text-center Nanum">{tools_and_infra.name}</h3>
+                  <h3 className="dark:text-white text-[#006b42] text-base font-medium font-mono text-center">{tool.name}</h3>
                 </div>
               </Card>
             ))}
@@ -288,46 +319,57 @@ const ExpertiseSection: React.FC = () => {
         </div>
       </section>
       {/* Licenses and Certifications Section */}
-      <section className="w-full mt-10">
-        <div className="px-4 sm:px-6 lg:px-8">
-        <div className="lg:mx-10 lg:px-8 pl-4 pt-4">
-            <h2 className="font-bold tracking-tight text-gray-800 dark:text-white font-star text-3xl">Licenses and Certifications</h2>
+      <section className="w-full mt-16 relative">
+        <div className="container px-4 sm:px-6">
+          <div className="relative z-10 mb-8">
+            <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
+              <span className="dark:text-white text-[#006b42]">Licenses and Certifications</span>
+              <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
+            </h2>
           </div>
-          <div className="lg:mx-40 mx-4">
-            <div className="flex flex-wrap lg:justify-between mt-10 max-w-6xl gap-8 justify-center">
+          <div className="mt-8">
+            <div className="flex flex-wrap justify-center gap-8">
               {licensesCertifications.map((certification, index) => (
                 <Card
                   key={index}
-                  className='w-full max-w-md p-6 mb-8 shadow-lg rounded-lg border border-gray-300'
+                  className="w-full max-w-md p-6 mb-8 relative group backdrop-blur-sm bg-background/90 border dark:border-gray-700 border-gray-200 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10"
                 >
                   <Link href={certification.certificateLink} target="_blank" className="block">
-                    <div className="flex items-center space-x-2 mb-4">
-                    <Image 
-                      src={certification.logoPath} 
-                      alt="Certifying Organization Logo"
-                      height={24}
-                      width={24}
-                      className='bg-white'
-                    />
-                      <h3 className="text-lg font-semibold text-gray-900 dark:dark:text-white">
+                    {/* Circuit trace decorations */}
+                    <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="relative">
+                        <Image 
+                          src={certification.logoPath} 
+                          alt="Certifying Organization Logo"
+                          height={32}
+                          width={32}
+                          className="bg-white rounded-full p-0.5 relative"
+                        />
+                        <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      </div>
+                      <h3 className="text-lg font-semibold dark:text-white text-[#006b42] font-mono tracking-tight">
                         {certification.title}
                       </h3>
                     </div>
-                    <p className="mt-2 text-primary dark:text-primary">{certification.issuer}</p>
-                    <p className="mt-2 text-gray-500 dark:text-gray-400">
+                    <p className="mt-2 font-medium dark:text-[#8fffaa] text-[#006b42]">{certification.issuer}</p>
+                    <p className="mt-2 text-gray-500 dark:text-gray-400 font-mono text-sm">
                       Issued: {certification.issueDate}
                     </p>
-                    <div className="mt-4 mb-4">
+                    <div className="mt-4 mb-4 overflow-hidden rounded-lg relative">
                       <Image
                         src={certification.imagePath}
                         alt="Certificate"
                         height={0}
                         width={0}
                         sizes="100vw"
-                        className="w-full h-auto object-cover rounded-lg"
+                        className="w-full h-auto object-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
                       />
+                      <div className="absolute inset-0 border rounded-lg dark:border-[#8fffaa]/20 border-[#006b42]/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </div>
-                    <p className="mt-2 text-gray-600 dark:text-gray-300">
+                    <p className="mt-2 text-gray-600 dark:text-gray-300 leading-relaxed">
                       {certification.description}
                     </p>
                   </Link>
@@ -339,33 +381,45 @@ const ExpertiseSection: React.FC = () => {
       </section>
 
       {/* Education Section */}
-      <section className="w-full mt-10 pb-10">
-        <div className="px-4 sm:px-6 lg:px-8">
-        <div className="lg:mx-10 lg:px-8 pl-4 pt-4">
-            <h2 className="font-bold tracking-tight text-gray-800 dark:text-white font-star text-3xl">Education</h2>
+      <section className="w-full mt-16 pb-24 relative">
+        <div className="container px-4 sm:px-6">
+          <div className="relative z-10 mb-8">
+            <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
+              <span className="dark:text-white text-[#006b42]">Education</span>
+              <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
+            </h2>
           </div>
-          <div className="mx-auto mt-10 lg:ml-20 grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-1">
-            {educations.map((education, index) => (
-              <Card
-                key={index}
-                className={cn(
-                  'rounded-lg p-6 shadow-lg mx-4 lg:mx-20 border border-gray-300',
-                  'transform bg-gray-50 transition-all rounded-lg'
-                )}
-              >
-                <div className="flex items-center space-x-2">
-                  <FaGraduationCap className="h-6 w-6 text-gray-400 dark:text-custom-purple" />
-                  <h3 className="text-lg font-semibold text-gray-900 dark:dark:text-white">
-                    {education.degree}
-                  </h3>
-                </div>
-                <p className="mt-2 text-primary dark:text-primary">{education.institution}</p>
-                <p className="mt-2 text-gray-500 dark:text-gray-400">{education.duration}</p>
-                {education.description && (
-                  <p className="mt-2 text-gray-600 dark:text-gray-300">{education.description}</p>
-                )}
-              </Card>
-            ))}
+          <div className="mt-8 flex justify-center">
+            <div className="w-full max-w-3xl">
+              {educations.map((education, index) => (
+                <Card
+                  key={index}
+                  className="p-6 relative group backdrop-blur-sm bg-background/90 border dark:border-gray-700 border-gray-200 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10"
+                >
+                  {/* Circuit trace decorations */}
+                  <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                  <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                  <div className="absolute top-0 right-0 h-[40%] w-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                  <div className="absolute bottom-0 left-0 h-[40%] w-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                  
+                  <div className="flex items-center space-x-3 mb-4">
+                    <div className="relative rounded-full p-2 dark:bg-[#8fffaa]/10 bg-[#006b42]/10">
+                      <FaGraduationCap className="h-6 w-6 dark:text-[#8fffaa] text-[#006b42]" />
+                    </div>
+                    <h3 className="text-lg font-semibold dark:text-white text-[#006b42] font-mono tracking-tight">
+                      {education.degree}
+                    </h3>
+                  </div>
+                  <p className="mt-2 font-medium dark:text-[#8fffaa] text-[#006b42]">{education.institution}</p>
+                  <p className="mt-2 text-gray-500 dark:text-gray-400 font-mono text-sm">{education.duration}</p>
+                  {education.description && (
+                    <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {education.description}
+                    </p>
+                  )}
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
