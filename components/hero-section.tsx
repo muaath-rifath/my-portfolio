@@ -1,14 +1,21 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { Model3D } from "@/components/model-3d";
 import { TypewriterText } from "@/components/typewriter-text";
+import dynamic from 'next/dynamic';
+
+// Correctly typed dynamic import for Model3D with SSR disabled
+const Model3D = dynamic(
+  () => import('@/components/model-3d').then(mod => mod.Model3D), // Corrected path
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-64 flex items-center justify-center"><p>Loading 3D model...</p></div> // Correct loading state syntax
+  }
+);
 
 export function HeroSection() {
-  const { theme } = useTheme();
-  
+  const isDarkMode = true; // Determine if dark mode is active
+
   return (
     <section className="container mx-auto px-4 pt-24 lg:pt-0 lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
       <div className="grid lg:grid-cols-2 gap-8 items-center mt-16 lg:mt-0">
@@ -26,13 +33,13 @@ export function HeroSection() {
                 <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-white bg-[#006b42]"></span>
               </span>
             </h1>
-            
+
             {/* Replace static text with TypewriterText component */}
             <div className="mt-4">
               <TypewriterText />
             </div>
           </div>
-          
+
           {/* Social links */}
           <div className="flex flex-wrap items-center gap-3">
             <Link href="https://github.com/muaath-rifath" target="_blank" rel="noopener noreferrer">
@@ -57,7 +64,7 @@ export function HeroSection() {
               </Button>
             </Link>
           </div>
-          
+
           {/* Contact and Resume buttons on the same row */}
           <div className="flex flex-wrap items-center gap-4 mt-6">
             <Link href="/contact">
@@ -65,9 +72,9 @@ export function HeroSection() {
                 Contact Me
               </Button>
             </Link>
-            
+
             <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-              <Button 
+              <Button
                 variant="outline"
                 className="relative px-6 py-3 font-mono border-2 overflow-hidden group dark:border-white dark:text-white border-[#006b42] text-[#006b42]"
               >
@@ -77,10 +84,10 @@ export function HeroSection() {
             </Link>
           </div>
         </div>
-        
-        {/* 3D model visualization */}
-        <div className="relative h-[400px] lg:h-[500px]">
-          <Model3D />
+
+        {/* 3D Model Column - Pass isDarkMode prop */}
+        <div className="relative h-64 lg:h-[500px] flex items-center justify-center">
+          <Model3D isDarkMode={isDarkMode} scale={0.7} />
         </div>
       </div>
     </section>
