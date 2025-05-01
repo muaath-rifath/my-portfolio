@@ -30,7 +30,7 @@ export default function Contact() {
       <div className="absolute inset-0 bg-[url('/assets/circuit-overlay.svg')] bg-no-repeat bg-cover opacity-10 mix-blend-overlay z-0 pointer-events-none"></div>
 
       {/* Header with circuit-inspired styling */}
-      <div className="relative z-10 mb-4 lg:px-8 mt-10">
+      <div className="relative z-10 mb-4 lg:px-8 mx-10 mt-10">
         <h1 className="text-4xl md:text-5xl font-bold font-mono tracking-tighter relative inline-block">
           <span className="dark:text-white text-[#006b42]">Get in Touch</span>
           <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
@@ -40,7 +40,7 @@ export default function Contact() {
         </p>
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row w-full lg:px-8  justify-center items-stretch gap-0 mt-8 group">
+      <div className="relative z-10 flex flex-col lg:flex-row w-full lg:px-40 justify-center items-stretch gap-0 mt-8 group">
         <ContactInfo />
         <ContactForm />
       </div>
