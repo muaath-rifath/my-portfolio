@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <section className="relative container mx-auto pt-24 lg:pt-16 lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
+    <section className="relative container mx-auto pt-20 lg:pt-16 lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
       {/* Circuit trace decorations */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-40 left-12 h-[1px] w-16 dark:bg-[#8fffaa]/20 bg-[#006b42]/20"></div>
@@ -30,7 +30,7 @@ export default function Contact() {
       <div className="absolute inset-0 bg-[url('/assets/circuit-overlay.svg')] bg-no-repeat bg-cover opacity-10 mix-blend-overlay z-0 pointer-events-none"></div>
 
       {/* Header with circuit-inspired styling */}
-      <div className="relative z-10 mb-8 px-4 md:px-8">
+      <div className="relative z-10 mb-4 lg:px-8 mt-10">
         <h1 className="text-4xl md:text-5xl font-bold font-mono tracking-tighter relative inline-block">
           <span className="dark:text-white text-[#006b42]">Get in Touch</span>
           <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
@@ -40,7 +40,7 @@ export default function Contact() {
         </p>
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row w-full px-4 md:px-8 justify-center items-stretch gap-0 mt-8 group">
+      <div className="relative z-10 flex flex-col lg:flex-row w-full lg:px-8  justify-center items-stretch gap-0 mt-8 group">
         <ContactInfo />
         <ContactForm />
       </div>

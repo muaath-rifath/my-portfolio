@@ -5,7 +5,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 
 export default function ContactInfo() {
   return (
-    <div className="relative flex flex-col justify-center p-6 lg:items-center lg:mt-0 rounded-xl lg:rounded-r-none lg:border-r-0 pt-10 lg:py-24 border dark:border-gray-700 border-gray-200 lg:w-1/2 group/contact-item group-hover:border-[#006b42] dark:group-hover:border-[#8fffaa]/50 transition-all duration-300 dark:bg-black/40 bg-white/70 backdrop-blur-sm">
+    <div className="relative flex flex-col justify-center p-6 lg:items-center rounded-t-xl lg:rounded-xl lg:rounded-r-none border dark:border-gray-700 border-gray-200 border-b-0 lg:border-b lg:border-r-0 mb-0 lg:w-1/2 group/contact-item group-hover:border-[#006b42] dark:group-hover:border-[#8fffaa]/50 transition-all duration-300 dark:bg-black/40 bg-white/70 backdrop-blur-sm">
       {/* Circuit trace decorations */}
       <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-item:opacity-100 transition-all duration-500"></div>
       <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-item:opacity-100 transition-all duration-500"></div>
