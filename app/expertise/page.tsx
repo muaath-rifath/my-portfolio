@@ -38,7 +38,7 @@ interface LicenseCertification {
 }
 
 // Add the Project interface here
-export interface Project {
+interface Project {
   title: string;
   description: string;
   imageUrl: string; // Path relative to /public or an absolute URL
@@ -195,7 +195,7 @@ const educations: Education[] = [
 ];
 
 // Add the projectsData array here
-export const projectsData: Project[] = [
+const projectsData: Project[] = [
   {
     title: "Portfolio",
     description: "A personal portfolio website showcasing my projects and skills.",
