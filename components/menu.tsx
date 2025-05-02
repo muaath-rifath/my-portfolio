@@ -5,6 +5,7 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
+  SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
@@ -17,9 +18,10 @@ import { useTheme } from "next-themes";
 export default function MenuBar() {
   const pathname = usePathname();
   const { theme } = useTheme();
+  const [open, setOpen] = React.useState(false);
   
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
           variant="ghost"
@@ -64,6 +66,7 @@ export default function MenuBar() {
                 <Link
                   key={link.label}
                   href={link.route}
+                  onClick={() => setOpen(false)}
                   className={`
                     block px-4 py-3 rounded-md font-mono transition-colors relative group
                     ${isActive 
