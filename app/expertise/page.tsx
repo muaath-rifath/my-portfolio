@@ -409,7 +409,7 @@ const ExpertiseSection: React.FC = () => {
                   ))}
                 </div>
                 {project.projectUrl && (
-                  <Link href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-auto">
+                  <Link href={project.projectUrl} target="_blank" rel="me" className="inline-block mt-auto">
                     <button className="text-sm font-medium dark:text-[#8fffaa] text-[#006b42] hover:underline font-mono">
                       View Project →
                     </button>

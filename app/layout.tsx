@@ -5,6 +5,7 @@ import { Inter as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider";
 import Topbar from "@/components/Topbar";
+import Footer from "@/components/Footer";
 import { BackgroundElements } from "@/components/background-elements";
 import { LayoutBootSequence } from "@/components/layout-boot-sequence";
 import localFont from 'next/font/local';
@@ -114,10 +115,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense fallback={null}>
             <BackgroundElements />
             <Topbar />
-            <main className="flex">
-              <section className="flex w-full z-10">
+            <main className="flex flex-col min-h-screen">
+              <section className="flex w-full z-10 flex-grow">
                 {children}
               </section>
+              <Footer />
             </main>
           </Suspense>
         </ThemeProvider>
