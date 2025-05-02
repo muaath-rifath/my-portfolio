@@ -20,7 +20,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Muaath Rifath',
   description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.',
-  metadataBase: new URL('https://portfolio.muaathrifath.com'),
+  metadataBase: new URL('https://muaathrifath.tech'),
   openGraph: {
     description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.'
   },
