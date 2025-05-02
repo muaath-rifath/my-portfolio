@@ -30,11 +30,6 @@ export const metadata: Metadata = {
   ],
   creator: 'Muaath Rifath',
   applicationName: 'Muaath Rifath',
-  colorScheme: 'dark light',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#000000' },
-  ],
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
   verification: {
@@ -84,12 +79,18 @@ export const metadata: Metadata = {
     nocache: false,
     noimageindex: false,
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  colorScheme: 'dark light',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  ],
 };
 
 const fontSans = FontSans({
