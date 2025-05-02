@@ -36,6 +36,16 @@ interface LicenseCertification {
   imagePath: string;
   logoPath: string;
 }
+
+// Add the Project interface here
+export interface Project {
+  title: string;
+  description: string;
+  imageUrl: string; // Path relative to /public or an absolute URL
+  projectUrl?: string; // Optional link to the live project or repository
+  tags: string[];
+}
+
 export const metadata: Metadata = {
   title: "Expertise",
   description: "Explore the professional experiences of Mohamed Muaath Rifath, including roles in software engineering and frontend development.",
@@ -44,7 +54,7 @@ export const metadata: Metadata = {
     title: "Experience",
     description: "Explore the professional experiences of Mohamed Muaath Rifath, including roles in software engineering and frontend development.",
     images: ["/assets/expertise.png"],
-    url: "https://muaathrifath.vercel.com/experience",
+    url: "https://muaathrifath.tech/experience",
     type: "website"
   }
 };
@@ -184,6 +194,25 @@ const educations: Education[] = [
   },
 ];
 
+// Add the projectsData array here
+export const projectsData: Project[] = [
+  {
+    title: "Portfolio",
+    description: "A personal portfolio website showcasing my projects and skills.",
+    imageUrl: "/assets/portfolio.png", // Replace with actual image path
+    projectUrl: "https://github.com/muaath-rifath/my-portfolio",
+    tags: ["Next.js", "React", "Tailwind CSS"],
+  },
+  {
+    title: "Sol",
+    description: "A AI based and privacy focussed smart home automation system using RaspberryPi and ESP32.",
+    imageUrl: "/assets/sol.png",
+    projectUrl: "https://github.com/muaath-rifath/sol", 
+    tags: ["Mistral AI", "ESP-IDF", "MQTT", "Raspberry Pi", "Flask"],
+  },
+
+];
+
 const ExpertiseSection: React.FC = () => {
   return (
     <section className="relative w-full overflow-hidden">
@@ -318,6 +347,66 @@ const ExpertiseSection: React.FC = () => {
           </div>
         </div>
       </section>
+
+
+      {/* Projects Section */}
+      <section className="w-full mt-16 relative">
+        <div className="container px-4 sm:px-6">
+          <div className="relative z-10 mb-8">
+            <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
+              <span className="dark:text-white text-[#006b42]">Projects</span>
+              <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
+            </h2>
+          </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-8">
+            {projectsData.map((project, index) => (
+              <Card
+                key={index}
+                className={cn(
+                  'p-6 w-full max-w-md relative group overflow-hidden', // Use flexbox layout like certifications
+                  'rounded-lg border dark:border-gray-700 border-gray-200',
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10'
+                )}
+              >
+                <div className="relative mb-4 h-48 w-full overflow-hidden rounded-md"> {/* Fixed height container for image */}
+                  <Image
+                    src={project.imageUrl}
+                    alt={project.title}
+                    layout="fill" // Use layout fill
+                    objectFit="cover" // Cover the container
+                    className="transition-transform duration-500 group-hover:scale-105"
+                  />
+                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> {/* Optional overlay */}
+                </div>
+                <h3 className="text-xl font-semibold dark:text-white text-[#006b42] font-mono tracking-tight mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4 text-sm">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="text-xs font-mono px-2 py-1 rounded dark:bg-[#8fffaa]/10 bg-[#006b42]/10 dark:text-[#8fffaa] text-[#006b42]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                {project.projectUrl && (
+                  <Link href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-auto">
+                    <button className="text-sm font-medium dark:text-[#8fffaa] text-[#006b42] hover:underline font-mono">
+                      View Project →
+                    </button>
+                  </Link>
+                )}
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+      
       {/* Licenses and Certifications Section */}
       <section className="w-full mt-16 relative">
         <div className="container px-4 sm:px-6">
@@ -379,6 +468,7 @@ const ExpertiseSection: React.FC = () => {
           </div>
         </div>
       </section>
+
 
       {/* Education Section */}
       <section className="w-full mt-16 pb-24 relative">
