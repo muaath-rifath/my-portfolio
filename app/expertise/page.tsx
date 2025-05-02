@@ -47,16 +47,24 @@ interface Project {
 }
 
 export const metadata: Metadata = {
-  title: "Expertise",
+  title: "Expertise | Muaath Rifath",
   description: "Explore the professional experiences of Mohamed Muaath Rifath, including roles in software engineering and frontend development.",
-  keywords: ["Experience", "Mohamed Muaath Rifath", "software engineering", "frontend development", "professional experience"],
+  keywords: ["Experience", "Mohamed Muaath Rifath", "software engineering", "frontend development", "professional experience", "IoT", "embedded systems"],
   openGraph: {
-    title: "Experience",
+    title: "Expertise | Muaath Rifath",
     description: "Explore the professional experiences of Mohamed Muaath Rifath, including roles in software engineering and frontend development.",
-    images: ["/assets/expertise.png"],
-    url: "https://muaathrifath.tech/experience",
-    type: "website"
-  }
+    images: ["/assets/expertise-page.png"],
+    type: "website",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Expertise | Muaath Rifath',
+    description: 'Explore the professional experiences of Mohamed Muaath Rifath, including roles in software engineering and frontend development.',
+    images: '/assets/expertise-page.png',
+  },
+  alternates: {
+    canonical: 'https://muaathrifath.tech/expertise',
+  },
 };
 // Arrays remain the same as in the original code
 const programmingLanguages: ProgrammingLanguage[] = [

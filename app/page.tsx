@@ -9,10 +9,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Muaath Rifath",
     description: "Welcome to the personal portfolio of Mohamed Muaath Rifath, an ECE student specializing in IoT and Embedded Systems.",
-    images: ["/assets/home.png"],
-    url: "https://muaathrifath.tech",
-    type: "website"
-  }
+    images: ["/assets/home-page.png"],
+  },
 };
 
 export default function Home() {

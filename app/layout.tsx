@@ -21,12 +21,74 @@ export const metadata: Metadata = {
   title: 'Muaath Rifath',
   description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.',
   metadataBase: new URL('https://muaathrifath.tech'),
+  authors: [
+    {
+      name: 'Muaath Rifath',
+      url: 'https://muaathrifath.tech',
+    }
+  ],
+  creator: 'Muaath Rifath',
+  applicationName: 'Muaath Rifath',
+  colorScheme: 'dark light',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  ],
+  generator: 'Next.js',
+  referrer: 'origin-when-cross-origin',
+  verification: {
+    yandex: '11f01083e7c530fb',
+    other: {
+      'msvalidate.01': '8B74D86213EF01859C288AA7D42295FE',
+      'seznam-wmt': 'ieWWkMIDyegS11rBv5HWimQ33HrmEO6x',
+    },
+  },
   openGraph: {
-    description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.'
+    title: 'Muaath Rifath',
+    description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.',
+    images: 'assets/home-page.png',
+    url: 'https://muaathrifath.tech',
+    type: 'website',
+    siteName: 'Muaath Rifath',
+    locale: 'en_US',
   },
   twitter: {
-    description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.'
-  }
+    card: 'summary_large_image',
+    title: 'Muaath Rifath',
+    description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.',
+    images: 'assets/home-page.png',
+    creator: '@MuaathRifath',
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/assets/logo-portfolio.svg',
+  },
+  keywords: [
+    "Muaath Rifath",
+    "Embedded Software Engineer",
+    "Web Developer",
+    "Freelancer",
+    "Engineering Student",
+  ],
+  alternates: {
+    canonical: 'https://muaathrifath.tech',
+    languages: {
+      'en': 'https://muaathrifath.tech',
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    noimageindex: false,
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 const fontSans = FontSans({

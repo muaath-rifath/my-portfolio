@@ -3,16 +3,24 @@ import ContactInfo from "@/components/ContactInfo";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact | Muaath Rifath",
   description: "Get in touch with Mohamed Muaath Rifath for any inquiries or collaborations. Fill out the contact form or reach out via email or phone.",
   keywords: ["Contact", "Mohamed Muaath Rifath", "inquiries", "collaborations", "email", "phone"],
   openGraph: {
-    title: "Contact",
+    title: "Contact | Muaath Rifath",
     description: "Get in touch with Mohamed Muaath Rifath for any inquiries or collaborations. Fill out the contact form or reach out via email or phone.",
-    images: ["/assets/contact.png"],
-    url: "https://muaathrifath.tech/contact",
-    type: "website"
-  }
+    images: ["/assets/contact-page.png"],
+    type: "website",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact | Muaath Rifath',
+    description: 'Get in touch with Mohamed Muaath Rifath for any inquiries or collaborations. Fill out the contact form or reach out via email or phone.',
+    images: '/assets/contact-page.png',
+  },
+  alternates: {
+    canonical: 'https://muaathrifath.tech/contact',
+  },
 };
 
 export default function Contact() {
