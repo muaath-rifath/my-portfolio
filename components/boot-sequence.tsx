@@ -228,7 +228,7 @@ export function BootSequence({ complete }: BootSequenceProps) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 6.5 }}
+            transition={{ duration: 0.3, delay: 4.5 }}
             className="text-sm relative"
           >
             <div className={`absolute -left-4 -right-4 h-[1px] top-0 ${isDark ? "bg-[#8fffaa]/20" : "bg-[#006b42]/20"}`}></div>
