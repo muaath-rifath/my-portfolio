@@ -210,7 +210,13 @@ const projectsData: Project[] = [
     projectUrl: "https://github.com/muaath-rifath/sol", 
     tags: ["Mistral AI", "ESP-IDF", "MQTT", "Raspberry Pi", "Flask"],
   },
-
+  {
+    title: "Threble",
+    description: "An open-source social media platform built with Next.js",
+    imageUrl: "/assets/threble.png",
+    projectUrl: "https://github.com/muaath-rifath/threble", // Added project URL
+    tags: ["Next.js", "Prisma", "Postgres", "Azure", "Tailwind CSS", "NextAuth"],
+  }
 ];
 
 const ExpertiseSection: React.FC = () => {
