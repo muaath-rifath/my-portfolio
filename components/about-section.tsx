@@ -58,7 +58,7 @@ export function AboutSection() {
                 {/* Image with highest z-index */}
                 <div className="absolute inset-0 z-10">
                   <Image 
-                    src="/assets/profile-1.png" 
+                    src="/assets/profile.png" 
                     alt="Muaath Rifath" 
                     fill
                     className="object-contain"
@@ -161,7 +161,7 @@ export function AboutSection() {
             {/* Image with highest z-index */}
             <div className="absolute inset-0 z-10">
               <Image 
-                src="/assets/profile-1.png" 
+                src="/assets/profile.png" 
                 alt="Muaath Rifath" 
                 fill
                 className="object-contain"
