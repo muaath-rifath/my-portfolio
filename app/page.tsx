@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     description: "Welcome to the personal portfolio of Mohamed Muaath Rifath, an ECE student specializing in IoT and Embedded Systems.",
     images: ["/assets/home-page.png"],
   },
+  alternates: {
+    canonical: 'https://muaathrifath.tech',
+  },
 };
 
 export default function Home() {
