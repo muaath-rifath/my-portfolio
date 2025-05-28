@@ -53,3 +53,23 @@
     }
     
   }
+
+/* Handle content visibility during boot sequence */
+html.nojs main {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Fallback for browsers with JavaScript disabled */
+@media (prefers-reduced-motion: no-preference) {
+  html.nojs main {
+    animation: show-content-fallback 0.5s 8s forwards;
+  }
+  
+  @keyframes show-content-fallback {
+    to {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

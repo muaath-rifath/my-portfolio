@@ -100,7 +100,7 @@ const fontSans = FontSans({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={pyeongChangPeace.variable} suppressHydrationWarning>
+    <html lang="en" className={`${pyeongChangPeace.variable} nojs`} suppressHydrationWarning>
       <head />
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
@@ -116,7 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense fallback={null}>
             <BackgroundElements />
             <Topbar />
-            <main className="flex flex-col min-h-screen">
+            <main className="flex flex-col min-h-screen opacity-0 transition-opacity duration-500">
               <section className="flex w-full z-10 flex-grow">
                 {children}
               </section>
