@@ -92,7 +92,7 @@ export default function Footer() {
                     <Link 
                       href="/" 
                       className={`
-                        text-sm transition-colors relative group inline-flex items-center
+                        text-sm transition-colors relative group/link inline-flex items-center
                         ${isActive 
                           ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
                           : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
@@ -104,7 +104,7 @@ export default function Footer() {
                         w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
                         ${isActive 
                           ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover:dark:bg-[#8fffaa] group-hover:bg-[#006b42]'
+                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
                         }
                       `}></span>
                       
@@ -118,7 +118,7 @@ export default function Footer() {
                         transition-transform duration-300 origin-left
                         ${isActive 
                           ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover:scale-x-100'
+                          : 'scale-x-0 group-hover/link:scale-x-100'
                         }
                       `}></span>
                     </Link>
@@ -132,7 +132,7 @@ export default function Footer() {
                     <Link 
                       href="/expertise" 
                       className={`
-                        text-sm transition-colors relative group inline-flex items-center
+                        text-sm transition-colors relative group/link inline-flex items-center
                         ${isActive 
                           ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
                           : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
@@ -144,7 +144,7 @@ export default function Footer() {
                         w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
                         ${isActive 
                           ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover:dark:bg-[#8fffaa] group-hover:bg-[#006b42]'
+                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
                         }
                       `}></span>
                       
@@ -158,7 +158,7 @@ export default function Footer() {
                         transition-transform duration-300 origin-left
                         ${isActive 
                           ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover:scale-x-100'
+                          : 'scale-x-0 group-hover/link:scale-x-100'
                         }
                       `}></span>
                     </Link>
@@ -172,7 +172,7 @@ export default function Footer() {
                     <Link 
                       href="/blog" 
                       className={`
-                        text-sm transition-colors relative group inline-flex items-center
+                        text-sm transition-colors relative group/link inline-flex items-center
                         ${isActive 
                           ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
                           : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
@@ -184,7 +184,7 @@ export default function Footer() {
                         w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
                         ${isActive 
                           ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover:dark:bg-[#8fffaa] group-hover:bg-[#006b42]'
+                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
                         }
                       `}></span>
                       
@@ -198,7 +198,7 @@ export default function Footer() {
                         transition-transform duration-300 origin-left
                         ${isActive 
                           ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover:scale-x-100'
+                          : 'scale-x-0 group-hover/link:scale-x-100'
                         }
                       `}></span>
                     </Link>
@@ -212,7 +212,7 @@ export default function Footer() {
                     <Link 
                       href="/contact" 
                       className={`
-                        text-sm transition-colors relative group inline-flex items-center
+                        text-sm transition-colors relative group/link inline-flex items-center
                         ${isActive 
                           ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
                           : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
@@ -224,7 +224,7 @@ export default function Footer() {
                         w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
                         ${isActive 
                           ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover:dark:bg-[#8fffaa] group-hover:bg-[#006b42]'
+                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
                         }
                       `}></span>
                       
@@ -238,7 +238,7 @@ export default function Footer() {
                         transition-transform duration-300 origin-left
                         ${isActive 
                           ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover:scale-x-100'
+                          : 'scale-x-0 group-hover/link:scale-x-100'
                         }
                       `}></span>
                     </Link>
@@ -269,7 +269,7 @@ export default function Footer() {
                     <Link 
                       href="/blog/tag/embedded" 
                       className={`
-                        text-sm transition-colors relative group inline-flex items-center
+                        text-sm transition-colors relative group/link inline-flex items-center
                         ${isActive 
                           ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
                           : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
@@ -281,7 +281,7 @@ export default function Footer() {
                         w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
                         ${isActive 
                           ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover:dark:bg-[#8fffaa] group-hover:bg-[#006b42]'
+                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
                         }
                       `}></span>
                       
@@ -295,7 +295,7 @@ export default function Footer() {
                         transition-transform duration-300 origin-left
                         ${isActive 
                           ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover:scale-x-100'
+                          : 'scale-x-0 group-hover/link:scale-x-100'
                         }
                       `}></span>
                     </Link>
@@ -309,7 +309,7 @@ export default function Footer() {
                     <Link 
                       href="/blog/tag/iot" 
                       className={`
-                        text-sm transition-colors relative group inline-flex items-center
+                        text-sm transition-colors relative group/link inline-flex items-center
                         ${isActive 
                           ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
                           : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
@@ -321,7 +321,7 @@ export default function Footer() {
                         w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
                         ${isActive 
                           ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover:dark:bg-[#8fffaa] group-hover:bg-[#006b42]'
+                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
                         }
                       `}></span>
                       
@@ -335,7 +335,7 @@ export default function Footer() {
                         transition-transform duration-300 origin-left
                         ${isActive 
                           ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover:scale-x-100'
+                          : 'scale-x-0 group-hover/link:scale-x-100'
                         }
                       `}></span>
                     </Link>
@@ -349,7 +349,7 @@ export default function Footer() {
                     <Link 
                       href="/blog/tag/web" 
                       className={`
-                        text-sm transition-colors relative group inline-flex items-center
+                        text-sm transition-colors relative group/link inline-flex items-center
                         ${isActive 
                           ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
                           : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
@@ -361,7 +361,7 @@ export default function Footer() {
                         w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
                         ${isActive 
                           ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover:dark:bg-[#8fffaa] group-hover:bg-[#006b42]'
+                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
                         }
                       `}></span>
                       
@@ -375,7 +375,7 @@ export default function Footer() {
                         transition-transform duration-300 origin-left
                         ${isActive 
                           ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover:scale-x-100'
+                          : 'scale-x-0 group-hover/link:scale-x-100'
                         }
                       `}></span>
                     </Link>
@@ -389,7 +389,7 @@ export default function Footer() {
                     <Link 
                       href="/blog/tag/tutorials" 
                       className={`
-                        text-sm transition-colors relative group inline-flex items-center
+                        text-sm transition-colors relative group/link inline-flex items-center
                         ${isActive 
                           ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
                           : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
@@ -401,7 +401,7 @@ export default function Footer() {
                         w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
                         ${isActive 
                           ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover:dark:bg-[#8fffaa] group-hover:bg-[#006b42]'
+                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
                         }
                       `}></span>
                       
@@ -415,7 +415,7 @@ export default function Footer() {
                         transition-transform duration-300 origin-left
                         ${isActive 
                           ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover:scale-x-100'
+                          : 'scale-x-0 group-hover/link:scale-x-100'
                         }
                       `}></span>
                     </Link>
