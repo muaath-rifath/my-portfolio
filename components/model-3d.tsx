@@ -50,27 +50,39 @@ export function Model3D({ isDarkMode, scale = 0.4 }: Model3DProps) {
           {/* <gridHelper args={[50, 50]} /> */}
 
           {/* Enhanced lighting setup */}
-          <ambientLight intensity={isDarkMode ? 0.3 : 0.6} />
+          <ambientLight intensity={isDarkMode ? 0.6 : 1.0} />
           <directionalLight
             position={[10, 10, 5]}
-            intensity={1}
+            intensity={1.5}
             castShadow
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
           />
-          <directionalLight position={[-10, 10, -5]} intensity={0.5} />
+          <directionalLight position={[-10, 10, -5]} intensity={0.8} />
 
           {/* Add a soft hemisphere light */}
           <hemisphereLight
-            args={[isDarkMode ? '#334155' : '#e0f2fe', isDarkMode ? '#0f172a' : '#f8fafc', 0.7]}
+            args={[isDarkMode ? '#4b5563' : '#e0f2fe', isDarkMode ? '#1e293b' : '#f8fafc', 1.0]}
           />
 
           {/* Add a subtle point light */}
           <pointLight
             position={[0, 15, 0]}
-            intensity={0.4}
+            intensity={0.7}
             color={isDarkMode ? '#4ade80' : '#ffffff'}
-            distance={60}
+            distance={80}
+          />
+          
+          {/* Add additional lights for better visibility */}
+          <pointLight 
+            position={[20, 10, 20]} 
+            intensity={0.5} 
+            color={isDarkMode ? '#a5f3fc' : '#ffffff'} 
+          />
+          <pointLight 
+            position={[-20, 10, -20]} 
+            intensity={0.5} 
+            color={isDarkMode ? '#fda4af' : '#ffffff'} 
           />
 
           {/* Main parent group for global scaling */}
