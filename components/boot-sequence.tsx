@@ -15,15 +15,15 @@ export function BootSequence({ complete }: BootSequenceProps) {
   
   useEffect(() => {
     setMounted(true);
-    // Adjust progress to complete within ~3 seconds
+    // Adjust progress to complete within ~4 seconds
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
           return 100;
         }
-        // Increment by ~4% every 100ms to reach 100% in ~2.5s
-        return Math.min(prev + 4, 100);
+        // Increment by ~3% every 100ms to reach 100% in ~3.3s
+        return Math.min(prev + 3, 100);
       });
     }, 100);
     return () => clearInterval(interval);
@@ -38,7 +38,7 @@ export function BootSequence({ complete }: BootSequenceProps) {
       className="fixed inset-0 z-[100] flex items-center justify-center bg-background overflow-hidden"
       initial={{ opacity: 1 }}
       animate={{ opacity: complete ? 0 : 1 }}
-      transition={{ duration: 0.6, delay: complete ? 0 : 0 }}
+      transition={{ duration: 0.8, delay: complete ? 0.2 : 0 }}
       style={{ pointerEvents: complete ? 'none' : 'auto' }}
     >
       {/* Circuit pattern overlay */}

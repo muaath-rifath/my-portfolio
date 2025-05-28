@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, Suspense } from "react";
 import { BootSequence } from "@/components/boot-sequence";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export const BootSequenceContext = createContext({ isBooting: true });
 
@@ -9,56 +9,59 @@ export function useBootSequence() {
   return useContext(BootSequenceContext);
 }
 
-export function LayoutBootSequence() {
+function BootSequenceContent() {
   const [showBootSequence, setShowBootSequence] = useState(true);
   const [booted, setBooted] = useState(false);
-  const [previousPathname, setPreviousPathname] = useState('');
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Only run this on the client
+    const initBoot = () => {
+      setShowBootSequence(true);
+      
+      const mainTimer = setTimeout(() => {
+        setBooted(true);
+        
+        const fadeTimer = setTimeout(() => {
+          setShowBootSequence(false);
+        }, 1500);
+        
+        return () => clearTimeout(fadeTimer);
+      }, 8000);
+      
+      return () => clearTimeout(mainTimer);
+    };
+
     if (typeof window !== 'undefined') {
-      // Store current path to detect navigation
-      if (!previousPathname) {
-        setPreviousPathname(pathname || '');
+      const isDirectPageLoad = !window.performance
+        .getEntriesByType('navigation')
+        .some((nav) => (nav as any).type === 'back_forward');
+
+      if (isDirectPageLoad) {
+        return initBoot();
+      } else {
+        setShowBootSequence(false);
       }
-      
-      // Show boot sequence on initial load and refresh
-      const start = () => {
-        setShowBootSequence(true);
-        setBooted(false);
-        
-        // Main display duration - 7 seconds
-        const mainTimer = setTimeout(() => {
-          setBooted(true);
-          
-          // Fade out duration - 1 second
-          const fadeTimer = setTimeout(() => {
-            setShowBootSequence(false);
-          }, 1000);
-          
-          return () => clearTimeout(fadeTimer);
-        }, 7000);
-        
-        return () => clearTimeout(mainTimer);
-      };
-      
-      // Start animation on mount or refresh
-      start();
     }
   }, []);
 
-  // Handle internal navigation - hide boot sequence when pathname changes
   useEffect(() => {
-    if (previousPathname && pathname !== previousPathname) {
+    if (booted) {
       setShowBootSequence(false);
-      setPreviousPathname(pathname || '');
     }
-  }, [pathname, previousPathname]);
+  }, [pathname, searchParams, booted]);
 
   return (
     <BootSequenceContext.Provider value={{ isBooting: showBootSequence }}>
       {showBootSequence && <BootSequence complete={booted} />}
     </BootSequenceContext.Provider>
+  );
+}
+
+export function LayoutBootSequence() {
+  return (
+    <Suspense fallback={null}>
+      <BootSequenceContent />
+    </Suspense>
   );
 }
