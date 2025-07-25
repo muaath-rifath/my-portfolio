@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 
 type Role = {
@@ -11,12 +10,12 @@ type Role = {
 
 const roles: Role[] = [
   { 
-    text: "IoT/Embedded Engineer", 
-    highlightParts: ["IoT", "Embedded"] 
+    text: "IoT Engineer", 
+    highlightParts: ["IoT"] 
   },
   { 
-    text: "Full Stack Developer (Freelancer)", 
-    highlightParts: ["Full Stack", "Freelancer"] 
+    text: "Full Stack Developer", 
+    highlightParts: ["Full Stack"] 
   }
 ];
 
@@ -25,7 +24,6 @@ export function TypewriterText() {
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [delta, setDelta] = useState(100); // typing speed
-  const { theme } = useTheme();
   
   // Track whether we're mounted to avoid hydration issues
   const isMounted = useRef(false);
@@ -81,21 +79,45 @@ export function TypewriterText() {
     const role = roles[currentRole];
     const highlightParts = role.highlightParts;
     
-    let result = text;
+    // Split text into parts for highlighting
+    let parts: (string | { text: string; highlight: boolean })[] = [text];
     
-    // Replace parts to highlight with styled spans
     highlightParts.forEach(part => {
       if (text.includes(part)) {
-        const regex = new RegExp(`(${part})`, 'g');
-        result = result.replace(regex, `<span class="highlight">$1</span>`);
+        parts = parts.flatMap(p => {
+          if (typeof p === 'string' && p.includes(part)) {
+            const splitParts = p.split(part);
+            const result: (string | { text: string; highlight: boolean })[] = [];
+            for (let i = 0; i < splitParts.length; i++) {
+              if (splitParts[i]) result.push(splitParts[i]);
+              if (i < splitParts.length - 1) {
+                result.push({ text: part, highlight: true });
+              }
+            }
+            return result;
+          }
+          return [p];
+        });
       }
     });
     
     return (
-      <span 
-        className="font-mono text-sm font-semibold tracking-wide"
-        dangerouslySetInnerHTML={{ __html: result }}
-      />
+      <span className="font-mono text-sm font-semibold tracking-wide">
+        {parts.map((part, index) => {
+          if (typeof part === 'string') {
+            return <span key={index}>{part}</span>;
+          } else {
+            return (
+              <span 
+                key={index}
+                className="font-bold text-[#006b42] dark:text-[#00ff88]"
+              >
+                {part.text}
+              </span>
+            );
+          }
+        })}
+      </span>
     );
   };
   
@@ -113,13 +135,6 @@ export function TypewriterText() {
           transition={{ repeat: Infinity, duration: 1 }}
         />
       </div>
-      
-      <style jsx>{`
-        .highlight {
-          color: ${theme === 'dark' ? '#8fffaa' : '#006b42'};
-          font-weight: 700;
-        }
-      `}</style>
     </div>
   );
 }

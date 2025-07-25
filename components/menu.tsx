@@ -14,6 +14,7 @@ import { sidebarLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 export default function MenuBar() {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ export default function MenuBar() {
         </Button>
       </SheetTrigger>
       
+      {/* @ts-ignore */}
       <SheetContent 
         side="left"
         className="w-[280px] sm:w-[350px] border-r dark:border-[#8fffaa]/20 border-[#006b42]/20 dark:bg-[#111]/95 bg-white/95 backdrop-blur-sm p-0"
@@ -67,16 +69,20 @@ export default function MenuBar() {
                   key={link.label}
                   href={link.route}
                   onClick={() => setOpen(false)}
-                  className={`
-                    block px-4 py-3 rounded-md font-mono transition-colors relative group
-                    ${isActive 
-                      ? 'dark:text-[#8fffaa] dark:bg-[#8fffaa]/10 text-[#006b42] bg-[#006b42]/10 font-semibold' 
-                      : 'dark:text-gray-300 text-gray-700 dark:hover:bg-[#8fffaa]/5 hover:bg-[#006b42]/5'
-                    }
-                  `}
+                  className={cn(
+                    "block px-4 py-3 rounded-md font-mono transition-colors relative group",
+                    isActive 
+                      ? "dark:text-[#8fffaa] dark:bg-[#8fffaa]/10 text-[#006b42] bg-[#006b42]/10 font-semibold" 
+                      : "dark:text-gray-300 text-gray-700 dark:hover:bg-[#8fffaa]/5 hover:bg-[#006b42]/5"
+                  )}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`h-2 w-2 rounded-full ${isActive ? 'dark:bg-[#8fffaa] bg-[#006b42]' : 'dark:bg-gray-600 bg-gray-300'}`} />
+                    <div className={cn(
+                      "h-2 w-2 rounded-full",
+                      isActive 
+                        ? "dark:bg-[#8fffaa] bg-[#006b42]" 
+                        : "dark:bg-gray-600 bg-gray-300"
+                    )} />
                     <div className="flex-1">
                       {link.label}
                       {isActive && (

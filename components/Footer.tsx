@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 import { usePathname } from "next/navigation";
 import { IconBrandX, IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
 import styles from './ui/animated-border.module.css';
+import { cn } from '@/lib/utils';
 
 export default function Footer() {
   const { theme } = useTheme();
@@ -91,22 +92,20 @@ export default function Footer() {
                   return (
                     <Link 
                       href="/" 
-                      className={`
-                        text-sm transition-colors relative group/link inline-flex items-center
-                        ${isActive 
-                          ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
-                          : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
-                        }
-                      `}
+                      className={cn(
+                        "text-sm transition-colors relative group/link inline-flex items-center",
+                        isActive 
+                          ? "text-[#006b42] dark:text-[#8fffaa] font-semibold" 
+                          : "hover:text-[#006b42] hover:dark:text-[#8fffaa]"
+                      )}
                     >
                       {/* Dot decorator with active state */}
-                      <span className={`
-                        w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
-                        ${isActive 
-                          ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300",
+                        isActive 
+                          ? "bg-[#006b42] dark:bg-[#8fffaa] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]" 
+                          : "bg-[#006b42]/30 dark:bg-[#8fffaa]/30 group-hover/link:bg-[#006b42] group-hover/link:dark:bg-[#8fffaa]"
+                      )}></span>
                       
                       <span>Home</span>
                       
@@ -131,22 +130,21 @@ export default function Footer() {
                   return (
                     <Link 
                       href="/expertise" 
-                      className={`
-                        text-sm transition-colors relative group/link inline-flex items-center
-                        ${isActive 
-                          ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
-                          : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
-                        }
-                      `}
+                      className={cn(
+                        "text-sm transition-colors relative group/link inline-flex items-center",
+                        isActive 
+                          ? "text-[#006b42] dark:text-[#8fffaa] font-semibold" 
+                          : "hover:text-[#006b42] hover:dark:text-[#8fffaa]"
+                      )}
                     >
                       {/* Dot decorator with active state */}
-                      <span className={`
-                        w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
-                        ${isActive 
-                          ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300",
+                        isActive 
+                          ? "bg-[#006b42] dark:bg-[#8fffaa] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]" 
+                          : "bg-[#006b42]/30 dark:bg-[#8fffaa]/30 group-hover/link:bg-[#006b42] group-hover/link:dark:bg-[#8fffaa]"
+                      )}
+                      ></span>
                       
                       <span>Expertise</span>
                       
@@ -171,22 +169,21 @@ export default function Footer() {
                   return (
                     <Link 
                       href="/blog" 
-                      className={`
-                        text-sm transition-colors relative group/link inline-flex items-center
-                        ${isActive 
-                          ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
-                          : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
-                        }
-                      `}
+                      className={cn(
+                        "text-sm transition-colors relative group/link inline-flex items-center",
+                        isActive 
+                          ? "text-[#006b42] dark:text-[#8fffaa] font-semibold" 
+                          : "hover:text-[#006b42] hover:dark:text-[#8fffaa]"
+                      )}
                     >
                       {/* Dot decorator with active state */}
-                      <span className={`
-                        w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
-                        ${isActive 
-                          ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300",
+                        isActive 
+                          ? "bg-[#006b42] dark:bg-[#8fffaa] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]" 
+                          : "bg-[#006b42]/30 dark:bg-[#8fffaa]/30 group-hover/link:bg-[#006b42] group-hover/link:dark:bg-[#8fffaa]"
+                      )}
+                      ></span>
                       
                       <span>Blog</span>
                       
@@ -211,22 +208,21 @@ export default function Footer() {
                   return (
                     <Link 
                       href="/contact" 
-                      className={`
-                        text-sm transition-colors relative group/link inline-flex items-center
-                        ${isActive 
-                          ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
-                          : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
-                        }
-                      `}
+                      className={cn(
+                        "text-sm transition-colors relative group/link inline-flex items-center",
+                        isActive 
+                          ? "text-[#006b42] dark:text-[#8fffaa] font-semibold" 
+                          : "hover:text-[#006b42] hover:dark:text-[#8fffaa]"
+                      )}
                     >
                       {/* Dot decorator with active state */}
-                      <span className={`
-                        w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
-                        ${isActive 
-                          ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300",
+                        isActive 
+                          ? "bg-[#006b42] dark:bg-[#8fffaa] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]" 
+                          : "bg-[#006b42]/30 dark:bg-[#8fffaa]/30 group-hover/link:bg-[#006b42] group-hover/link:dark:bg-[#8fffaa]"
+                      )}
+                      ></span>
                       
                       <span>Contact</span>
                       
@@ -268,36 +264,32 @@ export default function Footer() {
                   return (
                     <Link 
                       href="/blog/tag/embedded" 
-                      className={`
-                        text-sm transition-colors relative group/link inline-flex items-center
-                        ${isActive 
-                          ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
-                          : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
-                        }
-                      `}
+                      className={cn(
+                        "text-sm transition-colors relative group/link inline-flex items-center",
+                        isActive 
+                          ? "text-[#006b42] dark:text-[#8fffaa] font-semibold" 
+                          : "hover:text-[#006b42] hover:dark:text-[#8fffaa]"
+                      )}
                     >
                       {/* Dot decorator with active state */}
-                      <span className={`
-                        w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
-                        ${isActive 
-                          ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300",
+                        isActive 
+                          ? "bg-[#006b42] dark:bg-[#8fffaa] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]" 
+                          : "bg-[#006b42]/30 dark:bg-[#8fffaa]/30 group-hover/link:bg-[#006b42] group-hover/link:dark:bg-[#8fffaa]"
+                      )}
+                      ></span>
                       
                       <span>Embedded Systems</span>
                       
                       {/* Permanent underline for active state, hover underline for inactive */}
-                      <span className={`
-                        absolute -bottom-0.5 left-0 w-full h-[1px] 
-                        dark:bg-gradient-to-r dark:from-[#8fffaa]/0 dark:via-[#8fffaa]/70 dark:to-[#8fffaa]/0 
-                        bg-gradient-to-r from-[#006b42]/0 via-[#006b42]/70 to-[#006b42]/0 
-                        transition-transform duration-300 origin-left
-                        ${isActive 
-                          ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover/link:scale-x-100'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "absolute -bottom-0.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#006b42]/0 via-[#006b42]/70 to-[#006b42]/0 dark:from-[#8fffaa]/0 dark:via-[#8fffaa]/70 dark:to-[#8fffaa]/0 transition-transform duration-300 origin-left",
+                        isActive 
+                          ? "scale-x-100" 
+                          : "scale-x-0 group-hover/link:scale-x-100"
+                      )}
+                      ></span>
                     </Link>
                   );
                 })()}
@@ -308,36 +300,32 @@ export default function Footer() {
                   return (
                     <Link 
                       href="/blog/tag/iot" 
-                      className={`
-                        text-sm transition-colors relative group/link inline-flex items-center
-                        ${isActive 
-                          ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
-                          : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
-                        }
-                      `}
+                      className={cn(
+                        "text-sm transition-colors relative group/link inline-flex items-center",
+                        isActive 
+                          ? "text-[#006b42] dark:text-[#8fffaa] font-semibold" 
+                          : "hover:text-[#006b42] hover:dark:text-[#8fffaa]"
+                      )}
                     >
                       {/* Dot decorator with active state */}
-                      <span className={`
-                        w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
-                        ${isActive 
-                          ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300",
+                        isActive 
+                          ? "bg-[#006b42] dark:bg-[#8fffaa] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]" 
+                          : "bg-[#006b42]/30 dark:bg-[#8fffaa]/30 group-hover/link:bg-[#006b42] group-hover/link:dark:bg-[#8fffaa]"
+                      )}
+                      ></span>
                       
                       <span>IoT Projects</span>
                       
                       {/* Permanent underline for active state, hover underline for inactive */}
-                      <span className={`
-                        absolute -bottom-0.5 left-0 w-full h-[1px] 
-                        dark:bg-gradient-to-r dark:from-[#8fffaa]/0 dark:via-[#8fffaa]/70 dark:to-[#8fffaa]/0 
-                        bg-gradient-to-r from-[#006b42]/0 via-[#006b42]/70 to-[#006b42]/0 
-                        transition-transform duration-300 origin-left
-                        ${isActive 
-                          ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover/link:scale-x-100'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "absolute -bottom-0.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#006b42]/0 via-[#006b42]/70 to-[#006b42]/0 dark:from-[#8fffaa]/0 dark:via-[#8fffaa]/70 dark:to-[#8fffaa]/0 transition-transform duration-300 origin-left",
+                        isActive 
+                          ? "scale-x-100" 
+                          : "scale-x-0 group-hover/link:scale-x-100"
+                      )}
+                      ></span>
                     </Link>
                   );
                 })()}
@@ -348,36 +336,32 @@ export default function Footer() {
                   return (
                     <Link 
                       href="/blog/tag/web" 
-                      className={`
-                        text-sm transition-colors relative group/link inline-flex items-center
-                        ${isActive 
-                          ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
-                          : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
-                        }
-                      `}
+                      className={cn(
+                        "text-sm transition-colors relative group/link inline-flex items-center",
+                        isActive 
+                          ? "text-[#006b42] dark:text-[#8fffaa] font-semibold" 
+                          : "hover:text-[#006b42] hover:dark:text-[#8fffaa]"
+                      )}
                     >
                       {/* Dot decorator with active state */}
-                      <span className={`
-                        w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
-                        ${isActive 
-                          ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300",
+                        isActive 
+                          ? "bg-[#006b42] dark:bg-[#8fffaa] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]" 
+                          : "bg-[#006b42]/30 dark:bg-[#8fffaa]/30 group-hover/link:bg-[#006b42] group-hover/link:dark:bg-[#8fffaa]"
+                      )}
+                      ></span>
                       
                       <span>Web Development</span>
                       
                       {/* Permanent underline for active state, hover underline for inactive */}
-                      <span className={`
-                        absolute -bottom-0.5 left-0 w-full h-[1px] 
-                        dark:bg-gradient-to-r dark:from-[#8fffaa]/0 dark:via-[#8fffaa]/70 dark:to-[#8fffaa]/0 
-                        bg-gradient-to-r from-[#006b42]/0 via-[#006b42]/70 to-[#006b42]/0 
-                        transition-transform duration-300 origin-left
-                        ${isActive 
-                          ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover/link:scale-x-100'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "absolute -bottom-0.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#006b42]/0 via-[#006b42]/70 to-[#006b42]/0 dark:from-[#8fffaa]/0 dark:via-[#8fffaa]/70 dark:to-[#8fffaa]/0 transition-transform duration-300 origin-left",
+                        isActive 
+                          ? "scale-x-100" 
+                          : "scale-x-0 group-hover/link:scale-x-100"
+                      )}
+                      ></span>
                     </Link>
                   );
                 })()}
@@ -388,36 +372,32 @@ export default function Footer() {
                   return (
                     <Link 
                       href="/blog/tag/tutorials" 
-                      className={`
-                        text-sm transition-colors relative group/link inline-flex items-center
-                        ${isActive 
-                          ? 'dark:text-[#8fffaa] text-[#006b42] font-semibold' 
-                          : 'hover:dark:text-[#8fffaa] hover:text-[#006b42]'
-                        }
-                      `}
+                      className={cn(
+                        "text-sm transition-colors relative group/link inline-flex items-center",
+                        isActive 
+                          ? "text-[#006b42] dark:text-[#8fffaa] font-semibold" 
+                          : "hover:text-[#006b42] hover:dark:text-[#8fffaa]"
+                      )}
                     >
                       {/* Dot decorator with active state */}
-                      <span className={`
-                        w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300
-                        ${isActive 
-                          ? 'dark:bg-[#8fffaa] bg-[#006b42] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]' 
-                          : 'dark:bg-[#8fffaa]/30 bg-[#006b42]/30 group-hover/link:dark:bg-[#8fffaa] group-hover/link:bg-[#006b42]'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "w-1 h-1 rounded-full absolute -left-4 transition-colors duration-300",
+                        isActive 
+                          ? "bg-[#006b42] dark:bg-[#8fffaa] dark:shadow-[0_0_5px_2px_rgba(143,255,170,0.3)]" 
+                          : "bg-[#006b42]/30 dark:bg-[#8fffaa]/30 group-hover/link:bg-[#006b42] group-hover/link:dark:bg-[#8fffaa]"
+                      )}
+                      ></span>
                       
                       <span>Tutorials</span>
                       
                       {/* Permanent underline for active state, hover underline for inactive */}
-                      <span className={`
-                        absolute -bottom-0.5 left-0 w-full h-[1px] 
-                        dark:bg-gradient-to-r dark:from-[#8fffaa]/0 dark:via-[#8fffaa]/70 dark:to-[#8fffaa]/0 
-                        bg-gradient-to-r from-[#006b42]/0 via-[#006b42]/70 to-[#006b42]/0 
-                        transition-transform duration-300 origin-left
-                        ${isActive 
-                          ? 'scale-x-100' 
-                          : 'scale-x-0 group-hover/link:scale-x-100'
-                        }
-                      `}></span>
+                      <span className={cn(
+                        "absolute -bottom-0.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#006b42]/0 via-[#006b42]/70 to-[#006b42]/0 dark:from-[#8fffaa]/0 dark:via-[#8fffaa]/70 dark:to-[#8fffaa]/0 transition-transform duration-300 origin-left",
+                        isActive 
+                          ? "scale-x-100" 
+                          : "scale-x-0 group-hover/link:scale-x-100"
+                      )}
+                      ></span>
                     </Link>
                   );
                 })()}

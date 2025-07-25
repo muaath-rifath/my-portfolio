@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./about-section.module.css";
+import { cn } from "@/lib/utils";
 
 export function AboutSection() {
   const { theme } = useTheme();
@@ -21,9 +22,10 @@ export function AboutSection() {
 
   return (
     <section 
-      className={`container mx-auto px-4 py-16 md:py-24 transition-opacity duration-1000 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      } relative z-20`} 
+      className={cn(
+        "container mx-auto px-4 py-16 md:py-24 transition-opacity duration-1000 relative z-20",
+        isVisible ? "opacity-100" : "opacity-0"
+      )}
       id="about"
     >
       {/* Mobile view layout */}

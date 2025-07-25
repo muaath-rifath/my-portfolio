@@ -8,6 +8,7 @@ import { ModeToggle } from './mode-toggle';
 import MenuBar from "@/components/menu";
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { cn } from '@/lib/utils';
 
 export default function Topbar() {
   const pathname = usePathname();
@@ -75,22 +76,20 @@ export default function Topbar() {
                   <Link 
                     href={link.route} 
                     key={link.label} 
-                    className={`
-                      relative px-4 py-2 text-sm transition-colors font-mono group flex items-center gap-2
-                      ${isActive ? 
-                        'dark:text-[#8fffaa] text-[#006b42] font-semibold' : 
-                        'dark:text-gray-300 text-gray-700'
-                      }
-                    `}
+                    className={cn(
+                      "relative px-4 py-2 text-sm transition-colors font-mono group flex items-center gap-2",
+                      isActive ? 
+                        "text-[#006b42] dark:text-[#8fffaa] font-semibold" : 
+                        "text-gray-700 dark:text-gray-300"
+                    )}
                   >
                     {/* LED indicator like in mobile menu */}
-                    <div className={`
-                      h-2 w-2 rounded-full 
-                      ${isActive 
-                        ? 'dark:bg-[#8fffaa] bg-[#006b42]' 
-                        : 'dark:bg-gray-600/40 bg-gray-400/40'
-                      }
-                    `}>
+                    <div className={cn(
+                      "h-2 w-2 rounded-full",
+                      isActive 
+                        ? "bg-[#006b42] dark:bg-[#8fffaa]" 
+                        : "bg-gray-400/40 dark:bg-gray-600/40"
+                    )}>
                       {isActive && (
                         <div className="absolute inset-0 h-2 w-2 rounded-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50 animate-pulse"></div>
                       )}
