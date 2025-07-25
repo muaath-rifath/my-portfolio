@@ -5,7 +5,6 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
-  SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
@@ -13,12 +12,10 @@ import Link from "next/link";
 import { sidebarLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
-import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 export default function MenuBar() {
   const pathname = usePathname();
-  const { theme } = useTheme();
   const [open, setOpen] = React.useState(false);
   
   return (

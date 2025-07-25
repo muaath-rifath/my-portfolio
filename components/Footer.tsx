@@ -2,14 +2,11 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
 import { usePathname } from "next/navigation";
 import { IconBrandX, IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
-import styles from './ui/animated-border.module.css';
 import { cn } from '@/lib/utils';
 
 export default function Footer() {
-  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const currentYear = new Date().getFullYear();

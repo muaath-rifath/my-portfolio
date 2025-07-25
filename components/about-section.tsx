@@ -1,5 +1,4 @@
 "use client";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -8,7 +7,6 @@ import styles from "./about-section.module.css";
 import { cn } from "@/lib/utils";
 
 export function AboutSection() {
-  const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   
   // Set animation when component is mounted

@@ -7,12 +7,10 @@ import { sidebarLinks } from "@/constants";
 import { ModeToggle } from './mode-toggle';
 import MenuBar from "@/components/menu";
 import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 
 export default function Topbar() {
   const pathname = usePathname();
-  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   
   useEffect(() => {
