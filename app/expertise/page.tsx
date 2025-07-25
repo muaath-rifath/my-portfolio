@@ -262,12 +262,10 @@ const ExpertiseSection: React.FC = () => {
                 className={cn(
                   'p-4 h-full relative group',
                   'rounded-lg border dark:border-gray-700 border-gray-200',
-                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:scale-105 hover:shadow-lg'
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10'
                 )}
               >
                 <div className="flex justify-center items-center flex-col relative">
-                  {/* Circuit decoration around icon */}
-                  <div className="absolute inset-0 rounded-lg dark:bg-[#8fffaa]/5 bg-[#006b42]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="bg-white rounded-full p-1 relative mb-2">
                     <Image
                       src={language.imagePath}
@@ -276,7 +274,6 @@ const ExpertiseSection: React.FC = () => {
                       width={48}
                       className="w-16 h-16 filter-none rounded-full" 
                     />
-                    <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
                   <h3 className="dark:text-white text-[#006b42] text-base font-medium font-mono text-center">{language.name}</h3>
                 </div>
@@ -300,12 +297,10 @@ const ExpertiseSection: React.FC = () => {
                 className={cn(
                   'p-4 h-full relative group',
                   'rounded-lg border dark:border-gray-700 border-gray-200',
-                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:scale-105 hover:shadow-lg'
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10'
                 )}
               >
                 <div className="flex justify-center items-center flex-col relative">
-                  {/* Circuit decoration around icon */}
-                  <div className="absolute inset-0 rounded-lg dark:bg-[#8fffaa]/5 bg-[#006b42]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="bg-white rounded-full p-1 relative mb-2">
                     <Image
                       src={framework.imagePath}
@@ -314,7 +309,6 @@ const ExpertiseSection: React.FC = () => {
                       width={48}
                       className="w-16 h-16 filter-none rounded-full" 
                     />
-                    <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
                   <h3 className="dark:text-white text-[#006b42] text-base font-medium font-mono text-center">{framework.name}</h3>
                 </div>
@@ -338,12 +332,10 @@ const ExpertiseSection: React.FC = () => {
                 className={cn(
                   'p-4 h-full relative group',
                   'rounded-lg border dark:border-gray-700 border-gray-200',
-                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:scale-105 hover:shadow-lg'
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10'
                 )}
               >
                 <div className="flex justify-center items-center flex-col relative">
-                  {/* Circuit decoration around icon */}
-                  <div className="absolute inset-0 rounded-lg dark:bg-[#8fffaa]/5 bg-[#006b42]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="bg-white rounded-full p-1 relative mb-2">
                     <Image
                       src={tool.imagePath}
@@ -352,7 +344,6 @@ const ExpertiseSection: React.FC = () => {
                       width={48}
                       className="w-16 h-16 filter-none rounded-full object-cover" 
                     />
-                    <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
                   <h3 className="dark:text-white text-[#006b42] text-base font-medium font-mono text-center">{tool.name}</h3>
                 </div>

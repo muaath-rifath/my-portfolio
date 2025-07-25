@@ -4,41 +4,90 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
-interface BootSequenceProps {
-  complete: boolean;
-}
-
-export function BootSequence({ complete }: BootSequenceProps) {
+export function BootSequence() {
+  const [showBootSequence, setShowBootSequence] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [progressComplete, setProgressComplete] = useState(false);
   
+  const handleSequenceComplete = () => {
+    setShowBootSequence(false);
+    // Show content immediately
+    document.documentElement.classList.remove('nojs');
+    const mainEl = document.querySelector('main');
+    if (mainEl) {
+      mainEl.style.opacity = '1';
+      mainEl.style.visibility = 'visible';
+    }
+  };
+
   useEffect(() => {
+    // Check if this is a direct page load (not back/forward navigation)
+    if (typeof window !== 'undefined') {
+      const isDirectPageLoad = !window.performance
+        .getEntriesByType('navigation')
+        .some((nav) => (nav as any).type === 'back_forward');
+
+      if (!isDirectPageLoad) {
+        // Skip boot for navigation
+        setShowBootSequence(false);
+        document.documentElement.classList.remove('nojs');
+        
+        // Show content immediately
+        const mainEl = document.querySelector('main');
+        if (mainEl) {
+          mainEl.style.opacity = '1';
+          mainEl.style.visibility = 'visible';
+        }
+        return;
+      }
+    }
+
     setMounted(true);
-    // Adjust progress to complete within ~4 seconds
+    
+    // Fallback timer (safety net)
+    const fallbackTimer = setTimeout(() => {
+      handleSequenceComplete();
+    }, 8000);
+
+    // Progress timer
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
+          clearTimeout(fallbackTimer);
+          // Mark progress as complete after a short delay
+          setTimeout(() => {
+            setProgressComplete(true);
+            // Complete sequence after fade animation
+            setTimeout(() => {
+              handleSequenceComplete();
+            }, 300); // Time for fade animation
+          }, 500);
           return 100;
         }
-        // Increment by ~3% every 100ms to reach 100% in ~3.3s
-        return Math.min(prev + 3, 100);
+        // Increment by ~5% every 100ms to reach 100% in ~2s
+        return Math.min(prev + 5, 100);
       });
     }, 100);
-    return () => clearInterval(interval);
+    
+    return () => {
+      clearInterval(interval);
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || !showBootSequence) return null;
   
   return (
     <motion.div
       className={cn(
         "fixed inset-0 z-[100] flex items-center justify-center bg-background overflow-hidden",
-        complete ? "pointer-events-none" : "pointer-events-auto"
+        progressComplete ? "pointer-events-none" : "pointer-events-auto"
       )}
       initial={{ opacity: 1 }}
-      animate={{ opacity: complete ? 0 : 1 }}
-      transition={{ duration: 0.8, delay: complete ? 0.2 : 0 }}
+      animate={{ opacity: progressComplete ? 0 : 1 }}
+      transition={{ duration: 0.3, delay: progressComplete ? 0 : 0 }}
     >
       {/* Circuit pattern overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-10">
@@ -81,7 +130,7 @@ export function BootSequence({ complete }: BootSequenceProps) {
               <motion.span 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.3 }}
                 className="text-blue-700 dark:text-[#8cdfff]"
               >
                 OK
@@ -90,7 +139,7 @@ export function BootSequence({ complete }: BootSequenceProps) {
                 className="h-1 flex-1 bg-blue-700/20 dark:bg-[#8cdfff]/20"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.4, delay: 0.5 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
               />
             </div>
 
@@ -99,7 +148,7 @@ export function BootSequence({ complete }: BootSequenceProps) {
               <motion.span 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.9 }}
+                transition={{ delay: 0.6 }}
                 className="text-blue-700 dark:text-[#8cdfff]"
               >
                 OK
@@ -108,7 +157,7 @@ export function BootSequence({ complete }: BootSequenceProps) {
                 className="h-1 flex-1 bg-blue-700/20 dark:bg-[#8cdfff]/20"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.4, delay: 0.9 }}
+                transition={{ duration: 0.3, delay: 0.6 }}
               />
             </div>
 
@@ -127,7 +176,7 @@ export function BootSequence({ complete }: BootSequenceProps) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2, delay: 1.3 }}
+            transition={{ duration: 0.2, delay: 0.9 }}
             className="pt-4 pb-2 relative"
           >
             <div className="absolute -left-8 -right-8 h-[1px] top-0 bg-[#006b42]/20 dark:bg-[#8fffaa]/20"></div>
@@ -137,42 +186,42 @@ export function BootSequence({ complete }: BootSequenceProps) {
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.4, duration: 0.03 }}
+                transition={{ delay: 1.0, duration: 0.03 }}
               >
                 M
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.45, duration: 0.03 }}
+                transition={{ delay: 1.03, duration: 0.03 }}
               >
                 U
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 0.03 }}
+                transition={{ delay: 1.06, duration: 0.03 }}
               >
                 A
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.55, duration: 0.03 }}
+                transition={{ delay: 1.09, duration: 0.03 }}
               >
                 A
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.6, duration: 0.03 }}
+                transition={{ delay: 1.12, duration: 0.03 }}
               >
                 T
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.65, duration: 0.03 }}
+                transition={{ delay: 1.15, duration: 0.03 }}
               >
                 H
               </motion.span>
@@ -182,42 +231,42 @@ export function BootSequence({ complete }: BootSequenceProps) {
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.7, duration: 0.03 }}
+                transition={{ delay: 1.18, duration: 0.03 }}
               >
                 R
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.75, duration: 0.03 }}
+                transition={{ delay: 1.21, duration: 0.03 }}
               >
                 I
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.8, duration: 0.03 }}
+                transition={{ delay: 1.24, duration: 0.03 }}
               >
                 F
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.85, duration: 0.03 }}
+                transition={{ delay: 1.27, duration: 0.03 }}
               >
                 A
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.9, duration: 0.03 }}
+                transition={{ delay: 1.3, duration: 0.03 }}
               >
                 T
               </motion.span>
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.95, duration: 0.03 }}
+                transition={{ delay: 1.33, duration: 0.03 }}
               >
                 H
               </motion.span>
@@ -227,7 +276,7 @@ export function BootSequence({ complete }: BootSequenceProps) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2, delay: 2.1 }}
+            transition={{ duration: 0.2, delay: 1.4 }}
             className="text-sm relative"
           >
             <div className="absolute -left-4 -right-4 h-[1px] top-0 bg-[#006b42]/20 dark:bg-[#8fffaa]/20"></div>

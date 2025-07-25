@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
 import { BackgroundElements } from "@/components/background-elements";
-import { LayoutBootSequence } from "@/components/layout-boot-sequence";
+import { BootSequence } from "@/components/boot-sequence";
 import localFont from 'next/font/local';
 import { Suspense } from "react";
 
@@ -112,7 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          <LayoutBootSequence />
+          <BootSequence />
           <Suspense fallback={null}>
             <BackgroundElements />
             <Topbar />
