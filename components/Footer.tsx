@@ -123,10 +123,10 @@ export default function Footer() {
               </li>
               <li>
                 {(() => {
-                  const isActive = pathname === '/expertise';
+                  const isActive = pathname === '/experience';
                   return (
                     <Link 
-                      href="/expertise" 
+                      href="/experience" 
                       className={cn(
                         "text-sm transition-colors relative group/link inline-flex items-center",
                         isActive 
@@ -143,7 +143,7 @@ export default function Footer() {
                       )}
                       ></span>
                       
-                      <span>Expertise</span>
+                      <span>Experience</span>
                       
                       {/* Permanent underline for active state, hover underline for inactive */}
                       <span className={`

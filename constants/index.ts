@@ -6,8 +6,8 @@ export const sidebarLinks = [
     },
     {
       imgURL: "/assets/experience.svg",
-      route: "/expertise",
-      label: "Expertise",
+      route: "/experience",
+      label: "Experience",
     },
     {
       imgURL: "/assets/contact.svg",

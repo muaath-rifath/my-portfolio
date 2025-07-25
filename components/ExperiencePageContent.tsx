@@ -1,10 +1,23 @@
+'use client';
+
 import React from 'react';
 import { FaGraduationCap } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Metadata } from 'next';
+import { useScrollAnimation, useParallax, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
+import { 
+  fadeInUp, 
+  fadeInDown, 
+  fadeInLeft, 
+  fadeInRight, 
+  scaleIn, 
+  bounceInUp, 
+  slideInLeft,
+  slideInRight,
+  parallax 
+} from '@/lib/animations';
 
 // Interfaces remain the same as in the original code
 interface Education {
@@ -46,26 +59,6 @@ interface Project {
   tags: string[];
 }
 
-export const metadata: Metadata = {
-  title: "Expertise | Muaath Rifath",
-  description: "Explore the professional experiences of Mohamed Muaath Rifath, including roles in software engineering and frontend development.",
-  keywords: ["Experience", "Mohamed Muaath Rifath", "software engineering", "frontend development", "professional experience", "IoT", "embedded systems"],
-  openGraph: {
-    title: "Expertise | Muaath Rifath",
-    description: "Explore the professional experiences of Mohamed Muaath Rifath, including roles in software engineering and frontend development.",
-    images: ["/assets/expertise-page.png"],
-    type: "website",
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Expertise | Muaath Rifath',
-    description: 'Explore the professional experiences of Mohamed Muaath Rifath, including roles in software engineering and frontend development.',
-    images: '/assets/expertise-page.png',
-  },
-  alternates: {
-    canonical: 'https://muaathrifath.tech/expertise',
-  },
-};
 // Arrays remain the same as in the original code
 const programmingLanguages: ProgrammingLanguage[] = [
   { 
@@ -227,29 +220,57 @@ const projectsData: Project[] = [
   }
 ];
 
-const ExpertiseSection: React.FC = () => {
+const ExperiencePageContent: React.FC = () => {
+  // Animation hooks with adjusted timing for proper sequence
+  const heroAnimation = useScrollAnimation({ threshold: 0.2 });
+  const programmingAnimation = useScrollAnimation({ threshold: 0.1 });
+  const frameworksAnimation = useScrollAnimation({ threshold: 0.1 });
+  const toolsAnimation = useScrollAnimation({ threshold: 0.1 });
+  const projectsAnimation = useScrollAnimation({ threshold: 0.1 });
+  const certificationsAnimation = useScrollAnimation({ threshold: 0.1 });
+  const educationAnimation = useScrollAnimation({ threshold: 0.1 });
+  
+  // Parallax effects
+  const backgroundParallax = useParallax(0.3);
+  const circuitParallax = useParallax(0.5);
+  
+  // Staggered animations with improved timing sequence
+  const programmingStagger = useStaggeredAnimation(100); // Faster for first section
+  const frameworksStagger = useStaggeredAnimation(80);   // Slightly faster
+  const toolsStagger = useStaggeredAnimation(90);        // Medium speed
+  const projectsStagger = useStaggeredAnimation(150);    // Slower for larger cards
+  const certificationsStagger = useStaggeredAnimation(200); // Slowest for complex cards
+
   return (
-    <section className="relative w-full overflow-hidden">
-      {/* Circuit trace decorations - similar to Topbar */}
-      <div className="fixed inset-0 z-0 opacity-10 pointer-events-none">
-        <div className="h-[1px] w-3/4 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute top-40 left-0"></div>
-        <div className="h-[1px] w-1/2 dark:bg-[#8fffaa]/20 bg-[#006b42]/20 absolute top-60 right-0"></div>
-        <div className="h-[1px] w-1/3 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute bottom-40 left-1/4"></div>
+    <section className="relative w-full overflow-hidden" style={{ opacity: 0, animation: 'pageEntryFadeIn 1.2s ease-out 0.5s forwards' }}>
+      {/* Animated Circuit trace decorations with parallax */}
+      <div 
+        className="fixed inset-0 z-0 opacity-10 pointer-events-none"
+        style={parallax(circuitParallax.offsetY, 0.3)}
+        ref={circuitParallax.ref as React.RefObject<HTMLDivElement>}
+      >
+        <div className="h-[1px] w-3/4 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute top-40 left-0 transition-all duration-1000"></div>
+        <div className="h-[1px] w-1/2 dark:bg-[#8fffaa]/20 bg-[#006b42]/20 absolute top-60 right-0 transition-all duration-1000 delay-200"></div>
+        <div className="h-[1px] w-1/3 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute bottom-40 left-1/4 transition-all duration-1000 delay-400"></div>
         
-        {/* Nodes */}
-        <div className="absolute right-12 top-72 h-2 w-2 rounded-full dark:bg-[#8fffaa]/60 bg-[#006b42]/60"></div>
-        <div className="absolute right-28 top-96 h-1 w-1 rounded-full dark:bg-[#8fffaa]/40 bg-[#006b42]/40"></div>
-        <div className="absolute left-20 top-80 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></div>
+        {/* Animated Nodes */}
+        <div className="absolute right-12 top-72 h-2 w-2 rounded-full dark:bg-[#8fffaa]/60 bg-[#006b42]/60 animate-pulse"></div>
+        <div className="absolute right-28 top-96 h-1 w-1 rounded-full dark:bg-[#8fffaa]/40 bg-[#006b42]/40 animate-pulse delay-100"></div>
+        <div className="absolute left-20 top-80 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50 animate-pulse delay-200"></div>
         
         {/* Vertical traces */}
-        <div className="w-[1px] h-40 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute top-40 left-1/3"></div>
-        <div className="w-[1px] h-60 dark:bg-[#8fffaa]/20 bg-[#006b42]/20 absolute top-20 right-1/4"></div>
+        <div className="w-[1px] h-40 dark:bg-[#8fffaa]/30 bg-[#006b42]/30 absolute top-40 left-1/3 transition-all duration-1000 delay-300"></div>
+        <div className="w-[1px] h-60 dark:bg-[#8fffaa]/20 bg-[#006b42]/20 absolute top-20 right-1/4 transition-all duration-1000 delay-500"></div>
       </div>
       
-      {/* Programming Languages Section */}
+      {/* Programming Languages Section - First to appear */}
       <section className="w-full mt-20 relative">
         <div className="container px-4 sm:px-6">
-          <div className="relative z-10 mb-8">
+          <div 
+            className="relative z-10 mb-8"
+            ref={programmingAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInUp(programmingAnimation.isVisible, 0)}
+          >
             <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
               <span className="dark:text-white text-[#006b42]">Programming Languages</span>
               <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
@@ -259,14 +280,17 @@ const ExpertiseSection: React.FC = () => {
             {programmingLanguages.map((language, index) => (
               <Card 
                 key={index}
+                ref={programmingStagger.addRef(index)}
+                style={bounceInUp(programmingStagger.isVisible(index), 50)}
                 className={cn(
                   'p-4 h-full relative group',
                   'rounded-lg border dark:border-gray-700 border-gray-200',
-                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10'
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10',
+                  'hover:scale-105 hover:-translate-y-2'
                 )}
               >
                 <div className="flex justify-center items-center flex-col relative">
-                  <div className="bg-white rounded-full p-1 relative mb-2">
+                  <div className="bg-white rounded-full p-1 relative mb-2 transition-transform duration-300 group-hover:rotate-6">
                     <Image
                       src={language.imagePath}
                       alt={language.name}
@@ -282,9 +306,15 @@ const ExpertiseSection: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Frameworks Section - Second to appear */}
       <section className="w-full mt-16 relative">
         <div className="container px-4 sm:px-6">
-          <div className="relative z-10 mb-8">
+          <div 
+            className="relative z-10 mb-8"
+            ref={frameworksAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInUp(frameworksAnimation.isVisible, 200)}
+          >
             <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
               <span className="dark:text-white text-[#006b42]">Frameworks</span>
               <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
@@ -294,14 +324,17 @@ const ExpertiseSection: React.FC = () => {
             {frameworks.map((framework, index) => (
               <Card 
                 key={index}
+                ref={frameworksStagger.addRef(index)}
+                style={scaleIn(frameworksStagger.isVisible(index), 30)}
                 className={cn(
                   'p-4 h-full relative group',
                   'rounded-lg border dark:border-gray-700 border-gray-200',
-                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10'
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10',
+                  'hover:scale-110 hover:rotate-1'
                 )}
               >
                 <div className="flex justify-center items-center flex-col relative">
-                  <div className="bg-white rounded-full p-1 relative mb-2">
+                  <div className="bg-white rounded-full p-1 relative mb-2 transition-transform duration-300 group-hover:scale-110">
                     <Image
                       src={framework.imagePath}
                       alt={framework.name}
@@ -317,9 +350,15 @@ const ExpertiseSection: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Tools & Infra Section - Third to appear */}
       <section className="w-full mt-16 relative">
         <div className="container px-4 sm:px-6">
-          <div className="relative z-10 mb-8">
+          <div 
+            className="relative z-10 mb-8"
+            ref={toolsAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInUp(toolsAnimation.isVisible, 400)}
+          >
             <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
               <span className="dark:text-white text-[#006b42]">Tools & Infra</span>
               <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
@@ -329,14 +368,17 @@ const ExpertiseSection: React.FC = () => {
             {tools_and_infra.map((tool, index) => (
               <Card 
                 key={index}
+                ref={toolsStagger.addRef(index)}
+                style={fadeInUp(toolsStagger.isVisible(index), 60)}
                 className={cn(
                   'p-4 h-full relative group',
                   'rounded-lg border dark:border-gray-700 border-gray-200',
-                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10'
+                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10',
+                  'hover:scale-105 hover:-rotate-1'
                 )}
               >
                 <div className="flex justify-center items-center flex-col relative">
-                  <div className="bg-white rounded-full p-1 relative mb-2">
+                  <div className="bg-white rounded-full p-1 relative mb-2 transition-transform duration-300 group-hover:-rotate-3">
                     <Image
                       src={tool.imagePath}
                       alt={tool.name}
@@ -353,11 +395,14 @@ const ExpertiseSection: React.FC = () => {
         </div>
       </section>
 
-
-      {/* Projects Section */}
+      {/* Projects Section - Fourth to appear */}
       <section className="w-full mt-16 relative">
         <div className="container px-4 sm:px-6">
-          <div className="relative z-10 mb-8">
+          <div 
+            className="relative z-10 mb-8"
+            ref={projectsAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInUp(projectsAnimation.isVisible, 600)}
+          >
             <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
               <span className="dark:text-white text-[#006b42]">Projects</span>
               <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
@@ -367,23 +412,26 @@ const ExpertiseSection: React.FC = () => {
             {projectsData.map((project, index) => (
               <Card
                 key={index}
+                ref={projectsStagger.addRef(index)}
+                style={fadeInUp(projectsStagger.isVisible(index), 100)}
                 className={cn(
-                  'p-6 w-full max-w-md relative group overflow-hidden', // Use flexbox layout like certifications
+                  'p-6 w-full max-w-md relative group overflow-hidden',
                   'rounded-lg border dark:border-gray-700 border-gray-200',
-                  'backdrop-blur-sm bg-background/90 transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10'
+                  'backdrop-blur-sm bg-background/90 transition-all duration-500 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10',
+                  'hover:scale-[1.02] hover:-translate-y-1'
                 )}
               >
-                <div className="relative mb-4 h-48 w-full overflow-hidden rounded-md"> {/* Fixed height container for image */}
+                <div className="relative mb-4 h-48 w-full overflow-hidden rounded-md">
                   <Image
                     src={project.imageUrl}
                     alt={project.title}
-                    layout="fill" // Use layout fill
-                    objectFit="cover" // Cover the container
-                    className="transition-transform duration-500 group-hover:scale-105"
+                    layout="fill"
+                    objectFit="cover"
+                    className="transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
                   />
-                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> {/* Optional overlay */}
+                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
-                <h3 className="text-xl font-semibold dark:text-white text-[#006b42] font-mono tracking-tight mb-2">
+                <h3 className="text-xl font-semibold dark:text-white text-[#006b42] font-mono tracking-tight mb-2 transition-colors group-hover:dark:text-[#8fffaa] group-hover:text-[#004d2e]">
                   {project.title}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4 text-sm">
@@ -393,7 +441,7 @@ const ExpertiseSection: React.FC = () => {
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="text-xs font-mono px-2 py-1 rounded dark:bg-[#8fffaa]/10 bg-[#006b42]/10 dark:text-[#8fffaa] text-[#006b42]"
+                      className="text-xs font-mono px-2 py-1 rounded dark:bg-[#8fffaa]/10 bg-[#006b42]/10 dark:text-[#8fffaa] text-[#006b42] transition-all duration-300 hover:scale-105"
                     >
                       {tag}
                     </span>
@@ -401,7 +449,7 @@ const ExpertiseSection: React.FC = () => {
                 </div>
                 {project.projectUrl && (
                   <Link href={project.projectUrl} target="_blank" rel="me" className="inline-block mt-auto">
-                    <button className="text-sm font-medium dark:text-[#8fffaa] text-[#006b42] hover:underline font-mono">
+                    <button className="text-sm font-medium dark:text-[#8fffaa] text-[#006b42] hover:underline font-mono transition-all duration-300 hover:translate-x-1">
                       View Project →
                     </button>
                   </Link>
@@ -412,10 +460,14 @@ const ExpertiseSection: React.FC = () => {
         </div>
       </section>
       
-      {/* Licenses and Certifications Section */}
+      {/* Licenses and Certifications Section - Fifth to appear */}
       <section className="w-full mt-16 relative">
         <div className="container px-4 sm:px-6">
-          <div className="relative z-10 mb-8">
+          <div 
+            className="relative z-10 mb-8"
+            ref={certificationsAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInUp(certificationsAnimation.isVisible, 800)}
+          >
             <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
               <span className="dark:text-white text-[#006b42]">Licenses and Certifications</span>
               <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
@@ -426,12 +478,14 @@ const ExpertiseSection: React.FC = () => {
               {licensesCertifications.map((certification, index) => (
                 <Card
                   key={index}
-                  className="w-full max-w-md p-6 mb-8 relative group backdrop-blur-sm bg-background/90 border dark:border-gray-700 border-gray-200 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10"
+                  ref={certificationsStagger.addRef(index)}
+                  style={scaleIn(certificationsStagger.isVisible(index), 150)}
+                  className="w-full max-w-md p-6 mb-8 relative group backdrop-blur-sm bg-background/90 border dark:border-gray-700 border-gray-200 rounded-lg transition-all duration-500 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10 hover:scale-[1.02] hover:-translate-y-2"
                 >
                   <Link href={certification.certificateLink} target="_blank" className="block">
                     {/* Circuit trace decorations */}
-                    <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                    <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                    <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100"></div>
                     
                     <div className="flex items-center space-x-3 mb-4">
                       <div className="relative">
@@ -440,11 +494,11 @@ const ExpertiseSection: React.FC = () => {
                           alt="Certifying Organization Logo"
                           height={32}
                           width={32}
-                          className="bg-white rounded-full p-0.5 relative"
+                          className="bg-white rounded-full p-0.5 relative transition-transform duration-300 group-hover:rotate-12"
                         />
-                        <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div className="absolute -inset-1 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10 opacity-0 group-hover:opacity-100 transition-opacity animate-pulse"></div>
                       </div>
-                      <h3 className="text-lg font-semibold dark:text-white text-[#006b42] font-mono tracking-tight">
+                      <h3 className="text-lg font-semibold dark:text-white text-[#006b42] font-mono tracking-tight transition-colors group-hover:dark:text-[#8fffaa] group-hover:text-[#004d2e]">
                         {certification.title}
                       </h3>
                     </div>
@@ -459,7 +513,7 @@ const ExpertiseSection: React.FC = () => {
                         height={0}
                         width={0}
                         sizes="100vw"
-                        className="w-full h-auto object-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-auto object-cover rounded-lg transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-1"
                       />
                       <div className="absolute inset-0 border rounded-lg dark:border-[#8fffaa]/20 border-[#006b42]/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </div>
@@ -474,11 +528,14 @@ const ExpertiseSection: React.FC = () => {
         </div>
       </section>
 
-
-      {/* Education Section */}
+      {/* Education Section - Last to appear */}
       <section className="w-full mt-16 pb-24 relative">
         <div className="container px-4 sm:px-6">
-          <div className="relative z-10 mb-8">
+          <div 
+            className="relative z-10 mb-8"
+            ref={educationAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInUp(educationAnimation.isVisible, 1000)}
+          >
             <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
               <span className="dark:text-white text-[#006b42]">Education</span>
               <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
@@ -489,19 +546,20 @@ const ExpertiseSection: React.FC = () => {
               {educations.map((education, index) => (
                 <Card
                   key={index}
-                  className="p-6 relative group backdrop-blur-sm bg-background/90 border dark:border-gray-700 border-gray-200 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10"
+                  style={bounceInUp(educationAnimation.isVisible, 200)}
+                  className="p-6 relative group backdrop-blur-sm bg-background/90 border dark:border-gray-700 border-gray-200 rounded-lg transition-all duration-500 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10 hover:scale-[1.01] hover:-translate-y-1"
                 >
                   {/* Circuit trace decorations */}
-                  <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute top-0 right-0 h-[40%] w-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute bottom-0 left-0 h-[40%] w-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                  <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                  <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100"></div>
+                  <div className="absolute top-0 right-0 h-[40%] w-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-200"></div>
+                  <div className="absolute bottom-0 left-0 h-[40%] w-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-300"></div>
                   
                   <div className="flex items-center space-x-3 mb-4">
-                    <div className="relative rounded-full p-2 dark:bg-[#8fffaa]/10 bg-[#006b42]/10">
+                    <div className="relative rounded-full p-2 dark:bg-[#8fffaa]/10 bg-[#006b42]/10 transition-transform duration-300 group-hover:rotate-12">
                       <FaGraduationCap className="h-6 w-6 dark:text-[#8fffaa] text-[#006b42]" />
                     </div>
-                    <h3 className="text-lg font-semibold dark:text-white text-[#006b42] font-mono tracking-tight">
+                    <h3 className="text-lg font-semibold dark:text-white text-[#006b42] font-mono tracking-tight transition-colors group-hover:dark:text-[#8fffaa] group-hover:text-[#004d2e]">
                       {education.degree}
                     </h3>
                   </div>
@@ -522,4 +580,4 @@ const ExpertiseSection: React.FC = () => {
   );
 };
 
-export default ExpertiseSection;
+export default ExperiencePageContent;

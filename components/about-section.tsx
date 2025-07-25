@@ -112,12 +112,12 @@ export function AboutSection() {
         
         {/* Button for mobile */}
         <div className="mt-8 pt-2">
-          <Link href="/expertise" className="w-full block">
+          <Link href="/experience" className="w-full block">
             <Button 
               variant="outline"
               className="relative w-full px-6 py-3 font-mono border-2 overflow-hidden group dark:border-white/80 dark:text-white border-[#006b42] text-[#006b42]"
             >
-              <span className="relative z-10">EXPLORE MY EXPERTISE</span>
+              <span className="relative z-10">EXPLORE MY EXPERIENCE</span>
               <span className="absolute inset-0 dark:bg-white/10 bg-[#006b42]/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
             </Button>
           </Link>
@@ -223,12 +223,12 @@ export function AboutSection() {
           
           {/* Learn More button */}
           <div className="mt-8 pt-4">
-            <Link href="/expertise">
+            <Link href="/experience">
               <Button 
                 variant="outline"
                 className="relative px-6 py-3 font-mono border-2 overflow-hidden group dark:border-white/80 dark:text-white border-[#006b42] text-[#006b42] hover:shadow-md transition-all duration-300"
               >
-                <span className="relative z-10">EXPLORE MY EXPERTISE</span>
+                <span className="relative z-10">EXPLORE MY EXPERIENCE</span>
                 <span className="absolute inset-0 dark:bg-white/10 bg-[#006b42]/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
               </Button>
             </Link>
