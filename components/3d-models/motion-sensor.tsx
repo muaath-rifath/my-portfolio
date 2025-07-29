@@ -3,9 +3,10 @@
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 type MotionSensorProps = {
-    isDarkMode?: boolean;
+    // isDarkMode prop removed - now using useDarkMode hook
 }
 
 const useMotionSensorMaterials = (isDarkMode: boolean) => {
@@ -56,7 +57,8 @@ const useMotionSensorMaterials = (isDarkMode: boolean) => {
     }), [isDarkMode]);
 };
 
-export default function MotionSensor({ isDarkMode = false }: MotionSensorProps) {
+export default function MotionSensor({}: MotionSensorProps) {
+    const isDarkMode = useDarkMode();
     const sensorGroupRef = useRef<THREE.Group>(null);
     const detectionAreaMaterialRef = useRef<THREE.MeshStandardMaterial>(null);
     const materials = useMotionSensorMaterials(isDarkMode);

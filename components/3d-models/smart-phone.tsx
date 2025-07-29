@@ -3,12 +3,14 @@
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 type SmartPhoneProps = {
-    isDarkMode?: boolean;
+    // isDarkMode prop removed - now using useDarkMode hook
 }
 
-export default function SmartPhone({ isDarkMode = false }: SmartPhoneProps) {
+export default function SmartPhone({}: SmartPhoneProps) {
+    const isDarkMode = useDarkMode();
     const phoneGroupRef = useRef<THREE.Group>(null);
     const screenMeshRef = useRef<THREE.Mesh | null>(null);
     

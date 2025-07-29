@@ -4,9 +4,10 @@ import React, { useRef, useMemo, useState } from 'react'; // Import useState
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 type AirQualitySensorProps = {
-    isDarkMode?: boolean;
+    // isDarkMode prop removed - now using useDarkMode hook
 }
 
 // Remove mesh from SignalRingData if managed by state/rendering
@@ -217,7 +218,8 @@ function MountingHole({ x, z, material }: { x: number, z: number, material: THRE
     );
 }
 
-export default function AirQualitySensor({ isDarkMode = false }: AirQualitySensorProps) {
+export default function AirQualitySensor({}: AirQualitySensorProps) {
+    const isDarkMode = useDarkMode();
     const sensorGroupRef = useRef<THREE.Group>(null);
     const indicatorRef = useRef<THREE.Mesh>(null);
     const indicatorLightRef = useRef<THREE.PointLight>(null);

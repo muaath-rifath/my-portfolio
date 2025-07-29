@@ -3,6 +3,7 @@
 import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useDarkMode } from '@/hooks/useDarkMode';
 // Import Line if needed for borders, or primitive for existing THREE.Line objects
 // import { Line } from '@react-three/drei';
 // Assuming Text component is available for rendering text in R3F
@@ -152,7 +153,7 @@ type MaterialsType = ReturnType<typeof useLaptopMaterials>;
 
 // Type definition for props
 type LaptopProps = {
-    isDarkMode?: boolean;
+    // isDarkMode prop removed - now using useDarkMode hook
     // Add any other props needed, e.g., position, rotation
 } & React.ComponentProps<'group'>; // Allow passing standard group props
 
@@ -284,7 +285,8 @@ function ScreenWidget({ x, y, z, w, h, index, materials, isDarkMode }: ScreenWid
 
 
 // Main Laptop Component (Adapted from reference createLaptop)
-export default function Laptop({ isDarkMode = false, ...props }: LaptopProps) {
+export default function Laptop({ ...props }: LaptopProps) {
+    const isDarkMode = useDarkMode();
     const materials = useLaptopMaterials(isDarkMode);
     const displayGroupRef = useRef<THREE.Group>(null!); // Ref for display group rotation
 

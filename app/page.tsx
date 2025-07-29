@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="relative w-full overflow-hidden">
-      <main className="relative z-10">
+    <div className="relative w-full">
+      <main className="relative z-10 overflow-visible">
         {/* Hero Section */}
         <HeroSection />
         

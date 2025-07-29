@@ -3,9 +3,10 @@
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 type IoTGatewayProps = {
-    isDarkMode?: boolean;
+    // isDarkMode prop removed - now using useDarkMode hook
 }
 
 // Defining measurements for our cylindrical gateway
@@ -77,7 +78,8 @@ const useGatewayMaterials = (isDarkMode: boolean) => {
     }), [isDarkMode]);
 };
 
-export default function IoTGateway({ isDarkMode = false }: IoTGatewayProps) {
+export default function IoTGateway({}: IoTGatewayProps) {
+    const isDarkMode = useDarkMode();
     const gatewayGroupRef = useRef<THREE.Group>(null);
     const materials = useGatewayMaterials(isDarkMode);
     
@@ -227,3 +229,6 @@ export default function IoTGateway({ isDarkMode = false }: IoTGatewayProps) {
         </group>
     );
 }
+
+// Export alias for consistency with import in model-3d.tsx
+export { IoTGateway as ResidentialIotGateway };

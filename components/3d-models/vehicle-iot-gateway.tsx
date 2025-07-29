@@ -4,6 +4,7 @@ import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox, Text } from '@react-three/drei'; // Use RoundedBox and Text
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 // --- Interfaces & Types ---
 interface WaveData {
@@ -23,7 +24,7 @@ interface WaveEmitterState {
 }
 
 type VehicleIoTGatewayProps = {
-  isDarkMode?: boolean;
+  // isDarkMode prop removed - now using useDarkMode hook
   // Removed width and height props
 }
 
@@ -481,7 +482,8 @@ const StatusLED = React.memo(({ position, material }: { position: [number, numbe
 StatusLED.displayName = 'StatusLED';
 
 // --- Main Component ---
-export default function VehicleIoTGateway({ isDarkMode = true }: VehicleIoTGatewayProps) {
+export default function VehicleIoTGateway({}: VehicleIoTGatewayProps) {
+  const isDarkMode = useDarkMode();
   const gatewayGroupRef = useRef<THREE.Group>(null);
   const materials = useGatewayMaterials(isDarkMode);
 

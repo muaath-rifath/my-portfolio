@@ -21,7 +21,7 @@ export function AboutSection() {
   return (
     <section 
       className={cn(
-        "container mx-auto px-4 py-16 md:py-24 transition-opacity duration-1000 relative z-20",
+        "container mx-auto px-4 py-16 md:py-0 transition-opacity duration-1000 relative z-20",
         isVisible ? "opacity-100" : "opacity-0"
       )}
       id="about"
@@ -197,7 +197,7 @@ export function AboutSection() {
               </p>
               
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Current Focus:</span> Exploring backend technologies like GraphQL, Cassandra, and distributed data systems, deepening my understanding of APIs, databases, and system design while building AI-driven automation systems.
+                <span className="font-semibold dark:text-white text-[#006b42]">Current Focus:</span> Exploring backend technologies like GraphQL, Cassandra, and distributed data systems, deepening my understanding of APIs, databases, and system design.
               </p>
               
               <p className="leading-relaxed">

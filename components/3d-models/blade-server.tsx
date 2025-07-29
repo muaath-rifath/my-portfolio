@@ -2,9 +2,10 @@
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 type BladeServerProps = {
-    isDarkMode?: boolean;
+    // isDarkMode prop removed - now using useDarkMode hook
 }
 
 const useBladeServerMaterials = (isDarkMode: boolean) => {
@@ -120,7 +121,8 @@ function ServerBlade({ yPos, rackWidth, rackDepth, serverHeight, materials }: {
     );
 }
 
-export default function BladeServer({ isDarkMode = false }: BladeServerProps) {
+export default function BladeServer({}: BladeServerProps) {
+    const isDarkMode = useDarkMode();
     const serverGroupRef = useRef<THREE.Group>(null);
     const materials = useBladeServerMaterials(isDarkMode);
 

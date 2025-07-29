@@ -3,9 +3,10 @@
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 type MotorActuatorProps = {
-    isDarkMode?: boolean;
+    // isDarkMode prop removed - now using useDarkMode hook
 }
 
 const HOUSING_LENGTH = 25;
@@ -85,7 +86,8 @@ const useMotorMaterials = (isDarkMode: boolean) => {
     }), [isDarkMode]);
 };
 
-export default function MotorActuator({ isDarkMode = false }: MotorActuatorProps) {
+export default function MotorActuator({}: MotorActuatorProps) {
+    const isDarkMode = useDarkMode();
     const motorGroupRef = useRef<THREE.Group>(null);
     const ledMaterialRef = useRef<THREE.MeshPhongMaterial>(null);
     const materials = useMotorMaterials(isDarkMode);

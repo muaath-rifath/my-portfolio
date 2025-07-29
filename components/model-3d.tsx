@@ -3,6 +3,8 @@
 import { Suspense } from "react";
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
+import { useDarkMode } from '@/hooks/useDarkMode';
+import { useResponsiveScale } from '@/hooks/useResponsiveScale';
 
 // Import 3D model components from the correct directory
 import FivegTower from "./3d-models/5g-tower";
@@ -17,13 +19,15 @@ import ValveActuator from "./3d-models/valve-actuator";
 import Tablet from "./3d-models/tablet";
 import VehicleIotGateway from "./3d-models/vehicle-iot-gateway";
 
-// Assuming isDarkMode is passed as a prop
-interface Model3DProps {
-  isDarkMode: boolean;
-  scale?: number; // Add scale prop with default value
-}
+// Model3D props interface - removed scale prop since it's now handled internally
+interface Model3DProps {}
 
-export function Model3D({ isDarkMode, scale = 0.4 }: Model3DProps) {
+export function Model3D({}: Model3DProps = {}) {
+  // Hook to detect dark mode using Tailwind's class-based approach
+  const isDarkMode = useDarkMode();
+  
+  // Use responsive scale hook for internal scaling
+  const scale = useResponsiveScale();
 
   // Define approximate positions for each model in the scene
   const modelPositions: [number, number, number][] = [
@@ -89,45 +93,45 @@ export function Model3D({ isDarkMode, scale = 0.4 }: Model3DProps) {
           <group scale={scale}>
             {/* Position each model using groups */}
             <group position={[0, -28.8, 0]} scale={2}> {/* Centered vertically and scaled */}
-              <FivegTower isDarkMode={isDarkMode} />
+              <FivegTower />
             </group>
             <group position={modelPositions[1]} scale={3}> {/* AirQualitySensor */}
-              <AirQualitySensor isDarkMode={isDarkMode} />
+              <AirQualitySensor />
             </group>
             <group position={modelPositions[2]} scale={0.7}> {/* BladeServer */}
-              <BladeServer isDarkMode={isDarkMode} />
+              <BladeServer />
             </group>
             <group position={modelPositions[3]} scale={0.7}> {/* Laptop */}
-              <Laptop isDarkMode={isDarkMode} />
+              <Laptop />
             </group>
             <group position={modelPositions[4]} scale={3}>  {/* MotionSensor - Increased scale */}
-              <MotionSensor isDarkMode={isDarkMode} />
+              <MotionSensor />
             </group>
             <group position={modelPositions[5]} scale={0.7}> {/* MotorActuator - Changed position and reduced scale */}
-              <MotorActuator isDarkMode={isDarkMode} />
+              <MotorActuator />
             </group>
             <group
               position={modelPositions[6]}
               scale={1.2}
               rotation={[0, Math.PI, 0]}
             > {/* ResidentialIotGateway */}
-              <ResidentialIotGateway isDarkMode={isDarkMode} />
+              <ResidentialIotGateway />
             </group>
             <group
               position={modelPositions[7]}
               scale={1}
               rotation={[0, Math.PI / 3, 0]}
             > {/* SmartPhone */}
-              <SmartPhone isDarkMode={isDarkMode} />
+              <SmartPhone />
             </group>
             <group position={modelPositions[8]} scale={.7}> {/* Tablet */}
-              <Tablet isDarkMode={isDarkMode} />
+              <Tablet />
             </group>
             <group position={modelPositions[9]} scale={5}> {/* ValveActuator */}
-              <ValveActuator isDarkMode={isDarkMode} />
+              <ValveActuator />
             </group>
             <group position={modelPositions[10]}> {/* VehicleIotGateway */}
-              <VehicleIotGateway isDarkMode={isDarkMode} />
+              <VehicleIotGateway />
             </group>
           </group>
         </Suspense>

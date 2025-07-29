@@ -3,9 +3,10 @@
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 type SmartWaterValveProps = {
-    isDarkMode?: boolean;
+    // isDarkMode prop removed - now using useDarkMode hook
 }
 
 const VALVE_BODY_RADIUS = 0.3;
@@ -84,7 +85,8 @@ const useValveMaterials = (isDarkMode: boolean) => {
     }), [isDarkMode]);
 };
 
-export default function SmartWaterValve({ isDarkMode = false }: SmartWaterValveProps) {
+export default function SmartWaterValve({}: SmartWaterValveProps) {
+    const isDarkMode = useDarkMode();
     const valveGroupRef = useRef<THREE.Group>(null);
     const materials = useValveMaterials(isDarkMode);
 
@@ -179,3 +181,6 @@ export default function SmartWaterValve({ isDarkMode = false }: SmartWaterValveP
         </group>
     );
 }
+
+// Export alias for consistency with import in model-3d.tsx
+export { SmartWaterValve as ValveActuator };

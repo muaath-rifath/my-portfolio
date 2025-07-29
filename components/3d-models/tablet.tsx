@@ -4,9 +4,10 @@ import * as THREE from 'three';
 // OrbitControls will likely be added in page.tsx now, removing from here
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { useFrame } from '@react-three/fiber'; // Import useFrame for animation
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 interface TabletProps {
-  isDarkMode: boolean;
+  // isDarkMode prop removed - now using useDarkMode hook
 }
 
 // Define the structure for the materials object (Moved outside component)
@@ -141,7 +142,8 @@ const createMaterials = (isDark: boolean): TabletMaterials => {
 };
 
 // Renamed component
-export default function Tablet({ isDarkMode }: TabletProps) {
+export default function Tablet({}: TabletProps) {
+    const isDarkMode = useDarkMode();
     // R3F ref for the tablet group
     const tabletRef = useRef<THREE.Group>(null!);
     // Ref for scene needed by updateMaterials (though ideally lights are updated declaratively)
