@@ -11,14 +11,14 @@ export default function ContactInfo() {
       <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-item:opacity-100 transition-all duration-500"></div>
       <div className="absolute top-4 right-4 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-item:opacity-100 transition-all duration-500"></div>
       
-      <span className="p-4 inline-block w-full">
+      <div className="w-full mb-6">
         <h2 className="text-3xl text-center font-mono dark:text-white text-[#006b42] font-bold relative">
           Contact
           <span className="absolute left-0 right-0 bottom-0 mx-auto w-16 h-[2px] dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
         </h2>
-      </span>
+      </div>
       
-      <div className="flex flex-col justify-center space-y-6 p-4">
+      <div className="flex flex-col justify-center space-y-6 w-full">
         <div className="flex flex-col lg:flex-row items-start lg:items-center flex-wrap gap-4 group/item relative">
           <span className="flex items-center gap-2 font-mono">
             <div className="flex items-center justify-center h-8 w-8 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10">

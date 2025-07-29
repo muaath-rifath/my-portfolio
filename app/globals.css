@@ -138,3 +138,34 @@ html.nojs main {
     transform: translateX(0);
   }
 }
+
+/* Contact Page 3D Animation Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.rotate-y-12 {
+  transform: rotateY(12deg);
+}
+
+.rotate-y-0 {
+  transform: rotateY(0deg);
+}
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes floatSide {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(3px); }
+}
+
+.animate-float-up {
+  animation: floatUp 3s ease-in-out infinite;
+}
+
+.animate-float-side {
+  animation: floatSide 4s ease-in-out infinite;
+}
