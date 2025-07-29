@@ -39,7 +39,7 @@ export function AboutSection() {
             </span>
             <span className="text-sm font-light tracking-wider text-muted-foreground mt-2 font-sans">
               <span className="inline-block w-8 h-[1px] dark:bg-white/40 bg-[#006b42]/40 mr-2 align-middle"></span>
-              IoT & Embedded Systems
+              Full-Stack Developer & IoT Enthusiast
             </span>
           </h2>
           
@@ -71,21 +71,21 @@ export function AboutSection() {
             {/* About content that wraps around the image */}
             <div className="space-y-4 text-muted-foreground">
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">ECE Student</span> specializing in IoT and Embedded Systems, with a foundation in intelligent automation and edge computing solutions.
+                <span className="font-semibold dark:text-white text-[#006b42]">Full-Stack Developer</span> with experience building responsive and visually engaging web applications using Next.js/React.js, TypeScript, Tailwind CSS, Framer Motion, and Three.js.
               </p>
               
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Core Focus:</span> Developing IoT architectures, hardware-software integration, and real-time embedded systems. Currently experimenting with edge computing and AI integration in IoT projects.
+                <span className="font-semibold dark:text-white text-[#006b42]">Backend Expertise:</span> Working with Next.js, Express, Node.js, Prisma, PostgreSQL, and NextAuth to build secure applications. Currently exploring GraphQL, Cassandra, and distributed data systems.
               </p>
               
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Technical Journey:</span> Primary expertise in IoT solutions and embedded systems development. Experienced Linux user (Arch Linux) with system optimization skills, while building proficiency in modern web development.
+                <span className="font-semibold dark:text-white text-[#006b42]">IoT Integration:</span> Building systems that connect AI models (Gemini 2.0 via MCP) with embedded devices, implementing real-time features using WebSockets and MQTT for IoT automation.
               </p>
               
               <div className="clear-right"></div> {/* Clear the float after content wraps */}
               
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">What I Do:</span> Building experimental IoT solutions bridging hardware and AI, implementing embedded systems with focus on efficiency, and exploring full-stack development opportunities.
+                <span className="font-semibold dark:text-white text-[#006b42]">Linux Enthusiast:</span> Passionate Fedora user who enjoys customizing desktop environments and using Linux as both a development platform and daily driver for meaningful, user-centered experiences.
               </p>
             </div>
           </div>
@@ -97,8 +97,8 @@ export function AboutSection() {
         
         {/* Tech expertise tags */}
         <div className="flex flex-wrap gap-2 mt-6">
-          {["IoT", "Embedded Systems", "Edge Computing", "Linux", "MCU Programming", 
-            "System Architecture", "Hardware Integration", "AI/ML", "Web Development"].map((tag, i) => (
+          {["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Three.js", "Framer Motion", 
+            "Node.js", "PostgreSQL", "Prisma", "WebSockets", "MQTT", "IoT", "Linux", "AI Integration"].map((tag, i) => (
             <span 
               key={i} 
               className="px-3 py-1 text-sm rounded-full dark:bg-[#1a1a2e]/60 bg-[#f0f0f8]/60 
@@ -183,33 +183,33 @@ export function AboutSection() {
               </span>
               <span className="text-sm font-light tracking-wider text-muted-foreground mt-2 font-sans">
                 <span className="inline-block w-8 h-[1px] dark:bg-white/40 bg-[#006b42]/40 mr-2 align-middle"></span>
-                IoT & Embedded Systems
+                Full-Stack Developer & IoT Enthusiast
               </span>
             </h2>
             
             <div className="mt-8 space-y-4 text-muted-foreground">
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">ECE Student</span> specializing in IoT and Embedded Systems, with a foundation in intelligent automation and edge computing solutions.
+                <span className="font-semibold dark:text-white text-[#006b42]">Full-Stack Developer</span> with experience building responsive and visually engaging web applications using Next.js/React.js, TypeScript, Tailwind CSS, Framer Motion, and Three.js. I use Redux and Zustand for state management to deliver smooth, dynamic user experiences.
               </p>
               
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Core Focus:</span> Developing IoT architectures, hardware-software integration, and real-time embedded systems. Currently experimenting with edge computing and AI integration in IoT projects.
+                <span className="font-semibold dark:text-white text-[#006b42]">Backend Expertise:</span> Working with Next.js, Express, Node.js, Prisma, PostgreSQL, and NextAuth to build secure and functional applications. I&apos;ve implemented real-time features using WebSockets and MQTT, particularly in IoT projects.
               </p>
               
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Technical Journey:</span> Primary expertise in IoT solutions and embedded systems development. Experienced Linux user (Arch Linux) with system optimization skills, while building proficiency in modern web development.
+                <span className="font-semibold dark:text-white text-[#006b42]">Current Focus:</span> Exploring backend technologies like GraphQL, Cassandra, and distributed data systems, deepening my understanding of APIs, databases, and system design while building AI-driven automation systems.
               </p>
               
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">What I Do:</span> Building experimental IoT solutions bridging hardware and AI, implementing embedded systems with focus on efficiency, and exploring full-stack development opportunities.
+                <span className="font-semibold dark:text-white text-[#006b42]">Innovation:</span> Building systems that connect AI models (Gemini 2.0 via MCP) with embedded devices, combining real-time control with intuitive web interfaces. Passionate Fedora Linux user who approaches every project with curiosity and focus.
               </p>
             </div>
           </div>
           
           {/* Tech expertise tags with improved spacing */}
           <div className="flex flex-wrap gap-2 mt-6">
-            {["IoT", "Embedded Systems", "Edge Computing", "Linux", "MCU Programming", 
-              "System Architecture", "Hardware Integration", "AI/ML", "Web Development"].map((tag, i) => (
+            {["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Three.js", "Node.js", "PostgreSQL", 
+              "Prisma", "WebSockets", "MQTT", "IoT", "AI Integration", "Linux", "Redux", "Zustand"].map((tag, i) => (
               <span 
                 key={i} 
                 className="px-3 py-1 text-sm rounded-full dark:bg-[#1a1a2e]/60 bg-[#f0f0f8]/60 

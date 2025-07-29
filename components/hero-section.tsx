@@ -68,7 +68,7 @@ export function HeroSection() {
               </Button>
             </Link>
 
-            <Link href="/resume.pdf" target="_blank" rel="me">
+            <Link href="/resume">
               <Button
                 variant="outline"
                 className="relative px-6 py-3 font-mono border-2 overflow-hidden group dark:border-white dark:text-white border-[#006b42] text-[#006b42]"

@@ -1,0 +1,167 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Single-Page Asymmetrical Resume - V15 (Optimized for Single Page)
+%
+% Original Author: Mohamed Muaath Rifath L M
+% Compression & Redesign: Gemini
+% Reformatted: GitHub Copilot
+%
+% Changelog:
+% - Optimized for single page layout
+% - Reduced spacing and font sizes
+% - Condensed content while maintaining readability
+% - Tightened margins and list formatting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,10pt]{article}
+
+% --- PACKAGES ---
+\usepackage[margin=0.5in]{geometry}     % Set tighter page margins
+\usepackage{charter}                    % Use a clean, professional font
+\usepackage[T1]{fontenc}               % Font encoding
+\usepackage{titlesec}                  % For custom section titles
+\usepackage{hyperref}                  % For clickable links
+\usepackage{xcolor}                    % For custom colors
+\usepackage{enumitem}                  % For custom list styling
+\usepackage{ragged2e}                  % For better text alignment
+\usepackage[none]{hyphenat}            % Disables all hyphenation
+\usepackage{microtype}                 % Improves typography
+
+% --- GLOBAL SETTINGS ---
+\pagestyle{empty}                      % Suppress page numbers
+\setlength{\parindent}{0pt}           % Disable paragraph indentation
+
+% --- HYPERLINK STYLING ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Muaath Rifath - Resume},
+    pdfauthor={Muaath Rifath},
+}
+
+% --- SECTION TITLE STYLING ---
+\titleformat{\section}
+    {\vspace{4pt}\large\raggedright\bfseries}
+    {}{0em}{}
+    [\color{gray!80}\titlerule]
+\titlespacing*{\section}{0pt}{*1}{*0.5}
+
+% --- LIST STYLING ---
+\setlist[itemize]{
+    leftmargin=1.2em,
+    topsep=1pt,
+    itemsep=0.5pt,
+    parsep=0pt,
+    label=\textbullet
+}
+
+% --- CUSTOM COMMANDS ---
+\newcommand{\entryTitle}[1]{\noindent\textbf{#1}}
+\newcommand{\institution}[1]{\textbf{#1}}
+\newcommand{\position}[1]{\textit{#1}}
+\newcommand{\daterange}[1]{\textit{#1}}
+\newcommand{\location}[1]{\textit{#1}}
+
+% --- DOCUMENT START ---
+\begin{document}
+
+% --- HEADER ---
+\begin{center}
+    {\Large\bfseries Mohamed Muaath Rifath L M} \\
+    \vspace{1pt}
+    {\normalsize Full-Stack Developer} \\
+    \vspace{2pt}
+    \small
+    \href{mailto:me@muaathrifath.tech}{me@muaathrifath.tech} \textbullet{}
+    \href{tel:+918883735079}{+91 88837 35079} \textbullet{}
+    Chennai, India \\
+    \href{https://muaathrifath.tech}{muaathrifath.tech} \textbullet{}
+    \href{https://linkedin.com/in/muaath-rifath}{linkedin.com/in/muaath-rifath} \textbullet{}
+    \href{https://github.com/muaath-rifath}{github.com/muaath-rifath}
+\end{center}
+
+% --- SUMMARY ---
+\section*{Summary}
+\RaggedRight
+Full-Stack Developer specializing in the Next.js ecosystem. Proficient in building 
+responsive, scalable web applications using TypeScript, Next.js/React, and Tailwind CSS. 
+Experienced in developing robust backends with Next.js/Node.js, Prisma, and PostgreSQL.
+\vspace{4pt}
+
+% --- FULL WIDTH LAYOUT ---
+\section*{Projects}
+
+\entryTitle{Portfolio}
+\begin{itemize}
+    \item \textbf{Tech Stack:} Next.js, Three.js, React Three Fiber, Framer Motion, Firestore, Tailwind CSS.
+    \item \textbf{3D Experience:} Interactive 3D models using Three.js/React Three Fiber.
+    \item \textbf{Animations:} Fluid page transitions with Framer Motion for enhanced UX.
+    \item \textbf{CMS:} Firestore integration for contact submissions with dashboard.
+\end{itemize}
+
+\vspace{2pt}
+\entryTitle{Sol - Smart Home Assistant}
+\begin{itemize}
+    \item \textbf{Tech Stack:} Next.js, NextAuth, Prisma, PostgreSQL, Gemini 2.0 Flash, MQTT, MCP.
+    \item \textbf{AI Control:} Natural language commands using Google's Gemini 2.0 Flash model.
+    \item \textbf{Backend:} Secure authentication with NextAuth and device management with Prisma.
+    \item \textbf{Real-Time:} MQTT and WebSockets for low-latency IoT device communication.
+    \item \textbf{AI Integration:} Model Context Protocol (MCP) for system-level AI connections.
+\end{itemize}
+
+\vspace{2pt}
+\entryTitle{Threble - Social Media Platform}
+\begin{itemize}
+    \item \textbf{Tech Stack:} Next.js, TypeScript, NextAuth, Prisma, PostgreSQL, Azure Blob Storage.
+    \item \textbf{Backend:} Robust architecture for user data, posts, and social graphs.
+    \item \textbf{Authentication:} Secure credential-based user management with NextAuth.
+    \item \textbf{Storage:} Azure Blob Storage for scalable media handling.
+    \item \textbf{UI/UX:} Responsive interface with Tailwind CSS across all devices.
+\end{itemize}
+
+\vspace{2pt}
+\entryTitle{HR Dashboard - Employee Management System}
+\begin{itemize}
+    \item \textbf{Tech Stack:} Next.js 15, TypeScript, Zustand, Chart.js, Tailwind CSS, Radix UI.
+    \item \textbf{Frontend Architecture:} Custom hooks pattern for reusable logic, modular component structure with TypeScript integration.
+    \item \textbf{Data Visualization:} Interactive charts and analytics displaying department distribution, performance ratings, and HR metrics.
+    \item \textbf{UI/UX:} Responsive design with dark/light theme support, advanced search/filtering, and bookmark functionality.
+    \item \textbf{State Management:} Zustand for global state with local storage persistence and optimized re-rendering.
+\end{itemize}
+
+\section*{Certifications}
+\begin{itemize}
+    \item Career Essentials in GitHub Professional Certificate – \textit{GitHub \& LinkedIn}
+    \item Career Essentials in Software Development – \textit{Microsoft \& LinkedIn}
+    \item MCP: Build Rich-Context AI Apps – \textit{DeepLearning.AI}
+\end{itemize}
+
+% --- SKILLS SECTION ---
+\vspace{6pt}
+\section*{Skills}
+
+\textbf{Programming Languages:} JavaScript/TypeScript, HTML/CSS, C/C++, Arduino, SQL, Python, MicroPython
+
+\vspace{2pt}
+\textbf{Frontend:} Next.js/React.js, Three.js/React Three Fiber, Tailwind CSS, Redux, Zustand
+
+\vspace{2pt}
+\textbf{Backend:} Next.js, Node.js, Prisma, PostgreSQL, NextAuth
+
+\vspace{2pt}
+\textbf{Tools \& Platforms:} Git, GitHub, VSCode, Linux, Vercel, Azure, Firebase, Firestore
+
+% --- EDUCATION SECTION ---
+\vspace{6pt}
+\section*{Education}
+\institution{Aalim Muhammed Salegh College of Engineering} \hfill \daterange{2022 – 2026} \\
+\location{Chennai, India} \\
+B.E. in Electronics \& Communication.
+
+\section*{Achievements}
+\begin{itemize}
+    \item \textbf{1st Prize} - Project Expo at T.J.S. Engineering College for Smart Home Assistant.
+    \item \textbf{1st Prize} - Project Expo at GRT Institute for DTMF-controlled RoboCar.
+\end{itemize}
+
+\end{document}

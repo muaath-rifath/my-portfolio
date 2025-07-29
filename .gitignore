@@ -1,3 +1,6 @@
 node_modules
 .next
 .env
+public/resume/resume.aux
+public/resume/resume.log
+public/resume/resume.out
