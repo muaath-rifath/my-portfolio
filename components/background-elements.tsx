@@ -3,17 +3,24 @@
 import { CircuitTraces } from "@/components/circuit-traces";
 import { CircuitPatterns } from "@/components/circuit-patterns";
 import { HexGrid } from "@/components/hex-grid";
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
+
+// Subscription function that does nothing (client never changes)
+const subscribe = () => () => {};
+
+// Check if we're on the client
+function getClientSnapshot() {
+  return true;
+}
+
+// Server always returns false
+function getServerSnapshot() {
+  return false;
+}
 
 export function BackgroundElements() {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  // Wait for client-side hydration to avoid theme mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // Use useSyncExternalStore for hydration-safe mounting detection
+  const mounted = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot);
 
   if (!mounted) {
     return null;
@@ -21,8 +28,11 @@ export function BackgroundElements() {
 
   return (
     <>
+      {/* Subtle overlay to soften background in dark mode */}
+      <div className="fixed inset-0 -z-10 bg-background/30 dark:bg-background/40 pointer-events-none" />
+      
       {/* Circuit board background */}
-      <div className="fixed inset-0 z-0 opacity-20 pointer-events-none">
+      <div className="fixed inset-0 -z-20 opacity-30 dark:opacity-20 pointer-events-none">
         <div className="hidden dark:block w-full h-full">
           <CircuitTraces />
         </div>
@@ -32,7 +42,7 @@ export function BackgroundElements() {
       </div>
       
       {/* Hex grid overlay - only show in dark mode */}
-      <div className="fixed inset-0 z-0 opacity-5 dark:opacity-10 pointer-events-none hidden dark:block">
+      <div className="fixed inset-0 -z-20 opacity-20 dark:opacity-15 pointer-events-none hidden dark:block">
         <HexGrid />
       </div>
     </>

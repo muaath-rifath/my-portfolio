@@ -113,11 +113,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <BootSequence />
+          <BackgroundElements />
           <Suspense fallback={null}>
-            <BackgroundElements />
             <Topbar />
-            <main className="flex flex-col min-h-screen opacity-0 transition-opacity duration-500">
-              <section className="flex w-full z-10 flex-grow">
+            <main className="flex flex-col min-h-screen opacity-0 transition-opacity duration-500 relative z-10">
+              <section className="flex w-full flex-grow">
                 {children}
               </section>
               <Footer />

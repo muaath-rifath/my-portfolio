@@ -17,19 +17,9 @@ const Model3D = dynamic(
 export function HeroSection() {
   return (
     <section className="container mx-auto px-4 pt-24 lg:pt-0 lg:min-h-screen lg:flex lg:flex-col lg:justify-center overflow-visible relative">
-      {/* 3D Model - responsive positioning: bottom on mobile, right on desktop */}
-      <div className="absolute inset-0 w-full h-full overflow-visible z-0 pointer-events-auto">
-        {/* Single responsive 3D model - adjusted positioning for mobile/tablet */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-28 w-full h-3/5 
-                        md:translate-y-32 md:h-2/3
-                        lg:top-0 lg:right-0 lg:left-auto lg:transform-none lg:w-3/5 lg:h-full
-                        lg:translate-y-0">
-          <Model3D />
-        </div>
-      </div>
-      
-      <div className="grid lg:grid-cols-2 gap-8 items-center mt-16 lg:mt-0 relative z-10 pointer-events-none">
-        <div className="space-y-8 pointer-events-auto">
+      {/* Content grid - text on left, 3D on right */}
+      <div className="grid lg:grid-cols-2 gap-8 items-center mt-16 lg:mt-0 relative z-10">
+        <div className="space-y-8">
           {/* PCB-inspired name treatment */}
           <div className="mb-8">
             <h1 className="text-5xl md:text-6xl font-bold mb-2 font-mono tracking-tighter relative">
@@ -89,9 +79,9 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Empty space where 3D model would traditionally be - maintains grid layout */}
-        <div className="relative h-64 lg:h-[500px]">
-          {/* 3D model is now positioned absolutely outside this container */}
+        {/* 3D Model container - right side on desktop, bottom on mobile */}
+        <div className="relative h-[400px] md:h-[500px] lg:h-[600px] order-first lg:order-last">
+          <Model3D />
         </div>
       </div>
     </section>
