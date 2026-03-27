@@ -20,12 +20,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'Muaath Rifath',
-  description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.',
-  metadataBase: new URL('https://muaathrifath.tech'),
+  description: 'Full-Stack Developer specializing in Next.js, TypeScript, and modern web development. Building production applications with React, FastAPI, Docker, and cloud infrastructure.',
+  metadataBase: new URL('https://muaathrifath.me'),
   authors: [
     {
       name: 'Muaath Rifath',
-      url: 'https://muaathrifath.tech',
+      url: 'https://muaathrifath.me',
     }
   ],
   creator: 'Muaath Rifath',
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Muaath Rifath',
-    description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.',
+    description: 'Full-Stack Developer specializing in Next.js, TypeScript, and modern web development. Building production applications with React, FastAPI, Docker, and cloud infrastructure.',
     images: 'assets/home-page.png',
-    url: 'https://muaathrifath.tech',
+    url: 'https://muaathrifath.me',
     type: 'website',
     siteName: 'Muaath Rifath',
     locale: 'en_US',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Muaath Rifath',
-    description: 'Engineering student bridging hardware and software through IoT innovation. Specialized in embedded systems, real-time applications, and modern web development.',
+    description: 'Full-Stack Developer specializing in Next.js, TypeScript, and modern web development. Building production applications with React, FastAPI, Docker, and cloud infrastructure.',
     images: 'assets/home-page.png',
     creator: '@MuaathRifath',
   },
@@ -62,15 +62,16 @@ export const metadata: Metadata = {
   },
   keywords: [
     "Muaath Rifath",
-    "Embedded Software Engineer",
+    "Full-Stack Developer",
+    "Next.js Developer",
+    "TypeScript",
+    "React Developer",
     "Web Developer",
-    "Freelancer",
-    "Engineering Student",
   ],
   alternates: {
-    canonical: 'https://muaathrifath.tech',
+    canonical: 'https://muaathrifath.me',
     languages: {
-      'en': 'https://muaathrifath.tech',
+      'en': 'https://muaathrifath.me',
     },
   },
   robots: {
@@ -116,7 +117,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <BackgroundElements />
           <Suspense fallback={null}>
             <Topbar />
-            <main className="flex flex-col min-h-screen opacity-0 transition-opacity duration-500 relative z-10">
+            <main className="flex flex-col min-h-screen transition-opacity duration-500 relative z-10">
               <section className="flex w-full flex-grow">
                 {children}
               </section>

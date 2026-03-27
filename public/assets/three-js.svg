@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="398.93704"
+   height="402.78616"
+   viewBox="0 0 569.91006 575.4088"
+   version="1.1"
+   xml:space="preserve"
+   style="clip-rule:evenodd;fill-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:10"
+   id="svg7"
+   sodipodi:docname="three-js.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:serif="http://www.serif.com/"><defs
+   id="defs7" /><sodipodi:namedview
+   id="namedview7"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="1.0898438"
+   inkscape:cx="194.06452"
+   inkscape:cy="191.77061"
+   inkscape:window-width="1354"
+   inkscape:window-height="718"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg7" />
+    <g
+   transform="matrix(2.25096,0,0,2.25096,280.45098,278.68334)"
+   id="g7">
+        <g
+   id="Three.js_Icon.svg"
+   transform="translate(-113.385,-113.385)">
+            <g
+   transform="translate(8.964,4.2527)"
+   id="g6">
+                <path
+   d="M 63.02,200.61 19.807,25.67 193.037,75.544 Z"
+   style="fill:none;stroke:#000000;stroke-width:4px"
+   id="path1" />
+                <path
+   d="m 106.39,50.612 21.591,87.496 -86.567,-24.945 z"
+   style="fill:none;stroke:#000000;stroke-width:4px"
+   id="path2" />
+                <path
+   d="M 84.91,125.03 74.186,81.565 117.194,93.911 Z"
+   style="fill:none;stroke:#000000;stroke-width:4px"
+   id="path3" />
+                <path
+   d="M 63.458,38.153 74.182,81.618 31.174,69.272 Z"
+   style="fill:none;stroke:#000000;stroke-width:4px"
+   id="path4" />
+                <path
+   d="m 149.47,62.93 10.724,43.465 -43.008,-12.346 z"
+   style="fill:none;stroke:#000000;stroke-width:4px"
+   id="path5" />
+                <path
+   d="M 84.915,125.06 95.639,168.525 52.631,156.179 Z"
+   style="fill:none;stroke:#000000;stroke-width:4px"
+   id="path6" />
+            </g>
+        </g>
+        <g
+   id="Three.js_Icon.svg1"
+   serif:id="Three.js_Icon.svg">
+        </g>
+    </g>
+</svg>

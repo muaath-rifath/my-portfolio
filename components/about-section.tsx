@@ -13,15 +13,15 @@ export function AboutSection() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 300);
-    
+    }, 50);
+
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <section 
       className={cn(
-        "container mx-auto px-4 py-16 md:py-0 transition-opacity duration-1000 relative z-20",
+        "container mx-auto px-4 py-16 md:py-0 transition-opacity duration-500 relative z-20",
         isVisible ? "opacity-100" : "opacity-0"
       )}
       id="about"
@@ -39,7 +39,7 @@ export function AboutSection() {
             </span>
             <span className="text-sm font-light tracking-wider text-muted-foreground mt-2 font-sans">
               <span className="inline-block w-8 h-[1px] dark:bg-white/40 bg-[#006b42]/40 mr-2 align-middle"></span>
-              Full-Stack Developer & IoT Enthusiast
+              Full-Stack Developer
             </span>
           </h2>
           
@@ -71,21 +71,25 @@ export function AboutSection() {
             {/* About content that wraps around the image */}
             <div className="space-y-4 text-muted-foreground">
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Full-Stack Developer</span> with experience building responsive and visually engaging web applications using Next.js/React.js, TypeScript, Tailwind CSS, Framer Motion, and Three.js.
+                <span className="font-semibold dark:text-white text-[#006b42]">Full-stack developer</span> who works across the entire stack, from database design and backend APIs to frontend UI and deployment. Built and shipped interesting products with FastAPI, Next.js, TypeScript, PostgreSQL, and Docker.
               </p>
-              
+
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Backend Expertise:</span> Working with Next.js, Express, Node.js, Prisma, PostgreSQL, and NextAuth to build secure applications. Currently exploring GraphQL, Cassandra, and distributed data systems.
+                <span className="font-semibold dark:text-white text-[#006b42]">AI Integration:</span> Working on AI-integrated products, wiring language models, video generation, and voice APIs into actual user-facing features rather than demos.
               </p>
-              
+
+              <div className="clear-right"></div>
+
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">IoT Integration:</span> Building systems that connect AI models (Gemini 2.0 via MCP) with embedded devices, implementing real-time features using WebSockets and MQTT for IoT automation.
+                <span className="font-semibold dark:text-white text-[#006b42]">Production-minded:</span> Auth flows, payment reliability, async task design, and keeping things working correctly in production.
               </p>
-              
-              <div className="clear-right"></div> {/* Clear the float after content wraps */}
-              
+
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Linux Enthusiast:</span> Passionate Fedora user who enjoys customizing desktop environments and using Linux as both a development platform and daily driver for meaningful, user-centered experiences.
+                <span className="font-semibold dark:text-white text-[#006b42]">Embedded & IoT:</span> Connecting AI and web interfaces to real hardware using WebSockets and MQTT in IoT and automation projects.
+              </p>
+
+              <p className="leading-relaxed">
+                <span className="font-semibold dark:text-white text-[#006b42]">Linux Enthusiast:</span> Running HyDE/Hyprland, customizing everything. Approaching every project with curiosity and a drive to build things that actually work.
               </p>
             </div>
           </div>
@@ -97,8 +101,8 @@ export function AboutSection() {
         
         {/* Tech expertise tags */}
         <div className="flex flex-wrap gap-2 mt-6">
-          {["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Three.js", "Framer Motion", 
-            "Node.js", "PostgreSQL", "Prisma", "WebSockets", "MQTT", "IoT", "Linux", "AI Integration"].map((tag, i) => (
+          {["Next.js", "React", "TypeScript", "FastAPI", "Docker", "PostgreSQL", "Prisma",
+            "Tailwind CSS", "Redis", "Celery", "GitHub Actions", "AWS", "Kotlin", "Linux"].map((tag, i) => (
             <span 
               key={i} 
               className="px-3 py-1 text-sm rounded-full dark:bg-[#1a1a2e]/60 bg-[#f0f0f8]/60 
@@ -183,33 +187,37 @@ export function AboutSection() {
               </span>
               <span className="text-sm font-light tracking-wider text-muted-foreground mt-2 font-sans">
                 <span className="inline-block w-8 h-[1px] dark:bg-white/40 bg-[#006b42]/40 mr-2 align-middle"></span>
-                Full-Stack Developer & IoT Enthusiast
+                Full-Stack Developer
               </span>
             </h2>
             
             <div className="mt-8 space-y-4 text-muted-foreground">
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Full-Stack Developer</span> with experience building responsive and visually engaging web applications using Next.js/React.js, TypeScript, Tailwind CSS, Framer Motion, and Three.js. I use Redux and Zustand for state management to deliver smooth, dynamic user experiences.
+                <span className="font-semibold dark:text-white text-[#006b42]">Full-stack developer</span> who works across the entire stack, from database design and backend APIs to frontend UI and deployment. I&apos;ve built and shipped interesting products with FastAPI, Next.js, TypeScript, PostgreSQL, and Docker.
               </p>
-              
+
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Backend Expertise:</span> Working with Next.js, Express, Node.js, Prisma, PostgreSQL, and NextAuth to build secure and functional applications. I&apos;ve implemented real-time features using WebSockets and MQTT, particularly in IoT projects.
+                <span className="font-semibold dark:text-white text-[#006b42]">AI Integration:</span> I enjoy working on AI-integrated products, wiring language models, video generation, and voice APIs into actual user-facing features rather than demos.
               </p>
-              
+
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Current Focus:</span> Exploring backend technologies like GraphQL, Cassandra, and distributed data systems, deepening my understanding of APIs, databases, and system design.
+                <span className="font-semibold dark:text-white text-[#006b42]">Production-minded:</span> I care about the parts that don&apos;t show up in screenshots: auth flows, payment reliability, async task design, and keeping things working correctly in production.
               </p>
-              
+
               <p className="leading-relaxed">
-                <span className="font-semibold dark:text-white text-[#006b42]">Innovation:</span> Building systems that connect AI models (Gemini 2.0 via MCP) with embedded devices, combining real-time control with intuitive web interfaces. Passionate Fedora Linux user who approaches every project with curiosity and focus.
+                <span className="font-semibold dark:text-white text-[#006b42]">Embedded & IoT:</span> I also build with embedded systems, connecting AI and web interfaces to real hardware using WebSockets and MQTT, particularly in IoT and automation projects.
+              </p>
+
+              <p className="leading-relaxed">
+                <span className="font-semibold dark:text-white text-[#006b42]">Linux Enthusiast:</span> Passionate Linux user running HyDE/Hyprland. I customize everything and genuinely enjoy the platform, not just as a dev tool. Whether it&apos;s an AI-powered web app, a smart home system, or a 3D portfolio, I approach every project with curiosity and a drive to build things that actually work.
               </p>
             </div>
           </div>
           
           {/* Tech expertise tags with improved spacing */}
           <div className="flex flex-wrap gap-2 mt-6">
-            {["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Three.js", "Node.js", "PostgreSQL", 
-              "Prisma", "WebSockets", "MQTT", "IoT", "AI Integration", "Linux", "Redux", "Zustand"].map((tag, i) => (
+            {["Next.js", "React", "TypeScript", "FastAPI", "Docker", "PostgreSQL", "Prisma",
+              "Tailwind CSS", "Redis", "Celery", "GitHub Actions", "AWS", "Kotlin", "Linux"].map((tag, i) => (
               <span 
                 key={i} 
                 className="px-3 py-1 text-sm rounded-full dark:bg-[#1a1a2e]/60 bg-[#f0f0f8]/60 

@@ -64,8 +64,8 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Engineering student bridging hardware and software through IoT innovation.
-              Specialized in embedded systems, real-time applications, and modern web development.
+              Full-Stack Developer building production web applications with Next.js,
+              TypeScript, and modern cloud infrastructure.
             </p>
           </div>
           
@@ -445,7 +445,7 @@ export default function Footer() {
                 <IconBrandX className="h-5 w-5 text-muted-foreground group-hover:dark:text-[#8fffaa] group-hover:text-[#006b42]" stroke={1.5} />
               </Link>
               <Link
-                href="mailto:contact@muaathrifath.tech"
+                href="mailto:contact@muaathrifath.me"
                 className="p-2 rounded-full transition-colors dark:hover:bg-[#8fffaa]/10 hover:bg-[#006b42]/10 group"
                 aria-label="Email"
               >

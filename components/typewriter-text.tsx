@@ -9,13 +9,13 @@ type Role = {
 };
 
 const roles: Role[] = [
-  { 
-    text: "IoT Engineer", 
-    highlightParts: ["IoT"] 
+  {
+    text: "Full Stack Developer",
+    highlightParts: ["Full Stack"]
   },
-  { 
-    text: "Full Stack Developer", 
-    highlightParts: ["Full Stack"] 
+  {
+    text: "Backend Engineer",
+    highlightParts: ["Backend"]
   }
 ];
 

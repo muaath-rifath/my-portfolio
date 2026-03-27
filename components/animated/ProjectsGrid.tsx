@@ -22,7 +22,7 @@ interface ProjectsGridProps {
 }
 
 export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, delay = 0 }) => {
-  const stagger = useStaggeredAnimation(150);
+  const stagger = useStaggeredAnimation(60);
 
   return (
     <div className="mt-8 flex flex-wrap justify-center gap-8">
@@ -30,7 +30,7 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, delay = 0 
         <Card
           key={index}
           ref={stagger.addRef(index)}
-          style={fadeInUp(stagger.isVisible(index), delay + 100)}
+          style={fadeInUp(stagger.isVisible(index), 0)}
           className={cn(
             'p-6 w-full max-w-md relative group overflow-hidden',
             'rounded-lg border dark:border-gray-700 border-gray-200',

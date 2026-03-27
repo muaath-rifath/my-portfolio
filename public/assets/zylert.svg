@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="zylertBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0a2e;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#16213e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0a1628;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="zylertAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="phoneScreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1b4b;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="800" height="400" rx="16" fill="url(#zylertBg)"/>
+  <!-- Decorative blobs -->
+  <circle cx="600" cy="100" r="200" fill="rgba(124,58,237,0.08)"/>
+  <circle cx="200" cy="350" r="150" fill="rgba(59,130,246,0.06)"/>
+  <!-- Phone mockup -->
+  <g transform="translate(500, 40)">
+    <!-- Phone body -->
+    <rect x="0" y="0" width="160" height="320" rx="20" fill="#1e1e2e" stroke="rgba(124,58,237,0.4)" stroke-width="2"/>
+    <!-- Screen -->
+    <rect x="8" y="30" width="144" height="260" rx="4" fill="url(#phoneScreen)"/>
+    <!-- Status bar -->
+    <rect x="55" y="8" width="50" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+    <!-- Notification cards on screen -->
+    <rect x="16" y="45" width="128" height="44" rx="8" fill="rgba(124,58,237,0.25)" stroke="rgba(124,58,237,0.4)" stroke-width="1"/>
+    <circle cx="32" cy="60" r="6" fill="rgba(124,58,237,0.6)"/>
+    <rect x="44" y="54" width="60" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+    <rect x="44" y="63" width="85" height="3" rx="1.5" fill="rgba(255,255,255,0.2)"/>
+    <rect x="44" y="70" width="50" height="3" rx="1.5" fill="rgba(255,255,255,0.15)"/>
+    <!-- AI badge -->
+    <rect x="108" y="48" width="28" height="14" rx="7" fill="rgba(59,130,246,0.3)" stroke="rgba(59,130,246,0.5)" stroke-width="0.5"/>
+    <text x="122" y="58" font-family="Arial, sans-serif" font-size="7" fill="#60a5fa" text-anchor="middle">AI</text>
+    <rect x="16" y="96" width="128" height="44" rx="8" fill="rgba(59,130,246,0.2)" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+    <circle cx="32" cy="111" r="6" fill="rgba(59,130,246,0.5)"/>
+    <rect x="44" y="105" width="70" height="4" rx="2" fill="rgba(255,255,255,0.35)"/>
+    <rect x="44" y="114" width="80" height="3" rx="1.5" fill="rgba(255,255,255,0.2)"/>
+    <rect x="44" y="121" width="45" height="3" rx="1.5" fill="rgba(255,255,255,0.15)"/>
+    <rect x="16" y="148" width="128" height="44" rx="8" fill="rgba(124,58,237,0.15)" stroke="rgba(124,58,237,0.25)" stroke-width="1"/>
+    <circle cx="32" cy="163" r="6" fill="rgba(124,58,237,0.4)"/>
+    <rect x="44" y="157" width="55" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
+    <rect x="44" y="165" width="75" height="3" rx="1.5" fill="rgba(255,255,255,0.18)"/>
+    <rect x="44" y="173" width="60" height="3" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+    <!-- Bottom nav -->
+    <rect x="20" y="260" width="120" height="20" rx="10" fill="rgba(255,255,255,0.05)"/>
+    <circle cx="50" cy="270" r="4" fill="rgba(124,58,237,0.5)"/>
+    <circle cx="80" cy="270" r="4" fill="rgba(255,255,255,0.2)"/>
+    <circle cx="110" cy="270" r="4" fill="rgba(255,255,255,0.2)"/>
+  </g>
+  <!-- Text content -->
+  <text x="60" y="120" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#7c3aed" letter-spacing="3">ANDROID APP</text>
+  <text x="60" y="175" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" fill="#ffffff">Zylert</text>
+  <text x="60" y="215" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="rgba(255,255,255,0.7)">AI Notification Manager</text>
+  <!-- Divider -->
+  <rect x="60" y="235" width="60" height="3" rx="1.5" fill="url(#zylertAccent)"/>
+  <!-- Tech tags -->
+  <rect x="60" y="260" width="70" height="26" rx="13" fill="rgba(124,58,237,0.15)" stroke="rgba(124,58,237,0.3)" stroke-width="1"/>
+  <text x="95" y="278" font-family="Arial, sans-serif" font-size="11" fill="#a78bfa" text-anchor="middle">Kotlin</text>
+  <rect x="140" y="260" width="100" height="26" rx="13" fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+  <text x="190" y="278" font-family="Arial, sans-serif" font-size="11" fill="#60a5fa" text-anchor="middle">Jetpack Comp.</text>
+  <rect x="250" y="260" width="55" height="26" rx="13" fill="rgba(124,58,237,0.15)" stroke="rgba(124,58,237,0.3)" stroke-width="1"/>
+  <text x="277.5" y="278" font-family="Arial, sans-serif" font-size="11" fill="#a78bfa" text-anchor="middle">AI</text>
+</svg>

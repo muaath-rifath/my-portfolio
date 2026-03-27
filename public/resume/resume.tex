@@ -1,167 +1,134 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Single-Page Asymmetrical Resume - V15 (Optimized for Single Page)
-%
-% Original Author: Mohamed Muaath Rifath L M
-% Compression & Redesign: Gemini
-% Reformatted: GitHub Copilot
-%
-% Changelog:
-% - Optimized for single page layout
-% - Reduced spacing and font sizes
-% - Condensed content while maintaining readability
-% - Tightened margins and list formatting
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-----------------
+% ATS-Friendly Resume in LaTeX
+% Mohamed Muaath Rifath
+%-----------------
 
-\documentclass[a4paper,10pt]{article}
+\documentclass[10.5pt, letterpaper]{article}
 
-% --- PACKAGES ---
-\usepackage[margin=0.5in]{geometry}     % Set tighter page margins
-\usepackage{charter}                    % Use a clean, professional font
-\usepackage[T1]{fontenc}               % Font encoding
-\usepackage{titlesec}                  % For custom section titles
-\usepackage{hyperref}                  % For clickable links
-\usepackage{xcolor}                    % For custom colors
-\usepackage{enumitem}                  % For custom list styling
-\usepackage{ragged2e}                  % For better text alignment
-\usepackage[none]{hyphenat}            % Disables all hyphenation
-\usepackage{microtype}                 % Improves typography
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[empty]{fullpage}
+\usepackage[margin=0.4in, top=0.3in, bottom=0.3in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[colorlinks=true, urlcolor={blue!70!black}, linkcolor=black]{hyperref}
 
-% --- GLOBAL SETTINGS ---
-\pagestyle{empty}                      % Suppress page numbers
-\setlength{\parindent}{0pt}           % Disable paragraph indentation
+% Remove page numbers
+\pagestyle{empty}
 
-% --- HYPERLINK STYLING ---
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=blue,
-    pdftitle={Muaath Rifath - Resume},
-    pdfauthor={Muaath Rifath},
+% Section formatting
+\titleformat{\section}{\normalsize\bfseries\uppercase}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{5pt}{3pt}
+
+% Compact lists
+\setlist[itemize]{nosep, leftmargin=12pt, topsep=1pt, partopsep=0pt, parsep=0pt, itemsep=1pt}
+
+% Custom commands
+\newcommand{\resumeEntry}[4]{
+  \noindent\textbf{#1} \hfill #3 \\[-2pt]
+  \textit{#2} \hfill \textit{#4}
 }
 
-% --- SECTION TITLE STYLING ---
-\titleformat{\section}
-    {\vspace{4pt}\large\raggedright\bfseries}
-    {}{0em}{}
-    [\color{gray!80}\titlerule]
-\titlespacing*{\section}{0pt}{*1}{*0.5}
-
-% --- LIST STYLING ---
-\setlist[itemize]{
-    leftmargin=1.2em,
-    topsep=1pt,
-    itemsep=0.5pt,
-    parsep=0pt,
-    label=\textbullet
+\newcommand{\resumeProject}[2]{
+  \noindent\textbf{#1} \enspace{\small #2}
 }
 
-% --- CUSTOM COMMANDS ---
-\newcommand{\entryTitle}[1]{\noindent\textbf{#1}}
-\newcommand{\institution}[1]{\textbf{#1}}
-\newcommand{\position}[1]{\textit{#1}}
-\newcommand{\daterange}[1]{\textit{#1}}
-\newcommand{\location}[1]{\textit{#1}}
-
-% --- DOCUMENT START ---
 \begin{document}
 
-% --- HEADER ---
+%-------HEADER-------
 \begin{center}
-    {\Large\bfseries Mohamed Muaath Rifath L M} \\
-    \vspace{1pt}
-    {\normalsize Full-Stack Developer} \\
-    \vspace{2pt}
-    \small
-    \href{mailto:me@muaathrifath.tech}{me@muaathrifath.tech} \textbullet{}
-    \href{tel:+918883735079}{+91 88837 35079} \textbullet{}
-    Chennai, India \\
-    \href{https://muaathrifath.tech}{muaathrifath.tech} \textbullet{}
-    \href{https://linkedin.com/in/muaath-rifath}{linkedin.com/in/muaath-rifath} \textbullet{}
-    \href{https://github.com/muaath-rifath}{github.com/muaath-rifath}
+  {\Large\bfseries Mohamed Muaath Rifath L M} \\[1pt]
+  {\small Full-Stack Developer} \\[1pt]
+  {\small \href{mailto:me@muaathrifath.me}{me@muaathrifath.me} \enspace{\large\textbullet}\enspace \href{tel:+918883735079}{+91 88837 35079} \enspace{\large\textbullet}\enspace Chennai, India} \\[0pt]
+  {\small \href{https://muaathrifath.me}{muaathrifath.me} \enspace{\large\textbullet}\enspace \href{https://linkedin.com/in/muaath-rifath}{linkedin.com/in/muaath-rifath} \enspace{\large\textbullet}\enspace \href{https://github.com/muaath-rifath}{github.com/muaath-rifath}}
 \end{center}
 
-% --- SUMMARY ---
-\section*{Summary}
-\RaggedRight
-Full-Stack Developer specializing in the Next.js ecosystem. Proficient in building 
-responsive, scalable web applications using TypeScript, Next.js/React, and Tailwind CSS. 
-Experienced in developing robust backends with Next.js/Node.js, Prisma, and PostgreSQL.
-\vspace{4pt}
+\vspace{-4pt}
 
-% --- FULL WIDTH LAYOUT ---
-\section*{Projects}
+%-------PROFESSIONAL SUMMARY-------
+\section{Professional Summary}
 
-\entryTitle{Portfolio}
+{\small Fullstack developer with production experience building and shipping an AI-powered wellness platform end to end - from database design and FastAPI backend to a complete Next.js 15 frontend. Delivered authentication, real-time video sessions, payment processing, and async AI pipelines. Strong fundamentals in system design, security, and cloud deployment.}
+
+\vspace{-2pt}
+
+%-------EXPERIENCE-------
+\section{Experience}
+
+\resumeEntry{Introspect Labs}{Full Stack Developer}{Oct 2025 -- Present}{Remote -- Bengaluru, India}
 \begin{itemize}
-    \item \textbf{Tech Stack:} Next.js, Three.js, React Three Fiber, Framer Motion, Firestore, Tailwind CSS.
-    \item \textbf{3D Experience:} Interactive 3D models using Three.js/React Three Fiber.
-    \item \textbf{Animations:} Fluid page transitions with Framer Motion for enhanced UX.
-    \item \textbf{CMS:} Firestore integration for contact submissions with dashboard.
+  \item Architected therapist consultation platform from scratch - professional profiles, session booking with server-side pricing breakdown, LiveKit video sessions, and webhook-driven attendance tracking with 75\% threshold missed-session refund logic (1,336 lines across 11 files).
+  \item Built AI journaling pipeline - rant-to-journal articulation via LLM, AES-256-GCM encryption at rest, cursor-style inline editing with custom Tiptap diff marks, crisis detection, and AI visualization via RunwayML/Kling.
+  \item Developed complete Next.js 15 frontend (185 commits) with Zustand state management, Server/Client component architecture for SEO, draggable picture-in-picture video UI, and presigned S3 upload flows.
+  \item Integrated Razorpay for Autopay subscriptions and per-session payments with idempotent webhook handling, HMAC-SHA256 signature verification, and airline-model slot locking to prevent phantom bookings.
+  \item Replaced OTP-based authentication with Zitadel OIDC across the full stack; implemented automatic JWT token refresh with pre-expiry buffer, federated logout, and per-request user sync.
+  \item Set up CI/CD with GitHub Actions (self-hosted runner), Docker, Nginx reverse proxy, Let's Encrypt SSL; authored 30+ Alembic database migrations.
 \end{itemize}
 
-\vspace{2pt}
-\entryTitle{Sol - Smart Home Assistant}
+\vspace{-2pt}
+
+%-------PROJECTS-------
+\section{Projects}
+
+\resumeProject{Zylert -- AI Notification Manager \textnormal{\textit{(In Progress)}}}{-- Kotlin, Android SDK 36, Room, Node.js, Express.js, OpenAI SDK}
 \begin{itemize}
-    \item \textbf{Tech Stack:} Next.js, NextAuth, Prisma, PostgreSQL, Gemini 2.0 Flash, MQTT, MCP.
-    \item \textbf{AI Control:} Natural language commands using Google's Gemini 2.0 Flash model.
-    \item \textbf{Backend:} Secure authentication with NextAuth and device management with Prisma.
-    \item \textbf{Real-Time:} MQTT and WebSockets for low-latency IoT device communication.
-    \item \textbf{AI Integration:} Model Context Protocol (MCP) for system-level AI connections.
+  \item AI-powered notification triaging system that classifies smartphone notifications into priority tiers using GPT-4, generates summaries, and provides a chat interface; expected to reduce notification fatigue by filtering low-priority alerts.
+  \item Three-tier classification (Priority / Moderate / Unwanted) via Azure OpenAI (gpt-4.1-mini) with prompt-engineered rules, batch processing, and Zod-validated I/O; Android client uses Room + Kotlin Coroutines; Express 5 backend with clean service/route separation.
 \end{itemize}
 
-\vspace{2pt}
-\entryTitle{Threble - Social Media Platform}
+\vspace{1pt}
+\resumeProject{Sol -- Smart Home Assistant}{-- Next.js, Prisma, PostgreSQL, Gemini 2.0 Flash, MQTT, MCP}
 \begin{itemize}
-    \item \textbf{Tech Stack:} Next.js, TypeScript, NextAuth, Prisma, PostgreSQL, Azure Blob Storage.
-    \item \textbf{Backend:} Robust architecture for user data, posts, and social graphs.
-    \item \textbf{Authentication:} Secure credential-based user management with NextAuth.
-    \item \textbf{Storage:} Azure Blob Storage for scalable media handling.
-    \item \textbf{UI/UX:} Responsive interface with Tailwind CSS across all devices.
+  \item Natural-language smart home control with real-time device updates via MQTT/WebSockets and secure authentication; PWA with offline-first service worker and WebSocket device sync (1st Prize, T.J.S. Engineering College Project Expo).
 \end{itemize}
 
-\vspace{2pt}
-\entryTitle{HR Dashboard - Employee Management System}
+\vspace{1pt}
+\resumeProject{Threble -- Social Media Platform}{-- Next.js, TypeScript, NextAuth, Prisma, PostgreSQL, Azure Blob Storage}
 \begin{itemize}
-    \item \textbf{Tech Stack:} Next.js 15, TypeScript, Zustand, Chart.js, Tailwind CSS, Radix UI.
-    \item \textbf{Frontend Architecture:} Custom hooks pattern for reusable logic, modular component structure with TypeScript integration.
-    \item \textbf{Data Visualization:} Interactive charts and analytics displaying department distribution, performance ratings, and HR metrics.
-    \item \textbf{UI/UX:} Responsive design with dark/light theme support, advanced search/filtering, and bookmark functionality.
-    \item \textbf{State Management:} Zustand for global state with local storage persistence and optimized re-rendering.
+  \item Open-source social platform for the tech community with scalable media handling and robust social graph (GPL v3).
+  \item LinkedIn-style connection graph with 4-state tracking; community roles (USER/MODERATOR/ADMIN) with RSVP events, join-request approval, 20+ notification types with real-time badge counts, and 20+ Prisma models with compound indexes.
 \end{itemize}
 
-\section*{Certifications}
+\vspace{1pt}
+\resumeProject{Portfolio}{-- Next.js, Three.js, React Three Fiber, Framer Motion, Firestore, Tailwind CSS}
 \begin{itemize}
-    \item Career Essentials in GitHub Professional Certificate – \textit{GitHub \& LinkedIn}
-    \item Career Essentials in Software Development – \textit{Microsoft \& LinkedIn}
-    \item MCP: Build Rich-Context AI Apps – \textit{DeepLearning.AI}
+  \item Interactive 3D portfolio with Three.js scene rendering, smooth page transitions, Firestore-backed contact form secured with reCAPTCHA v3, and SSR-safe dark/light mode via next-themes.
 \end{itemize}
 
-% --- SKILLS SECTION ---
-\vspace{6pt}
-\section*{Skills}
-
-\textbf{Programming Languages:} JavaScript/TypeScript, HTML/CSS, C/C++, Arduino, SQL, Python, MicroPython
-
-\vspace{2pt}
-\textbf{Frontend:} Next.js/React.js, Three.js/React Three Fiber, Tailwind CSS, Redux, Zustand
-
-\vspace{2pt}
-\textbf{Backend:} Next.js, Node.js, Prisma, PostgreSQL, NextAuth
-
-\vspace{2pt}
-\textbf{Tools \& Platforms:} Git, GitHub, VSCode, Linux, Vercel, Azure, Firebase, Firestore
-
-% --- EDUCATION SECTION ---
-\vspace{6pt}
-\section*{Education}
-\institution{Aalim Muhammed Salegh College of Engineering} \hfill \daterange{2022 – 2026} \\
-\location{Chennai, India} \\
-B.E. in Electronics \& Communication.
-
-\section*{Achievements}
+\vspace{1pt}
+\resumeProject{HR Dashboard -- Employee Management}{-- Next.js 15, TypeScript, Zustand, Chart.js, Tailwind CSS, Radix UI}
 \begin{itemize}
-    \item \textbf{1st Prize} - Project Expo at T.J.S. Engineering College for Smart Home Assistant.
-    \item \textbf{1st Prize} - Project Expo at GRT Institute for DTMF-controlled RoboCar.
+  \item Employee management dashboard with attendance tracking, leave approval, performance reviews, Chart.js analytics, dual navigation (desktop/mobile), themeable UI, and persisted global state; live on Vercel.
 \end{itemize}
+
+\vspace{-2pt}
+
+%-------SKILLS-------
+\section{Skills}
+
+\noindent\textbf{Languages:} TypeScript, JavaScript, Python, SQL, Kotlin, HTML/CSS, C/C++ \\[1pt]
+\textbf{Frontend:} React, Next.js, Tailwind CSS, Zustand, Three.js, Tiptap, Framer Motion \\[1pt]
+\textbf{Backend:} FastAPI, Node.js, Express.js, PostgreSQL, MongoDB, Prisma, Celery, Redis, Alembic \\[1pt]
+\textbf{DevOps \& Tools:} Docker, Git, GitHub Actions, Nginx, Linux, AWS (S3, SES), Azure, LiveKit, Razorpay
+
+\vspace{-2pt}
+
+%-------CERTIFICATIONS-------
+\section{Certifications}
+
+\begin{itemize}
+  \item Docker Foundations Professional Certificate (Docker)
+  \item Career Essentials in GitHub (GitHub)
+  \item MCP: Build Rich-Context AI Apps (DeepLearning.AI)
+  \item Career Essentials in Software Development (Microsoft)
+\end{itemize}
+
+\vspace{-2pt}
+
+%-------EDUCATION-------
+\section{Education}
+
+\resumeEntry{Aalim Muhammed Salegh College of Engineering}{B.E. in Electronics \& Communication Engineering}{2022 -- 2026}{Chennai, India}
 
 \end{document}

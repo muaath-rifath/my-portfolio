@@ -29,12 +29,12 @@ export default function ContactInfo() {
             </span>
           </span>
           <Link 
-            href="mailto:contact@muaathrifath.tech" 
+            href="mailto:contact@muaathrifath.me" 
             target="_blank" 
             type="email" 
             className="flex items-center gap-2 flex-nowrap dark:hover:text-[#8fffaa] hover:text-[#006b42] transition-colors duration-300"
           >
-            contact@muaathrifath.tech
+            contact@muaathrifath.me
             <FaExternalLinkAlt className="w-3 h-3" />
           </Link>
         </div>

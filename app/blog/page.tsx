@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     images: '/assets/blog.svg',
   },
   alternates: {
-    canonical: 'https://muaathrifath.tech/blog',
+    canonical: 'https://muaathrifath.me/blog',
   },
 };
 

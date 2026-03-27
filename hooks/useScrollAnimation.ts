@@ -11,7 +11,7 @@ interface ScrollAnimationOptions {
 export const useScrollAnimation = (options: ScrollAnimationOptions = {}) => {
   const {
     threshold = 0.1,
-    rootMargin = '0px 0px -100px 0px',
+    rootMargin = '0px 0px 0px 0px',
     triggerOnce = true
   } = options;
 
@@ -86,7 +86,7 @@ export const useStaggeredAnimation = (delay: number = 100) => {
         },
         {
           threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px',
+          rootMargin: '0px 0px 0px 0px',
         }
       );
 

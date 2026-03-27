@@ -21,7 +21,7 @@ const metadata: Metadata = {
     images: '/assets/contact-page.png',
   },
   alternates: {
-    canonical: 'https://muaathrifath.tech/contact',
+    canonical: 'https://muaathrifath.me/contact',
   },
 };
 
@@ -80,19 +80,19 @@ export default function Contact() {
       {/* Header with circuit-inspired styling */}
       <div 
         ref={headerRef}
-        className={`relative z-10 mb-8 mt-10 transition-all duration-1000 ease-out ${
-          headerVisible 
-            ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 translate-y-8'
+        className={`relative z-10 mb-8 mt-10 transition-all duration-500 ease-out ${
+          headerVisible
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4'
         }`}
       >
         <h1 className="text-4xl md:text-5xl font-bold font-mono tracking-tighter relative inline-block">
           <span className="dark:text-white text-[#006b42]">Get in Touch</span>
-          <span className={`absolute left-0 bottom-0 h-[2px] dark:bg-[#8fffaa]/50 bg-[#006b42]/50 transition-all duration-1000 delay-500 ${
+          <span className={`absolute left-0 bottom-0 h-[2px] dark:bg-[#8fffaa]/50 bg-[#006b42]/50 transition-all duration-500 delay-100 ${
             headerVisible ? 'w-full' : 'w-0'
           }`}></span>
         </h1>
-        <p className={`mt-4 text-lg text-muted-foreground max-w-2xl transition-all duration-1000 delay-300 ${
+        <p className={`mt-4 text-lg text-muted-foreground max-w-2xl transition-all duration-500 delay-100 ${
           headerVisible 
             ? 'opacity-100 translate-x-0' 
             : 'opacity-0 translate-x-4'
@@ -103,10 +103,10 @@ export default function Contact() {
 
       <div 
         ref={contactRef}
-        className={`relative z-10 flex flex-col lg:flex-row w-full max-w-4xl mx-auto justify-center items-stretch gap-0 mb-16 group perspective-1000 transition-all duration-1000 ease-out ${
-          isVisible 
-            ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 translate-y-8'
+        className={`relative z-10 flex flex-col lg:flex-row w-full max-w-4xl mx-auto justify-center items-stretch gap-0 mb-16 group perspective-1000 transition-all duration-500 ease-out ${
+          isVisible
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4'
         }`}
       >
         <ContactInfo />
@@ -114,16 +114,16 @@ export default function Contact() {
         
         {/* Animation enhancements without breaking layout */}
         {/* Floating particles effect */}
-        <div className={`absolute -top-2 -right-2 w-2 h-2 rounded-full dark:bg-[#8fffaa]/60 bg-[#006b42]/60 transition-all duration-1000 delay-700 animate-float-up ${
+        <div className={`absolute -top-2 -right-2 w-2 h-2 rounded-full dark:bg-[#8fffaa]/60 bg-[#006b42]/60 transition-all duration-500 delay-100 animate-float-up ${
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}></div>
-        <div className={`absolute -bottom-2 -left-2 w-1.5 h-1.5 rounded-full dark:bg-[#8fffaa]/40 bg-[#006b42]/40 transition-all duration-1000 delay-900 animate-float-side ${
+        <div className={`absolute -bottom-2 -left-2 w-1.5 h-1.5 rounded-full dark:bg-[#8fffaa]/40 bg-[#006b42]/40 transition-all duration-500 delay-200 animate-float-side ${
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}></div>
-        <div className={`absolute -top-2 -left-2 w-2 h-2 rounded-full dark:bg-[#8fffaa]/60 bg-[#006b42]/60 transition-all duration-1000 delay-800 animate-float-side ${
+        <div className={`absolute -top-2 -left-2 w-2 h-2 rounded-full dark:bg-[#8fffaa]/60 bg-[#006b42]/60 transition-all duration-500 delay-150 animate-float-side ${
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}></div>
-        <div className={`absolute -bottom-2 -right-2 w-1.5 h-1.5 rounded-full dark:bg-[#8fffaa]/40 bg-[#006b42]/40 transition-all duration-1000 delay-1000 animate-float-up ${
+        <div className={`absolute -bottom-2 -right-2 w-1.5 h-1.5 rounded-full dark:bg-[#8fffaa]/40 bg-[#006b42]/40 transition-all duration-500 delay-200 animate-float-up ${
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}></div>
 
@@ -133,10 +133,10 @@ export default function Contact() {
         }`}></div>
         
         {/* Floating circuit traces */}
-        <div className={`absolute top-1/4 left-1/4 w-8 h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 transition-all duration-1000 delay-600 ${
+        <div className={`absolute top-1/4 left-1/4 w-8 h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 transition-all duration-500 delay-100 ${
           isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
         }`}></div>
-        <div className={`absolute bottom-1/4 right-1/4 w-8 h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 transition-all duration-1000 delay-700 ${
+        <div className={`absolute bottom-1/4 right-1/4 w-8 h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 transition-all duration-500 delay-150 ${
           isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
         }`}></div>
       </div>

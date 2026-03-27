@@ -23,7 +23,7 @@ interface CertificationsGridProps {
 }
 
 export const CertificationsGrid: React.FC<CertificationsGridProps> = ({ certifications, delay = 0 }) => {
-  const stagger = useStaggeredAnimation(200);
+  const stagger = useStaggeredAnimation(60);
 
   return (
     <div className="mt-8">
@@ -32,7 +32,7 @@ export const CertificationsGrid: React.FC<CertificationsGridProps> = ({ certific
           <Card
             key={index}
             ref={stagger.addRef(index)}
-            style={fadeInUp(stagger.isVisible(index), delay + 150)}
+            style={fadeInUp(stagger.isVisible(index), 0)}
             className="w-full max-w-md p-6 mb-8 relative group backdrop-blur-sm bg-background/90 border dark:border-gray-700 border-gray-200 rounded-lg transition-all duration-500 hover:shadow-lg hover:shadow-[#006b42]/10 dark:hover:shadow-[#8fffaa]/10 hover:scale-[1.02] hover:-translate-y-2"
           >
             <Link href={certification.certificateLink} target="_blank" className="block">

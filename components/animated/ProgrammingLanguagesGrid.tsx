@@ -18,7 +18,7 @@ interface ProgrammingLanguagesProps {
 }
 
 export const ProgrammingLanguagesGrid: React.FC<ProgrammingLanguagesProps> = ({ languages, delay = 0 }) => {
-  const stagger = useStaggeredAnimation(80);
+  const stagger = useStaggeredAnimation(40);
 
   return (
     <div className="mt-10 flex flex-wrap justify-center gap-6">
@@ -26,7 +26,7 @@ export const ProgrammingLanguagesGrid: React.FC<ProgrammingLanguagesProps> = ({ 
         <Card 
           key={index}
           ref={stagger.addRef(index)}
-          style={bounceInUp(stagger.isVisible(index), delay + 50)}
+          style={bounceInUp(stagger.isVisible(index), 0)}
           className={cn(
             'p-4 h-full relative group',
             'rounded-lg border dark:border-gray-700 border-gray-200',

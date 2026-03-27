@@ -46,14 +46,14 @@ export const scaleInUp = (isVisible: boolean, delay: number = 0): CSSProperties 
 // Slide animations
 export const slideInLeft = (isVisible: boolean, delay: number = 0): CSSProperties => ({
   opacity: isVisible ? 1 : 0,
-  transform: isVisible ? 'translateX(0)' : 'translateX(-100%)',
-  transition: `all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms`,
+  transform: isVisible ? 'translateX(0)' : 'translateX(-30px)',
+  transition: `all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms`,
 });
 
 export const slideInRight = (isVisible: boolean, delay: number = 0): CSSProperties => ({
   opacity: isVisible ? 1 : 0,
-  transform: isVisible ? 'translateX(0)' : 'translateX(100%)',
-  transition: `all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms`,
+  transform: isVisible ? 'translateX(0)' : 'translateX(30px)',
+  transition: `all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms`,
 });
 
 // Rotation animations

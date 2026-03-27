@@ -18,7 +18,7 @@ interface FrameworksProps {
 }
 
 export const FrameworksGrid: React.FC<FrameworksProps> = ({ frameworks, delay = 0 }) => {
-  const stagger = useStaggeredAnimation(60);
+  const stagger = useStaggeredAnimation(40);
 
   return (
     <div className="mt-10 flex flex-wrap justify-center gap-6">
@@ -26,7 +26,7 @@ export const FrameworksGrid: React.FC<FrameworksProps> = ({ frameworks, delay = 
         <Card 
           key={index}
           ref={stagger.addRef(index)}
-          style={scaleIn(stagger.isVisible(index), delay + 30)}
+          style={scaleIn(stagger.isVisible(index), 0)}
           className={cn(
             'p-4 h-full relative group',
             'rounded-lg border dark:border-gray-700 border-gray-200',

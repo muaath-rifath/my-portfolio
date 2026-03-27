@@ -18,7 +18,7 @@ interface ToolsGridProps {
 }
 
 export const ToolsGrid: React.FC<ToolsGridProps> = ({ tools, delay = 0 }) => {
-  const stagger = useStaggeredAnimation(70);
+  const stagger = useStaggeredAnimation(40);
 
   return (
     <div className="mt-10 flex flex-wrap justify-center gap-6">
@@ -26,7 +26,7 @@ export const ToolsGrid: React.FC<ToolsGridProps> = ({ tools, delay = 0 }) => {
         <Card 
           key={index}
           ref={stagger.addRef(index)}
-          style={slideInLeft(stagger.isVisible(index), delay + 40)}
+          style={slideInLeft(stagger.isVisible(index), 0)}
           className={cn(
             'p-4 h-full relative group',
             'rounded-lg border dark:border-gray-700 border-gray-200',
