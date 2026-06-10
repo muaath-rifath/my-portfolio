@@ -24,7 +24,7 @@ export function HeroSection() {
           <div className="mb-8">
             <h1 className="text-5xl md:text-6xl font-bold mb-2 font-mono tracking-tighter relative">
               <span className="block text-2xl text-muted-foreground dark:text-gray-300 mb-2">
-                Hi, I'm
+                Hi, I&apos;m
               </span>
               <span className="relative inline-block">
                 <span className="inline-block dark:text-white text-[#006b42] pr-2 relative z-10">
@@ -80,7 +80,7 @@ export function HeroSection() {
         </div>
 
         {/* 3D Model container - right side on desktop, bottom on mobile */}
-        <div className="relative h-[400px] md:h-[500px] lg:h-[600px] order-first lg:order-last">
+        <div className="relative h-[400px] md:h-[500px] lg:h-[600px]">
           <Model3D />
         </div>
       </div>

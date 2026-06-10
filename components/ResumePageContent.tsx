@@ -18,7 +18,7 @@ export default function ResumePageContent() {
   const handleDownloadPDF = () => {
     const link = document.createElement('a');
     link.href = '/resume/resume.pdf';
-    link.download = 'Muaath_Rifath_Resume.pdf';
+    link.download = 'Mohamed_Muaath_Rifath_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -29,9 +29,9 @@ export default function ResumePageContent() {
       {/* Header */}
       <div className="text-center mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-border">
         <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 dark:text-white text-[#006b42]">
-          Mohamed Muaath Rifath L M
+          Mohamed Muaath Rifath
         </h1>
-        <p className="text-base sm:text-lg text-zinc-700 dark:text-zinc-100 mb-3 sm:mb-4">Full-Stack Developer</p>
+        <p className="text-base sm:text-lg text-zinc-700 dark:text-zinc-100 mb-3 sm:mb-4">Software Engineer</p>
         
         <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 text-xs sm:text-sm text-zinc-700 dark:text-zinc-100">
           <a href="mailto:me@muaathrifath.me" className="flex items-center gap-1 hover:text-[#006b42] dark:hover:text-[#8fffaa] transition-colors">
@@ -70,10 +70,7 @@ export default function ResumePageContent() {
           Professional Summary
         </h2>
         <p className="text-zinc-700 dark:text-zinc-100 leading-relaxed text-sm sm:text-base">
-          Fullstack developer with production experience building and shipping an AI-powered wellness platform
-          end to end – from database design and FastAPI backend to a complete Next.js 15 frontend. Delivered
-          authentication, real-time video sessions, payment processing, and async AI pipelines. Strong
-          fundamentals in system design, security, and cloud deployment.
+          Software Engineer focused on shipping zero-to-one products. I build systems across distributed Go backends, AI-integrated frontends, and custom ESP32 firmware. I prioritize reliability in core infrastructure like identity and payments, building with security and scalability in mind to support product growth. My focus is on solving the technical challenges of early-stage development to ensure a stable foundation for the product.
         </p>
       </section>
 
@@ -86,19 +83,18 @@ export default function ResumePageContent() {
           <div>
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-1">
               <h3 className="text-base sm:text-lg font-semibold dark:text-white text-[#004d30]">Introspect Labs</h3>
-              <span className="text-xs sm:text-sm italic mt-1 sm:mt-0">Oct 2025 – Present</span>
+              <span className="text-xs sm:text-sm italic mt-1 sm:mt-0">Oct 2025 – Feb 2026</span>
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
               <span className="text-sm italic text-zinc-700 dark:text-zinc-100">Full Stack Developer</span>
-              <span className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-100">Remote – Bengaluru, India</span>
+              <span className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-100">Remote, Bengaluru, India</span>
             </div>
             <ul className="space-y-1 text-zinc-700 dark:text-zinc-100 ml-3 sm:ml-4 text-sm sm:text-base">
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Architected therapist consultation platform from scratch – professional profiles, session booking with server-side pricing breakdown, LiveKit video sessions, and webhook-driven attendance tracking with 75% threshold missed-session refund logic (1,336 lines across 11 files).</span></li>
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Built AI journaling pipeline – rant-to-journal articulation via LLM, AES-256-GCM encryption at rest, cursor-style inline editing with custom Tiptap diff marks, crisis detection, and AI visualization via RunwayML/Kling.</span></li>
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Developed complete Next.js 15 frontend (185 commits) with Zustand state management, Server/Client component architecture for SEO, draggable picture-in-picture video UI, and presigned S3 upload flows.</span></li>
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Integrated Razorpay for Autopay subscriptions and per-session payments with idempotent webhook handling, HMAC-SHA256 signature verification, and airline-model slot locking to prevent phantom bookings.</span></li>
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Replaced OTP-based authentication with Zitadel OIDC across the full stack; implemented automatic JWT token refresh with pre-expiry buffer, federated logout, and per-request user sync.</span></li>
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Set up CI/CD with GitHub Actions (self-hosted runner), Docker, Nginx reverse proxy, Let&apos;s Encrypt SSL; authored 30+ Alembic database migrations.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Architected the v1 backend for uyir.ai, migrating the identity layer from legacy OTP to Zitadel OIDC; implemented automatic JWT refresh and patched critical Next.js CVEs mid-deployment.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Engineered a reconnection-aware attendance tracking system for LiveKit video sessions using event-sourced audit logs and idempotency guards to handle webhook race conditions and network drops.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Built the full Next.js 15 frontend from scratch with custom Tiptap diff marks for inline AI editing, therapist dashboards, and a presigned S3 upload workflow for AI avatar training data.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Containerized the stack with Docker, set up self-hosted GitHub Actions CI/CD with Nginx reverse proxy, and migrated from SMTP to AWS SES for scalable transactional emails.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Optimized database performance via PostgreSQL schema design and Alembic migrations, supporting complex therapist-user scheduling and multi-tier subscription billing.</span></li>
             </ul>
           </div>
         </div>
@@ -111,61 +107,37 @@ export default function ResumePageContent() {
         </h2>
         
         <div className="space-y-4 sm:space-y-6">
-          {/* Zylert */}
+          {/* Sol - Smart Home Assistant */}
           <div>
-            <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 dark:text-white text-[#004d30]">Zylert – AI Notification Manager <span className="text-sm font-normal italic text-zinc-700 dark:text-zinc-100">(In Progress)</span> <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Kotlin, Android SDK 36, Room, Node.js, Express.js, OpenAI SDK</span></h3>
+            <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 dark:text-white text-[#004d30]">Sol, Open Distributed Smart Home & Agentic Orchestration Platform <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Go 1.25, ESP32-S3, MQTT, LiveKit, MCP, TimescaleDB, MinIO, ZITADEL, mTLS</span></h3>
             <ul className="space-y-1 text-zinc-700 dark:text-zinc-100 ml-3 sm:ml-4 text-sm sm:text-base">
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>AI-powered notification triaging system that classifies smartphone notifications into priority tiers using GPT-4, generates summaries, and provides a chat interface; expected to reduce notification fatigue by filtering low-priority alerts.</span></li>
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Three-tier classification (Priority / Moderate / Unwanted) via Azure OpenAI (gpt-4.1-mini) with prompt-engineered rules, batch processing, and Zod-validated I/O; Android client uses Room + Kotlin Coroutines; Express 5 backend with clean service/route separation.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Architected a 4-tier agentic platform featuring a Go control plane and ESP32-S3 nodes, validated through hardware deployment with per-device X.509 mTLS security.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Engineered a 1.2s latency voice pipeline using on-device wake-word detection (WakeNet9), LiveKit WebRTC streaming, and Azure OpenAI Realtime API for agentic reasoning.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Hardened AI-to-hardware reliability via a pgvector/HNSW grounding layer that resolves natural language device references to UUIDs with sub-millisecond latency.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Developed a zero-install WebSerial provisioning flow for browser-based firmware flashing and OIDC device-code registration, eliminating the need for local IDEs.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Built a native MCP server with capability-based authorization, exposing a standard interface for external agents (OpenClaw, NemoClaw, Claude) to discover and actuate hardware.</span></li>
             </ul>
           </div>
 
-          {/* Sol - Smart Home Assistant */}
+          {/* Zylert */}
           <div>
-            <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 dark:text-white text-[#004d30]">Sol – Smart Home Assistant <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Next.js, Prisma, PostgreSQL, Gemini 2.0 Flash, MQTT, MCP</span></h3>
+            <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 dark:text-white text-[#004d30]">Zylert, LLM-Orchestrated Notification Triage System <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Kotlin, Android SDK 36, Room, Node.js, OpenAI/Mistral, Zod</span></h3>
             <ul className="space-y-1 text-zinc-700 dark:text-zinc-100 ml-3 sm:ml-4 text-sm sm:text-base">
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Natural-language smart home control with real-time device updates via MQTT/WebSockets and secure authentication; PWA with offline-first service worker and WebSocket device sync (1st Prize, T.J.S. Engineering College Project Expo).</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Architected an Android-to-Node.js pipeline that intercepts and triages push notifications in real time using LLM-backed semantic classification.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Hardened LLM output reliability using strict Zod validation and fallbacks to handle malformed payloads and ensure 99% parsing accuracy.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Engineered a priority routing system that surfaces critical human messages while compressing low-value automated noise via conversational querying.</span></li>
             </ul>
           </div>
 
           {/* Threble - Social Media Platform */}
           <div>
-            <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 dark:text-white text-[#004d30]">Threble – Social Media Platform <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Next.js, TypeScript, NextAuth, Prisma, PostgreSQL, Azure Blob Storage</span></h3>
+            <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 dark:text-white text-[#004d30]">Threble, Open-Source Social Network <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Next.js 15, TypeScript, NextAuth, Prisma, PostgreSQL, Redux/RTK, Azure Blob</span></h3>
             <ul className="space-y-1 text-zinc-700 dark:text-zinc-100 ml-3 sm:ml-4 text-sm sm:text-base">
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Open-source social platform for the tech community with scalable media handling and robust social graph (GPL v3).</span></li>
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>LinkedIn-style connection graph with 4-state tracking; community roles (USER/MODERATOR/ADMIN) with RSVP events, join-request approval, 20+ notification types with real-time badge counts, and 20+ Prisma models with compound indexes.</span></li>
-            </ul>
-          </div>
-
-          {/* Portfolio */}
-          <div>
-            <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 dark:text-white text-[#004d30]">Portfolio <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Next.js, Three.js, React Three Fiber, Framer Motion, Firestore, Tailwind CSS</span></h3>
-            <ul className="space-y-1 text-zinc-700 dark:text-zinc-100 ml-3 sm:ml-4 text-sm sm:text-base">
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Interactive 3D portfolio with Three.js scene rendering, smooth page transitions, Firestore-backed contact form secured with reCAPTCHA v3, and SSR-safe dark/light mode via next-themes.</span></li>
-            </ul>
-          </div>
-
-          {/* HR Dashboard */}
-          <div>
-            <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 dark:text-white text-[#004d30]">HR Dashboard – Employee Management <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Next.js 15, TypeScript, Zustand, Chart.js, Tailwind CSS, Radix UI</span></h3>
-            <ul className="space-y-1 text-zinc-700 dark:text-zinc-100 ml-3 sm:ml-4 text-sm sm:text-base">
-              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Employee management dashboard with attendance tracking, leave approval, performance reviews, Chart.js analytics, dual navigation (desktop/mobile), themeable UI, and persisted global state; live on Vercel.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Developed an open-source social platform featuring a LinkedIn-style graph with connection requests, mutual-connection lookups, and community roles.</span></li>
+              <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Implemented route protection with NextAuth, Prisma/PostgreSQL persistence, and responsive UI with mobile-aware notification flows.</span></li>
             </ul>
           </div>
         </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="mb-6 sm:mb-8">
-        <h2 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 dark:text-[#8fffaa] text-[#006b42] border-b border-border pb-1 sm:pb-2">
-          Certifications
-        </h2>
-        <ul className="space-y-1 sm:space-y-2 text-zinc-700 dark:text-zinc-100 ml-3 sm:ml-4 text-sm sm:text-base">
-          <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Docker Foundations Professional Certificate – <em>Docker</em></span></li>
-          <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Career Essentials in GitHub – <em>GitHub</em></span></li>
-          <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>MCP: Build Rich-Context AI Apps – <em>DeepLearning.AI</em></span></li>
-          <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Career Essentials in Software Development – <em>Microsoft</em></span></li>
-        </ul>
       </section>
 
       {/* Skills */}
@@ -175,18 +147,30 @@ export default function ResumePageContent() {
         </h2>
         <div className="space-y-2 sm:space-y-3 text-zinc-700 dark:text-zinc-100 text-sm sm:text-base">
           <div>
-            <span className="font-semibold dark:text-[#8fffaa] text-[#006b42]">Languages:</span> TypeScript, JavaScript, Python, SQL, Kotlin, HTML/CSS, C/C++
+            <span className="font-semibold dark:text-[#8fffaa] text-[#006b42]">Languages:</span> TypeScript, Go, Python, Kotlin, C/C++ (ESP-IDF/Arduino), SQL, Shell/Bash, HTML/CSS
           </div>
           <div>
-            <span className="font-semibold dark:text-[#8fffaa] text-[#006b42]">Frontend:</span> React, Next.js, Tailwind CSS, Zustand, Three.js, Tiptap, Framer Motion
+            <span className="font-semibold dark:text-[#8fffaa] text-[#006b42]">Frontend/Mobile:</span> Next.js 16, React 19, D3.js, Three.js, R3F, Tailwind CSS, Zustand, Redux, Framer Motion, Android SDK
           </div>
           <div>
-            <span className="font-semibold dark:text-[#8fffaa] text-[#006b42]">Backend:</span> FastAPI, Node.js, Express.js, PostgreSQL, MongoDB, Prisma, Celery, Redis, Alembic
+            <span className="font-semibold dark:text-[#8fffaa] text-[#006b42]">Backend/DevOps:</span> FastAPI, Node.js, PostgreSQL (TimescaleDB/pgvector), MongoDB, Prisma, Celery, Redis, MQTT, Docker, Traefik, MinIO, GitHub Actions, AWS
           </div>
           <div>
-            <span className="font-semibold dark:text-[#8fffaa] text-[#006b42]">DevOps & Tools:</span> Docker, Git, GitHub Actions, Nginx, Linux, AWS (S3, SES), Azure, LiveKit, Razorpay
+            <span className="font-semibold dark:text-[#8fffaa] text-[#006b42]">AI/Security:</span> OpenAI Realtime, LiveKit, RAG Pipelines, Zitadel OIDC, mTLS, X.509, OAuth 2.0, JWT, HMAC-SHA256
           </div>
         </div>
+      </section>
+      
+      {/* Certifications */}
+      <section className="mb-6 sm:mb-8">
+        <h2 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 dark:text-[#8fffaa] text-[#006b42] border-b border-border pb-1 sm:pb-2">
+          Certifications
+        </h2>
+        <ul className="space-y-1 sm:space-y-2 text-zinc-700 dark:text-zinc-100 ml-3 sm:ml-4 text-sm sm:text-base">
+          <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>MCP: Build Rich-Context AI Apps with Anthropic – <em>DeepLearning.AI (May 2025)</em></span></li>
+          <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Docker Foundations Professional Certificate – <em>Docker, Inc. (Feb 2026)</em></span></li>
+          <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>Foundation of Cloud IoT Edge ML – <em>NPTEL (May 2024)</em></span></li>
+        </ul>
       </section>
 
       {/* Education */}

@@ -1,25 +1,30 @@
-%-----------------
-% ATS-Friendly Resume in LaTeX
+% Resume
+% ATS-Friendly Resume in LaTeX (1 Page Refined)
 % Mohamed Muaath Rifath
-%-----------------
+% End preamble
 
-\documentclass[10.5pt, letterpaper]{article}
+\documentclass[10pt, letterpaper]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[empty]{fullpage}
-\usepackage[margin=0.4in, top=0.3in, bottom=0.3in]{geometry}
+\usepackage[margin=0.3in, top=0.25in, bottom=0.2in]{geometry}
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
 \usepackage[colorlinks=true, urlcolor={blue!70!black}, linkcolor=black]{hyperref}
+
+% Keep text justified while avoiding end-of-line word breaks.
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\sloppy
 
 % Remove page numbers
 \pagestyle{empty}
 
 % Section formatting
 \titleformat{\section}{\normalsize\bfseries\uppercase}{}{0em}{}[\titlerule]
-\titlespacing*{\section}{0pt}{5pt}{3pt}
+\titlespacing*{\section}{0pt}{1pt}{1pt}
 
 % Compact lists
 \setlist[itemize]{nosep, leftmargin=12pt, topsep=1pt, partopsep=0pt, parsep=0pt, itemsep=1pt}
@@ -31,104 +36,97 @@
 }
 
 \newcommand{\resumeProject}[2]{
-  \noindent\textbf{#1} \enspace{\small #2}
+  \noindent\textbf{#1}\ {\small\textperiodcentered\ #2}
 }
 
 \begin{document}
 
-%-------HEADER-------
+% Header
 \begin{center}
-  {\Large\bfseries Mohamed Muaath Rifath L M} \\[1pt]
-  {\small Full-Stack Developer} \\[1pt]
-  {\small \href{mailto:me@muaathrifath.me}{me@muaathrifath.me} \enspace{\large\textbullet}\enspace \href{tel:+918883735079}{+91 88837 35079} \enspace{\large\textbullet}\enspace Chennai, India} \\[0pt]
+  {\Large\bfseries Mohamed Muaath Rifath} \\[2pt]
+  {\large Software Engineer} \\[2pt]
+  {\small \href{mailto:me@muaathrifath.me}{me@muaathrifath.me} \enspace{\large\textbullet}\enspace \href{tel:+918883735079}{+91 88837 35079} \enspace{\large\textbullet}\enspace Chennai, India} \\[1pt]
   {\small \href{https://muaathrifath.me}{muaathrifath.me} \enspace{\large\textbullet}\enspace \href{https://linkedin.com/in/muaath-rifath}{linkedin.com/in/muaath-rifath} \enspace{\large\textbullet}\enspace \href{https://github.com/muaath-rifath}{github.com/muaath-rifath}}
 \end{center}
 
-\vspace{-4pt}
+\vspace{-8pt}
 
-%-------PROFESSIONAL SUMMARY-------
+% Professional Summary
 \section{Professional Summary}
+{\small Software Engineer focused on shipping zero-to-one products. I build systems across distributed Go backends, AI-integrated frontends, and custom ESP32 firmware. I prioritize reliability in core infrastructure like identity and payments, building with security and scalability in mind to support product growth. My focus is on solving the technical challenges of early-stage development to ensure a stable foundation for the product.}
 
-{\small Fullstack developer with production experience building and shipping an AI-powered wellness platform end to end - from database design and FastAPI backend to a complete Next.js 15 frontend. Delivered authentication, real-time video sessions, payment processing, and async AI pipelines. Strong fundamentals in system design, security, and cloud deployment.}
+\vspace{1pt}
 
-\vspace{-2pt}
-
-%-------EXPERIENCE-------
+% Experience
 \section{Experience}
-
-\resumeEntry{Introspect Labs}{Full Stack Developer}{Oct 2025 -- Present}{Remote -- Bengaluru, India}
+\resumeEntry{Introspect Labs}{Full Stack Developer}{Oct 2025 -- Feb 2026}{Remote, Bengaluru, India}
 \begin{itemize}
-  \item Architected therapist consultation platform from scratch - professional profiles, session booking with server-side pricing breakdown, LiveKit video sessions, and webhook-driven attendance tracking with 75\% threshold missed-session refund logic (1,336 lines across 11 files).
-  \item Built AI journaling pipeline - rant-to-journal articulation via LLM, AES-256-GCM encryption at rest, cursor-style inline editing with custom Tiptap diff marks, crisis detection, and AI visualization via RunwayML/Kling.
-  \item Developed complete Next.js 15 frontend (185 commits) with Zustand state management, Server/Client component architecture for SEO, draggable picture-in-picture video UI, and presigned S3 upload flows.
-  \item Integrated Razorpay for Autopay subscriptions and per-session payments with idempotent webhook handling, HMAC-SHA256 signature verification, and airline-model slot locking to prevent phantom bookings.
-  \item Replaced OTP-based authentication with Zitadel OIDC across the full stack; implemented automatic JWT token refresh with pre-expiry buffer, federated logout, and per-request user sync.
-  \item Set up CI/CD with GitHub Actions (self-hosted runner), Docker, Nginx reverse proxy, Let's Encrypt SSL; authored 30+ Alembic database migrations.
+  \item Architected the v1 backend for uyir.ai, migrating the identity layer from legacy OTP to Zitadel OIDC; implemented automatic JWT refresh and patched critical Next.js CVEs mid-deployment.
+  \item Engineered a \textbf{reconnection-aware attendance tracking system} for LiveKit video sessions using \textbf{event-sourced audit logs} and idempotency guards to handle webhook race conditions and network drops.
+  \item Built the full Next.js 15 frontend from scratch with custom Tiptap diff marks for inline AI editing, therapist dashboards, and a \textbf{presigned S3 upload workflow} for AI avatar training data.
+  \item Containerized the stack with Docker, set up self-hosted GitHub Actions CI/CD with Nginx reverse proxy, and migrated from SMTP to AWS SES for scalable transactional emails.
+  \item Optimized database performance via PostgreSQL schema design and Alembic migrations, supporting complex therapist-user scheduling and multi-tier subscription billing.
 \end{itemize}
 
-\vspace{-2pt}
+\vspace{1pt}
 
-%-------PROJECTS-------
+% Projects
 \section{Projects}
-
-\resumeProject{Zylert -- AI Notification Manager \textnormal{\textit{(In Progress)}}}{-- Kotlin, Android SDK 36, Room, Node.js, Express.js, OpenAI SDK}
+\resumeProject{Sol, Open Distributed Smart Home \& Agentic Orchestration Platform}{Go 1.25, ESP32-S3, MQTT, LiveKit, MCP, TimescaleDB, MinIO, ZITADEL, mTLS}
 \begin{itemize}
-  \item AI-powered notification triaging system that classifies smartphone notifications into priority tiers using GPT-4, generates summaries, and provides a chat interface; expected to reduce notification fatigue by filtering low-priority alerts.
-  \item Three-tier classification (Priority / Moderate / Unwanted) via Azure OpenAI (gpt-4.1-mini) with prompt-engineered rules, batch processing, and Zod-validated I/O; Android client uses Room + Kotlin Coroutines; Express 5 backend with clean service/route separation.
+  \item Architected a 4-tier agentic platform featuring a Go control plane and ESP32-S3 nodes, validated through hardware deployment with per-device X.509 mTLS security.
+  \item Engineered a \textbf{1.2s latency voice pipeline} using on-device wake-word detection (WakeNet9), LiveKit WebRTC streaming, and Azure OpenAI Realtime API for agentic reasoning.
+  \item Hardened AI-to-hardware reliability via a \textbf{pgvector/HNSW grounding layer} that resolves natural language device references to UUIDs with sub-millisecond latency.
+  \item Developed a zero-install \textbf{WebSerial provisioning flow} for browser-based firmware flashing and OIDC device-code registration, eliminating the need for local IDEs.
+  \item Built a native MCP server with capability-based authorization, exposing a standard interface for \textbf{external agents (OpenClaw, NemoClaw, Claude)} to discover and actuate hardware.
 \end{itemize}
 
 \vspace{1pt}
-\resumeProject{Sol -- Smart Home Assistant}{-- Next.js, Prisma, PostgreSQL, Gemini 2.0 Flash, MQTT, MCP}
+\resumeProject{Zylert, LLM-Orchestrated Notification Triage System}{Kotlin, Android SDK 36, Room, Node.js, OpenAI/Mistral, Zod}
 \begin{itemize}
-  \item Natural-language smart home control with real-time device updates via MQTT/WebSockets and secure authentication; PWA with offline-first service worker and WebSocket device sync (1st Prize, T.J.S. Engineering College Project Expo).
+  \item Architected an Android-to-Node.js pipeline that intercepts and triages push notifications in real time using \textbf{LLM-backed semantic classification}.
+  \item Hardened LLM output reliability using \textbf{strict Zod validation} and fallbacks to handle malformed payloads and ensure 99\% parsing accuracy.
+  \item Engineered a priority routing system that surfaces critical human messages while compressing low-value automated noise via conversational querying.
 \end{itemize}
 
 \vspace{1pt}
-\resumeProject{Threble -- Social Media Platform}{-- Next.js, TypeScript, NextAuth, Prisma, PostgreSQL, Azure Blob Storage}
+\resumeProject{Threble, Open-Source Social Network}{Next.js 15, TypeScript, NextAuth, Prisma, PostgreSQL, Redux/RTK, Azure Blob}
 \begin{itemize}
-  \item Open-source social platform for the tech community with scalable media handling and robust social graph (GPL v3).
-  \item LinkedIn-style connection graph with 4-state tracking; community roles (USER/MODERATOR/ADMIN) with RSVP events, join-request approval, 20+ notification types with real-time badge counts, and 20+ Prisma models with compound indexes.
+  \item Developed an open-source social platform featuring a LinkedIn-style graph with connection requests, mutual-connection lookups, and community roles.
+  \item Implemented route protection with NextAuth, Prisma/PostgreSQL persistence, and responsive UI with mobile-aware notification flows.
 \end{itemize}
 
 \vspace{1pt}
-\resumeProject{Portfolio}{-- Next.js, Three.js, React Three Fiber, Framer Motion, Firestore, Tailwind CSS}
-\begin{itemize}
-  \item Interactive 3D portfolio with Three.js scene rendering, smooth page transitions, Firestore-backed contact form secured with reCAPTCHA v3, and SSR-safe dark/light mode via next-themes.
-\end{itemize}
 
-\vspace{1pt}
-\resumeProject{HR Dashboard -- Employee Management}{-- Next.js 15, TypeScript, Zustand, Chart.js, Tailwind CSS, Radix UI}
-\begin{itemize}
-  \item Employee management dashboard with attendance tracking, leave approval, performance reviews, Chart.js analytics, dual navigation (desktop/mobile), themeable UI, and persisted global state; live on Vercel.
-\end{itemize}
-
-\vspace{-2pt}
-
-%-------SKILLS-------
+% Skills
 \section{Skills}
+\noindent\textbf{Languages:} TypeScript, Go, Python, Kotlin, C/C++ (ESP-IDF/Arduino), SQL, Shell/Bash, HTML/CSS \\
+\textbf{Frontend/Mobile:} Next.js 16, React 19, D3.js, Three.js, R3F, Tailwind CSS, Zustand, Redux, Framer Motion, Android SDK \\
+\textbf{Backend/DevOps:} FastAPI, Node.js, PostgreSQL (TimescaleDB/pgvector), MongoDB, Prisma, Celery, Redis, MQTT, Docker, Traefik, MinIO, GitHub Actions, AWS \\
+\textbf{AI/Security:} OpenAI Realtime, LiveKit, RAG Pipelines, Zitadel OIDC, mTLS, X.509, OAuth 2.0, JWT, HMAC-SHA256
 
-\noindent\textbf{Languages:} TypeScript, JavaScript, Python, SQL, Kotlin, HTML/CSS, C/C++ \\[1pt]
-\textbf{Frontend:} React, Next.js, Tailwind CSS, Zustand, Three.js, Tiptap, Framer Motion \\[1pt]
-\textbf{Backend:} FastAPI, Node.js, Express.js, PostgreSQL, MongoDB, Prisma, Celery, Redis, Alembic \\[1pt]
-\textbf{DevOps \& Tools:} Docker, Git, GitHub Actions, Nginx, Linux, AWS (S3, SES), Azure, LiveKit, Razorpay
+\vspace{1pt}
 
-\vspace{-2pt}
-
-%-------CERTIFICATIONS-------
+% Certifications
 \section{Certifications}
-
 \begin{itemize}
-  \item Docker Foundations Professional Certificate (Docker)
-  \item Career Essentials in GitHub (GitHub)
-  \item MCP: Build Rich-Context AI Apps (DeepLearning.AI)
-  \item Career Essentials in Software Development (Microsoft)
+  \item \textbf{MCP: Build Rich-Context AI Apps with Anthropic} -- DeepLearning.AI (May 2025)
+  \item \textbf{Docker Foundations Professional Certificate} -- Docker, Inc. (Feb 2026)
+  \item \textbf{Foundation of Cloud IoT Edge ML} -- NPTEL (May 2024)
 \end{itemize}
 
-\vspace{-2pt}
+\vspace{1pt}
 
-%-------EDUCATION-------
+% Education
 \section{Education}
+\resumeEntry{Aalim Muhammed Salegh College of Engineering}{B.E. in Electronics \& Communication Engineering}{2022 - 2026}{Chennai, India}
 
-\resumeEntry{Aalim Muhammed Salegh College of Engineering}{B.E. in Electronics \& Communication Engineering}{2022 -- 2026}{Chennai, India}
+
+
+
+
+
+
+
 
 \end{document}
