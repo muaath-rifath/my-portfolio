@@ -76,7 +76,7 @@ function ContactFormInner() {
   }
 
   return (
-    <div className="relative flex flex-col rounded-xl border border-gray-200 bg-background/90 p-6 backdrop-blur-sm transition-colors duration-300 dark:border-gray-700 lg:w-1/2 lg:rounded-l-none lg:border-0 lg:border-l lg:border-gray-200 lg:bg-transparent lg:backdrop-blur-none lg:dark:border-gray-700">
+    <div className="relative flex flex-col rounded-xl border border-gray-200 bg-background/90 p-6 backdrop-blur-sm transition-colors duration-300 dark:border-gray-700 lg:w-1/2 lg:rounded-l-none lg:border-0 lg:bg-transparent lg:backdrop-blur-none">
       {/* Circuit trace decorations */}
       <div className="absolute top-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
       <div className="absolute bottom-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
