@@ -5,11 +5,11 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 
 export default function ContactInfo() {
   return (
-    <div className="relative flex flex-col justify-center p-6 lg:items-center rounded-t-xl lg:rounded-xl lg:rounded-r-none border dark:border-gray-700 border-gray-200 border-b-0 lg:border-b lg:border-r-0 mb-0 lg:w-1/2 group/contact-item group-hover:border-[#006b42] dark:group-hover:border-[#8fffaa]/50 transition-all duration-300 dark:bg-black/40 bg-white/70 backdrop-blur-sm">
+    <div className="relative mb-0 flex flex-col justify-center rounded-xl border border-gray-200 bg-background/90 p-6 backdrop-blur-sm transition-colors duration-300 dark:border-gray-700 lg:w-1/2 lg:items-center lg:rounded-r-none lg:border-0 lg:bg-transparent lg:backdrop-blur-none">
       {/* Circuit trace decorations */}
-      <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-item:opacity-100 transition-all duration-500"></div>
-      <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-item:opacity-100 transition-all duration-500"></div>
-      <div className="absolute top-4 right-4 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-item:opacity-100 transition-all duration-500"></div>
+      <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
+      <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
+      <div className="absolute top-4 right-4 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
       
       <div className="w-full mb-6">
         <h2 className="text-3xl text-center font-mono dark:text-white text-[#006b42] font-bold relative">
@@ -73,7 +73,7 @@ export default function ContactInfo() {
             target="_blank" 
             className="flex items-center gap-2 flex-nowrap dark:hover:text-[#8fffaa] hover:text-[#006b42] transition-colors duration-300"
           >
-            Avadi, Chennai, 600-055.
+            Chennai, India
             <FaExternalLinkAlt className="w-3 h-3" />
           </Link>
         </div>

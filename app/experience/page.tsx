@@ -118,7 +118,7 @@ const projectsData = [
     description:
       "Smart home ecosystem with a Go backend for homes, rooms, members, appliances, and device state; a LiveKit and Azure OpenAI voice assistant; ZITADEL access control; and mTLS-authenticated MQTT device connections.",
     imageUrl: "/assets/sol.png",
-    projectUrl: "https://github.com/muaath-rifath/sol",
+    projectUrl: "https://github.com/muaath-rifath/sol-core",
     tags: [
       "Go",
       "Python",

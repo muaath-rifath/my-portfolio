@@ -103,7 +103,7 @@ export default function Contact() {
 
       <div 
         ref={contactRef}
-        className={`relative z-10 flex flex-col lg:flex-row w-full max-w-4xl mx-auto justify-center items-stretch gap-0 mb-16 group perspective-1000 transition-all duration-500 ease-out ${
+        className={`relative z-10 flex flex-col lg:flex-row w-full max-w-4xl mx-auto justify-center items-stretch gap-4 lg:gap-0 mb-16 group/contact-card perspective-1000 transition-all duration-500 ease-out lg:rounded-xl lg:border lg:border-gray-200 lg:bg-background/90 lg:backdrop-blur-sm lg:hover:-translate-y-1 lg:hover:shadow-lg lg:hover:shadow-[#006b42]/10 lg:dark:border-gray-700 lg:dark:hover:shadow-[#8fffaa]/10 ${
           isVisible
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-4'
