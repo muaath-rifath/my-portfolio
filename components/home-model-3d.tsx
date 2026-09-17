@@ -27,7 +27,6 @@ import VehicleIotGateway from "./3d-models/vehicle-iot-gateway";
 // Model3D props interface - removed scale prop since it's now handled internally
 interface Model3DProps {
   progress: MotionValue<number>;
-  active: boolean;
   onSpinComplete?: () => void;
   onSceneReady?: () => void;
 }
@@ -96,7 +95,7 @@ function ScrollGroup({ progress, children, onSpinComplete, onSceneReady }: {
   );
 }
 
-export function HomeModel3D({ progress, active, onSpinComplete, onSceneReady }: Model3DProps) {
+export function HomeModel3D({ progress, onSpinComplete, onSceneReady }: Model3DProps) {
   const frame = useRef<HTMLDivElement>(null);
   const [viewport, setViewport] = useState<SceneViewport | null>(null);
   const [pageVisible, setPageVisible] = useState(true);
@@ -145,7 +144,7 @@ export function HomeModel3D({ progress, active, onSpinComplete, onSceneReady }: 
     <div ref={frame} className="lab-canvas">
       <div className="lab-canvas-layer" style={viewport ? { position: 'absolute', left: -viewport.left, top: -VERTICAL_BLEED, width: viewport.screenWidth, height: viewport.height + VERTICAL_BLEED * 2, pointerEvents: 'none' } : { width: '100%', height: '100%' }}>
       {/* Adjusted camera position - further back */}
-      <Canvas shadows frameloop={active && pageVisible ? "always" : "never"} dpr={[1, 1.25]} gl={{ powerPreference: "high-performance", antialias: true }} camera={{ position: [0, 15, 60], fov: 50 }}>
+      <Canvas shadows frameloop={pageVisible ? "always" : "never"} dpr={[1, 1.25]} gl={{ powerPreference: "high-performance", antialias: true }} camera={{ position: [0, 15, 60], fov: 50 }}>
         <OverflowCamera viewport={viewport} />
         <Suspense fallback={null}>
           {/* Add helpers for debugging */}

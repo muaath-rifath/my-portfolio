@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { TypewriterText } from "./typewriter-text";
 import dynamic from "next/dynamic";
-import { useInView, useMotionValue } from "framer-motion";
+import { useMotionValue } from "framer-motion";
 import { ArrowUpRight, MoveUpRight } from "lucide-react";
 import { IconBrandGithub, IconBrandLinkedin, IconBrandX } from "@tabler/icons-react";
 import { use3dCapability } from "@/hooks/use-3d-capability";
@@ -20,7 +20,6 @@ const Model3D = dynamic(() => import("./home-model-3d").then(mod => mod.HomeMode
 export function HeroSection() {
   const section = useRef<HTMLElement>(null);
   const reducedMotion = useMotionPreference();
-  const sceneVisible = useInView(section);
   const rotationProgress = useMotionValue(0);
   const [sceneReady, setSceneReady] = useState(false);
   const canRender3D = use3dCapability();
@@ -59,7 +58,7 @@ export function HeroSection() {
             <div className="lab-scene-frame">
               <Image className="lab-scene-poster lab-scene-poster-light" src="/assets/home-hero-poster-light.webp" alt="" aria-hidden="true" fill priority sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 55vw" />
               <Image className="lab-scene-poster lab-scene-poster-dark" src="/assets/home-hero-poster.webp" alt="" aria-hidden="true" fill priority sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 55vw" />
-              {canRender3D && <div className="lab-scene-layer"><Model3D progress={rotationProgress} active={sceneVisible} onSceneReady={reportSceneReady} /></div>}
+              {canRender3D && <div className="lab-scene-layer"><Model3D progress={rotationProgress} onSceneReady={reportSceneReady} /></div>}
             </div>
           </div>
         </div>
