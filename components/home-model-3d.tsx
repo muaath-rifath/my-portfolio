@@ -71,8 +71,8 @@ function ScrollGroup({ progress, children, onSpinComplete, onSceneReady }: {
   }, []);
   useFrame(({ clock, pointer, gl }) => {
     if (group.current) {
-      // The scene has a quiet ambient drift; hero scroll adds one complete, deliberate turn.
-      const rotation = reducedMotion ? 0 : clock.getElapsedTime() * 0.035 + progress.get() * Math.PI * 2 + pointer.x * 0.08;
+      // A steady ambient rotation keeps the scene alive without taking over page scroll.
+      const rotation = reducedMotion ? 0 : clock.getElapsedTime() * 0.08;
       group.current.rotation.y = rotation;
       if (progress.get() >= 1 && !hasReportedCompletion.current) {
         hasReportedCompletion.current = true;
