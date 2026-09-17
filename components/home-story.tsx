@@ -51,7 +51,7 @@ export function HomeStory() {
 
     <section className="home-chapter home-toolkit" aria-labelledby="toolkit-title">
       <div><p className="home-kicker">My toolkit</p><h2 id="toolkit-title">The right tools<br /><em>for the job.</em></h2><p>React and TypeScript for interfaces, Go and Python for services, and MQTT for connected devices. These are tools I’ve used in real projects, chosen around what each product needs.</p><p>My everyday workspace runs Arch Linux and Hyprland. I like understanding the tools I depend on, right down to my desktop.</p></div>
-      <dl className="home-tool-rows"><div><dt>Web & mobile</dt><dd>TypeScript / React / Next.js / Kotlin</dd></div><div><dt>Backend & data</dt><dd>Go / Python / PostgreSQL / Redis</dd></div><div><dt>AI, live communication & devices</dt><dd>LiveKit / Gemini / WebRTC / MQTT / C</dd></div><div><dt>Build & deploy</dt><dd>Docker / GitHub Actions / Linux</dd></div></dl>
+      <dl className="home-tool-rows"><div><dt>Web & mobile</dt><dd>TypeScript / React / Next.js / Kotlin</dd></div><div><dt>Backend & data</dt><dd>Go / Python / PostgreSQL / Redis</dd></div><div><dt>AI, live communication & devices</dt><dd>LiveKit / WebRTC / MQTT / C</dd></div><div><dt>Build & deploy</dt><dd>Docker / GitHub Actions / Linux</dd></div></dl>
     </section>
   </div>;
 }
