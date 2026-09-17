@@ -1,15 +1,9 @@
-import React from "react";
-import { Metadata } from "next";
-import { PageEntryWrapper } from "@/components/animated/PageEntryWrapper";
-import { AnimatedBackground } from "@/components/animated/AnimatedBackground";
-import { AnimatedSectionTitle } from "@/components/animated/AnimatedSectionTitle";
-import { ProgrammingLanguagesGrid } from "@/components/animated/ProgrammingLanguagesGrid";
-import { FrameworksGrid } from "@/components/animated/FrameworksGrid";
-import { ToolsGrid } from "@/components/animated/ToolsGrid";
-import { ProjectsGrid } from "@/components/animated/ProjectsGrid";
-import { CertificationsGrid } from "@/components/animated/CertificationsGrid";
-import { EducationCard } from "@/components/animated/EducationCard";
-import { WorkExperienceCard } from "@/components/animated/WorkExperienceCard";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowDown, ArrowUpRight, Award, ChevronDown, FileText } from "lucide-react";
+import { SiGo } from "react-icons/si";
+import "./experience.css";
 
 // Work Experience
 const workExperience = [
@@ -275,151 +269,144 @@ export const metadata: Metadata = {
   },
 };
 
-const ExperienceSection: React.FC = () => {
-  return (
-    <PageEntryWrapper>
-      <section className="relative w-full overflow-hidden">
-        <AnimatedBackground />
-
-        {/* Work Experience Section */}
-        <section className="w-full mt-20 relative">
-          <div className="container px-4 sm:px-6">
-            <AnimatedSectionTitle>
-              <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
-                <span className="dark:text-white text-[#006b42]">
-                  Work Experience
-                </span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
-              </h2>
-            </AnimatedSectionTitle>
-            <div className="mt-8 flex justify-center">
-              <div className="w-full max-w-3xl">
-                {workExperience.map((exp, index) => (
-                  <WorkExperienceCard
-                    key={index}
-                    experience={exp}
-                    delay={index * 80}
-                    isLast={index === workExperience.length - 1}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Languages Section */}
-        <section className="w-full mt-16 relative">
-          <div className="container px-4 sm:px-6">
-            <AnimatedSectionTitle>
-              <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
-                <span className="dark:text-white text-[#006b42]">
-                  Languages
-                </span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
-              </h2>
-            </AnimatedSectionTitle>
-            <ProgrammingLanguagesGrid
-              languages={programmingLanguages}
-              delay={0}
-            />
-          </div>
-        </section>
-
-        {/* Frontend Section */}
-        <section className="w-full mt-16 relative">
-          <div className="container px-4 sm:px-6">
-            <AnimatedSectionTitle>
-              <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
-                <span className="dark:text-white text-[#006b42]">Frontend</span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
-              </h2>
-            </AnimatedSectionTitle>
-            <FrameworksGrid frameworks={frontend} delay={0} />
-          </div>
-        </section>
-
-        {/* Backend Section */}
-        <section className="w-full mt-16 relative">
-          <div className="container px-4 sm:px-6">
-            <AnimatedSectionTitle>
-              <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
-                <span className="dark:text-white text-[#006b42]">Backend</span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
-              </h2>
-            </AnimatedSectionTitle>
-            <FrameworksGrid frameworks={backend} delay={0} />
-          </div>
-        </section>
-
-        {/* DevOps & Tools Section */}
-        <section className="w-full mt-16 relative">
-          <div className="container px-4 sm:px-6">
-            <AnimatedSectionTitle>
-              <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
-                <span className="dark:text-white text-[#006b42]">
-                  DevOps & Tools
-                </span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
-              </h2>
-            </AnimatedSectionTitle>
-            <ToolsGrid tools={devopsTools} delay={0} />
-          </div>
-        </section>
-
-        {/* Projects Section */}
-        <section className="w-full mt-16 relative">
-          <div className="container px-4 sm:px-6">
-            <AnimatedSectionTitle>
-              <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
-                <span className="dark:text-white text-[#006b42]">Projects</span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
-              </h2>
-            </AnimatedSectionTitle>
-            <ProjectsGrid projects={projectsData} delay={0} />
-          </div>
-        </section>
-
-        {/* Licenses and Certifications Section */}
-        <section className="w-full mt-16 relative">
-          <div className="container px-4 sm:px-6">
-            <AnimatedSectionTitle>
-              <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
-                <span className="dark:text-white text-[#006b42]">
-                  Licenses and Certifications
-                </span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
-              </h2>
-            </AnimatedSectionTitle>
-            <CertificationsGrid
-              certifications={licensesCertifications}
-              delay={0}
-            />
-          </div>
-        </section>
-
-        {/* Education Section */}
-        <section className="w-full mt-16 pb-24 relative">
-          <div className="container px-4 sm:px-6">
-            <AnimatedSectionTitle>
-              <h2 className="text-3xl font-bold font-mono tracking-tighter relative inline-block">
-                <span className="dark:text-white text-[#006b42]">
-                  Education
-                </span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
-              </h2>
-            </AnimatedSectionTitle>
-            <div className="mt-8 flex justify-center">
-              <div className="w-full max-w-3xl">
-                {educations.map((education, index) => (
-                  <EducationCard key={index} education={education} delay={0} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      </section>
-    </PageEntryWrapper>
-  );
+const roleNotes: Record<string, { summary: string; stack: string[] }> = {
+  "Erlang Labs": {
+    summary: "Building the services behind AI-powered calls.",
+    stack: ["Go", "Python", "PostgreSQL", "LiveKit", "ZITADEL", "Qdrant"],
+  },
+  "Introspect Labs": {
+    summary: "Connecting care, payments, and AI journaling at uyir.ai.",
+    stack: ["Next.js", "TypeScript", "LiveKit", "Razorpay", "AWS S3", "Docker"],
+  },
 };
 
-export default ExperienceSection;
+const sections = [
+  ["work", "Work"], ["projects", "Projects"], ["toolkit", "Toolkit"],
+  ["credentials", "Credentials"], ["education", "Education"],
+];
+
+function SectionHeading({ title, description }: { title: string; description: string }) {
+  return <header className="experience-section-heading">
+    <div><h2>{title}</h2></div>
+    <p>{description}</p>
+  </header>;
+}
+
+export default function ExperiencePage() {
+  return (
+    <div className="experience-page">
+      <header className="experience-hero experience-container">
+        <p className="experience-kicker">Experience & selected work</p>
+        <div className="experience-hero-grid">
+          <h1>Behind the code.<br /><em>The work itself.</em></h1>
+          <div className="experience-hero-copy">
+            <p>From web applications to AI voice systems and connected devices. A closer look at what I’ve built, the problems I’ve worked on, and the tools I use.</p>
+            <Link href="/resume" className="experience-text-link"><FileText size={17} aria-hidden="true" /> View my resume <ArrowUpRight size={17} aria-hidden="true" /></Link>
+          </div>
+        </div>
+        <nav className="experience-section-nav" aria-label="Experience sections">
+          {sections.map(([id, label]) => <a key={id} href={`#${id}`}>{label}<ArrowDown size={14} aria-hidden="true" /></a>)}
+        </nav>
+      </header>
+
+      <section id="work" className="experience-section experience-container">
+        <SectionHeading title="Where I’ve contributed" description="Professional work, from product interfaces to the services behind them." />
+        <div className="experience-work-list">
+          {[...workExperience].reverse().map((experience) => {
+            const note = roleNotes[experience.company];
+            const current = experience.duration.includes("Present");
+            return <article key={experience.company} className="experience-role">
+              <div className="experience-role-meta">
+                <p className="experience-date">{experience.duration}</p>
+                {current && <span className="experience-current"><span />Current role</span>}
+                <p>{experience.type}</p>
+                <p>{experience.location}</p>
+              </div>
+              <div className="experience-role-content">
+                <div className="experience-company"><Image src={experience.logoPath} width={40} height={40} alt="" /><div><h3>{experience.role}</h3><p>{experience.company}</p></div></div>
+                <p className="experience-role-summary">{note.summary}</p>
+                <ul className="experience-bullets">{experience.bullets.slice(0, 2).map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
+                <details className="experience-details">
+                  <summary><span className="experience-details-closed">Explore contributions ({experience.bullets.length - 2})</span><span className="experience-details-open">Show fewer contributions</span><ChevronDown size={16} aria-hidden="true" /></summary>
+                  <ul className="experience-bullets">{experience.bullets.slice(2).map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
+                </details>
+                <ul className="experience-tags" aria-label="Technologies used">{note.stack.map(name => <li key={name}>{name}</li>)}</ul>
+              </div>
+            </article>;
+          })}
+        </div>
+      </section>
+
+      <section id="projects" className="experience-section experience-projects-section">
+        <div className="experience-container">
+          <SectionHeading title="Ideas, built into software" description="Personal projects across mobile, the web, and connected homes." />
+          <div className="experience-project-grid">
+            {projectsData.map((project, index) => <article key={project.title} className={`experience-project ${index < 2 ? "experience-project-featured" : ""}`}>
+              <div className="experience-project-top"><Image src={project.imageUrl} width={800} height={450} sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 560px" alt={`${project.title} project preview`} /></div>
+              <h3><a href={project.projectUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} source on GitHub (opens in a new tab)`}>{project.title}<ArrowUpRight size={22} aria-hidden="true" /></a></h3>
+              <p>{project.description}</p>
+              <ul className="experience-tags" aria-label="Project technologies">{project.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+              <a className="experience-text-link" href={project.projectUrl} target="_blank" rel="noopener noreferrer">Explore source <ArrowUpRight size={16} aria-hidden="true" /><span className="sr-only"> for {project.title} on GitHub (opens in a new tab)</span></a>
+            </article>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="toolkit" className="experience-section experience-container">
+        <SectionHeading title="Tools I work with" description="The languages, frameworks, and infrastructure behind the work." />
+        <dl className="experience-toolkit">
+          {[
+            { title: "Languages", items: [{ name: "Go", imagePath: null }, ...programmingLanguages] },
+            { title: "Frontend", items: frontend },
+            { title: "Backend & data", items: backend },
+            { title: "Infrastructure & tools", items: devopsTools },
+          ].map(group => (
+            <div key={group.title}>
+              <dt>{group.title}</dt>
+              <dd>
+                <ul className="experience-tool-grid">
+                  {group.items.map(item => (
+                    <li className="experience-tool" key={item.name}>
+                      <span className="experience-tool-icon">
+                        {item.imagePath ? (
+                          <Image src={item.imagePath} width={48} height={48} alt="" />
+                        ) : (
+                          <SiGo size={48} aria-hidden="true" />
+                        )}
+                      </span>
+                      <span>{item.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section id="credentials" className="experience-section experience-container">
+        <SectionHeading title="Continuing to learn" description="Courses and certifications that complement hands-on work." />
+        <div className="experience-credentials">
+          {licensesCertifications.map(cert => <a key={cert.title} className="experience-credential" href={cert.certificateLink} target="_blank" rel="noopener noreferrer">
+            <span className="experience-credential-icon"><Award size={22} aria-hidden="true" /></span>
+            <div><h3>{cert.title}</h3><p>{cert.issuer} <span aria-hidden="true">·</span> {cert.issueDate}</p></div>
+            <ArrowUpRight size={20} aria-hidden="true" /><span className="sr-only">View certificate (opens in a new tab)</span>
+          </a>)}
+        </div>
+      </section>
+
+      <section id="education" className="experience-section experience-container">
+        <SectionHeading title="Engineering foundations" description="The academic side of building things." />
+        {educations.map(education => <article className="experience-education" key={education.institution}>
+          <p className="experience-date">{education.duration}</p>
+          <div><h3>{education.degree}</h3><p className="experience-institution">{education.institution}</p><p>{education.description}</p></div>
+        </article>)}
+      </section>
+
+      <section className="experience-contact experience-container" aria-labelledby="experience-contact-title">
+        <div><p className="experience-kicker">Let’s put this experience to work</p><h2 id="experience-contact-title">What are you<br /><em>working on?</em></h2></div>
+        <div><p>Have a product to build or a problem to work through? I’d love to hear about it.</p><Link href="/contact" className="experience-button">Discuss your project <ArrowUpRight size={19} aria-hidden="true" /></Link></div>
+      </section>
+    </div>
+  );
+}
