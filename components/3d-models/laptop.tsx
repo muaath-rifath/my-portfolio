@@ -1,8 +1,10 @@
 'use client';
 
+import { lightModelPalette } from '@/lib/model-palette';
+
 import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
+import DeviceScreen from './device-screen';
 import { useDarkMode } from '@/hooks/useDarkMode';
 // Import Line if needed for borders, or primitive for existing THREE.Line objects
 // import { Line } from '@react-three/drei';
@@ -21,7 +23,7 @@ const useLaptopMaterials = (isDarkMode: boolean) => {
     return useMemo(() => ({
         laptopBody: new THREE.MeshStandardMaterial({
             name: 'laptop_lid', // Default name, will be overridden for base
-            color: isDarkMode ? 0x505e50 : 0xe0ffe0,
+            color: isDarkMode ? 0x505e50 : lightModelPalette.housing,
             metalness: 0.7, roughness: 0.3,
             emissive: isDarkMode ? 0x253025 : 0x000000, emissiveIntensity: isDarkMode ? 0.30 : 0,
             side: THREE.DoubleSide
@@ -33,11 +35,8 @@ const useLaptopMaterials = (isDarkMode: boolean) => {
             emissive: isDarkMode ? 0x00aa88 : 0x008866, emissiveIntensity: isDarkMode ? 0.5 : 0.2,
             side: THREE.FrontSide
         }),
-        dashboardBackground: new THREE.MeshStandardMaterial({ // Specific material for the screen background area
-            name: 'dashboard_background',
-            color: isDarkMode ? 0x1a241a : 0xe8f4e8,
-            roughness: 0.6, metalness: 0.02, side: THREE.FrontSide, transparent: true, opacity: 0.97,
-            emissive: isDarkMode ? 0x020502 : 0x000000, emissiveIntensity: isDarkMode ? 0.05 : 0,
+        dashboardBackground: new THREE.MeshBasicMaterial({
+            name: 'dashboard_background', color: isDarkMode ? 0x1a241a : 0xe8f4e8, toneMapped: false,
         }),
         dashboardBorder: new THREE.LineBasicMaterial({ // Specific material for the border
             name: 'dashboard_border',
@@ -62,7 +61,7 @@ const useLaptopMaterials = (isDarkMode: boolean) => {
         }),
         buttons: new THREE.MeshStandardMaterial({ // For power button etc.
             name: 'buttons',
-            color: isDarkMode ? 0x505e50 : 0xe0ffe0,
+            color: isDarkMode ? 0x505e50 : lightModelPalette.housing,
             metalness: 0.9, roughness: 0.3,
             emissive: isDarkMode ? 0x253025 : 0x000000, emissiveIntensity: isDarkMode ? 0.3 : 0.0
         }),
@@ -95,13 +94,13 @@ const useLaptopMaterials = (isDarkMode: boolean) => {
         }),
         keyCap: new THREE.MeshStandardMaterial({
             name: 'keyCap',
-            color: isDarkMode ? 0x354035 : 0xd0ddd0,
+            color: isDarkMode ? 0x354035 : lightModelPalette.panel,
             roughness: 0.7, metalness: 0.1,
             emissive: isDarkMode ? 0x101510 : 0x000000, emissiveIntensity: isDarkMode ? 0.1 : 0,
         }),
         touchpad: new THREE.MeshStandardMaterial({
             name: 'touchpad',
-            color: isDarkMode ? 0x485548 : 0xd8e8d8,
+            color: isDarkMode ? 0x485548 : lightModelPalette.metal,
             roughness: 0.6, metalness: 0.2,
         }),
         hinge: new THREE.MeshStandardMaterial({
@@ -111,15 +110,13 @@ const useLaptopMaterials = (isDarkMode: boolean) => {
         }),
         keyboardBase: new THREE.MeshStandardMaterial({ // Specific material for keyboard recess
             name: 'keyboard_base',
-            color: isDarkMode ? 0x252e25 : 0xc8d8c8,
+            color: isDarkMode ? 0x252e25 : lightModelPalette.frame,
             roughness: 0.8, metalness: 0.2,
             transparent: true, opacity: 0.4
         }),
         // Widget specific materials from reference code
-        widgetBackground: new THREE.MeshStandardMaterial({
-            name: 'widget_background',
-            color: isDarkMode ? 0x304530 : 0xfcfffc, roughness: 0.4, metalness: 0.0, side: THREE.FrontSide,
-            transparent: true, opacity: 0.88, emissive: isDarkMode ? 0x141f14 : 0x000000, emissiveIntensity: isDarkMode ? 0.15 : 0,
+        widgetBackground: new THREE.MeshBasicMaterial({
+            name: 'widget_background', color: isDarkMode ? 0x304530 : 0xfcfffc, toneMapped: false,
         }),
         widgetTitleText: new THREE.MeshStandardMaterial({ // If using planes for text
             name: 'widget_title_text',
@@ -136,7 +133,7 @@ const useLaptopMaterials = (isDarkMode: boolean) => {
         }),
         widgetLineDown: new THREE.LineBasicMaterial({
             name: 'widget_line_down',
-            color: isDarkMode ? 0x66aaff : 0x0066cc, linewidth: 2
+            color: isDarkMode ? 0x66aaff : lightModelPalette.secondary, linewidth: 2
         }),
         widgetBarBackground: new THREE.MeshStandardMaterial({
             name: 'widget_bar_background',
@@ -149,140 +146,7 @@ const useLaptopMaterials = (isDarkMode: boolean) => {
     }), [isDarkMode]);
 };
 
-type MaterialsType = ReturnType<typeof useLaptopMaterials>;
-
-// Type definition for props
-type LaptopProps = {
-    // isDarkMode prop removed - now using useDarkMode hook
-    // Add any other props needed, e.g., position, rotation
-} & React.ComponentProps<'group'>; // Allow passing standard group props
-
-// Screen Widget Component (Adapted from reference createWidget)
-type ScreenWidgetProps = {
-    x: number; y: number; z: number; // Position relative to display group
-    w: number; h: number; index: number;
-    materials: MaterialsType; isDarkMode: boolean;
-}
-
-function ScreenWidget({ x, y, z, w, h, index, materials, isDarkMode }: ScreenWidgetProps) {
-    const widgetCornerRadius = 0.3;
-    // Z offsets relative to the widget's base Z position (widgetZ in parent)
-    const contentZOffset = 0.001;
-    const statusZOffset = 0.001;
-    const titleZOffset = 0.001;
-    const bgArcZOffset = -0.0001;
-    const bgBarZOffset = -0.0001;
-
-    const widgetShape = useMemo(() => createRoundedRectShape(w, h, widgetCornerRadius), [w, h, widgetCornerRadius]);
-    const widgetGeometry = useMemo(() => new THREE.ShapeGeometry(widgetShape), [widgetShape]);
-
-    const titles = useMemo(() => ["CPU Load", "Memory Usage", "Network I/O", "Disk Activity", "GPU Temp", "Battery", "System Uptime", "Active Processes"], []);
-    const titleText = titles[index % titles.length] || `Metric ${index + 1}`;
-    const titleHeight = 0.3; const titleWidth = w * 0.75;
-
-    const dataAreaX = 0; const dataAreaY = -0.15; const dataAreaWidth = w * 0.85; const dataAreaHeight = h * 0.5;
-    const randomSeed = (index + 1) * 5678;
-    const seededRandom = (offset = 0) => { let x = Math.sin(randomSeed + offset) * 10000; return x - Math.floor(x); };
-    const widgetType = index % titles.length;
-
-    // --- Memoized Geometries & Objects for Widget Content ---
-    const gaugeRadius = dataAreaHeight * 0.6;
-    const arcPercentage = seededRandom();
-    const arcGeometry = useMemo(() => new THREE.RingGeometry(gaugeRadius * 0.8, gaugeRadius, 32, 1, 0, Math.PI * arcPercentage), [gaugeRadius, arcPercentage]);
-    const bgArcGeometry = useMemo(() => new THREE.RingGeometry(gaugeRadius * 0.8, gaugeRadius, 32, 1, 0, Math.PI), [gaugeRadius]);
-
-    const linePoints = useMemo(() => {
-        const pointsUp: THREE.Vector3[] = []; const pointsDown: THREE.Vector3[] = []; const segmentsNet = 8;
-        for (let i = 0; i <= segmentsNet; i++) {
-            const px = -dataAreaWidth / 2 + (i / segmentsNet) * dataAreaWidth;
-            const pyUp = (seededRandom(i) - 0.5) * dataAreaHeight * 0.4 + dataAreaHeight * 0.25;
-            const pyDown = (seededRandom(i + 50) - 0.5) * dataAreaHeight * 0.4 - dataAreaHeight * 0.25;
-            pointsUp.push(new THREE.Vector3(px, pyUp, 0)); pointsDown.push(new THREE.Vector3(px, pyDown, 0));
-        }
-        return { pointsUp, pointsDown };
-    }, [dataAreaWidth, dataAreaHeight, seededRandom]);
-    const lineGeomUp = useMemo(() => new THREE.BufferGeometry().setFromPoints(linePoints.pointsUp), [linePoints.pointsUp]);
-    const lineGeomDown = useMemo(() => new THREE.BufferGeometry().setFromPoints(linePoints.pointsDown), [linePoints.pointsDown]);
-    // Create THREE.Line objects here to use with <primitive>
-    const lineUpObject = useMemo(() => new THREE.Line(lineGeomUp, materials.widgetLineUp), [lineGeomUp, materials.widgetLineUp]);
-    const lineDownObject = useMemo(() => new THREE.Line(lineGeomDown, materials.widgetLineDown), [lineGeomDown, materials.widgetLineDown]);
-
-    const barValue = seededRandom(); const barWidth = dataAreaWidth * 0.8; const barHeight = dataAreaHeight * 0.3;
-    const barGeom = useMemo(() => new THREE.BoxGeometry(barWidth * barValue, barHeight, 0.01), [barWidth, barHeight, barValue]);
-    const bgBarGeom = useMemo(() => new THREE.BoxGeometry(barWidth, barHeight, 0.01), [barWidth, barHeight]);
-
-    const textGeom = useMemo(() => new THREE.PlaneGeometry(dataAreaWidth * 0.8, dataAreaHeight * 0.6), [dataAreaWidth, dataAreaHeight]);
-
-    const statusRadius = 0.2;
-    const statusGeometry = useMemo(() => new THREE.CircleGeometry(statusRadius, 16), [statusRadius]);
-    const statusColorsCycle = useMemo(() => [0xff8888, 0x88ff88, 0x8888ff, 0xffff88, 0xff88ff, 0x88ffff, 0xffaa88, 0x88ccff], []);
-    const statusMaterial = useMemo(() => {
-        const mat = materials.accent.clone();
-        mat.color.set(statusColorsCycle[index % statusColorsCycle.length]);
-        mat.emissive.set(statusColorsCycle[index % statusColorsCycle.length]);
-        mat.emissiveIntensity = isDarkMode ? 0.4 : 0.1;
-        mat.side = THREE.FrontSide;
-        return mat;
-    }, [materials.accent, statusColorsCycle, index, isDarkMode]);
-
-    // --- Widget Content Rendering ---
-    const renderWidgetContent = () => {
-        switch (widgetType) {
-            case 0: // CPU Load - Gauge
-            case 1: // Memory Usage - Gauge
-                const arcMaterial = (widgetType === 0 ? materials.graphElement : materials.chartElement);
-                return <>
-                    <mesh geometry={bgArcGeometry} material={materials.widgetGaugeBackground} position={[dataAreaX, dataAreaY - gaugeRadius * 0.2, bgArcZOffset]} rotation-z={-Math.PI / 2} />
-                    <mesh geometry={arcGeometry} material={arcMaterial} position={[dataAreaX, dataAreaY - gaugeRadius * 0.2, contentZOffset]} rotation-z={-Math.PI / 2} />
-                </>;
-            case 2: // Network I/O - Dual Line
-            case 3: // Disk Activity - Dual Line
-                return <>
-                    {/* Use primitive tag for THREE.Line objects */}
-                    <primitive object={lineUpObject} position={[dataAreaX, dataAreaY, contentZOffset]} />
-                    <primitive object={lineDownObject} position={[dataAreaX, dataAreaY, contentZOffset]} />
-                </>;
-            case 4: // GPU Temp - Simple Bar
-            case 5: // Battery - Simple Bar
-                // Define barMat directly inside the case
-                const barMat = (widgetType === 4 ? materials.accent : materials.graphElement).clone();
-                barMat.color.set(widgetType === 4 ? (isDarkMode ? 0xffaa66 : 0xcc6600) : (isDarkMode ? 0x88ffcc : 0x00ccaa));
-                return <>
-                    <mesh geometry={bgBarGeom} material={materials.widgetBarBackground} position={[dataAreaX, dataAreaY, bgBarZOffset]} />
-                    <mesh geometry={barGeom} material={barMat} position={[dataAreaX - (barWidth * (1 - barValue)) / 2, dataAreaY, contentZOffset]} />
-                </>;
-            default: // Text for Uptime/Processes
-                // Replace with <Text> component if available and configured
-                return <mesh geometry={textGeom} material={materials.widgetDefaultText} position={[dataAreaX, dataAreaY, contentZOffset]} />;
-        }
-    };
-
-    return (
-        <group position={[x, y, z]}>
-            {/* Widget Background */}
-            <mesh geometry={widgetGeometry} material={materials.widgetBackground} castShadow={false} receiveShadow={true} />
-
-            {/* Widget Title (using Plane + Material for simplicity, replace with <Text> if possible) */}
-            <mesh position={[0, h / 2 - titleHeight / 2 - 0.2, titleZOffset]}>
-                <planeGeometry args={[titleWidth, titleHeight]} />
-                {/* Use primitive for the material to avoid type errors */}
-                <primitive object={materials.widgetTitleText} attach="material" />
-                {/* If using Drei Text: <Text color={materials.widgetTitleText.color} fontSize={0.2} anchorX="center" anchorY="middle">{titleText}</Text> */}
-            </mesh>
-
-            {/* Widget Content */}
-            {renderWidgetContent()}
-
-            {/* Status Indicator */}
-            <mesh
-                geometry={statusGeometry}
-                material={statusMaterial}
-                position={[-w / 2 + statusRadius + 0.15, -h / 2 + statusRadius + 0.15, statusZOffset]}
-            />
-        </group>
-    );
-}
-
+type LaptopProps = React.ComponentProps<'group'>;
 
 // Main Laptop Component (Adapted from reference createLaptop)
 export default function Laptop({ ...props }: LaptopProps) {
@@ -331,11 +195,10 @@ export default function Laptop({ ...props }: LaptopProps) {
     const screenHeight = lidHeight - screenBezel * 2;
     const screenWidth = lidWidth - screenBezel * 2;
     // Z positions relative to the displayGroup origin (back edge is Z=0, front is Z=lidDepth)
-    const screenSurfaceZ = lidDepth + 0.01;
-    const dashboardBgZ = screenSurfaceZ + 0.001;
-    const widgetZ = dashboardBgZ + 0.002;
-    // const widgetContentZ = widgetZ + 0.001; // Handled within ScreenWidget
-    const frontCameraZ = dashboardBgZ + 0.005;
+    const screenSurfaceZ = lidDepth + 0.04;
+    // Separate opaque display layers to avoid depth fighting at scene scale.
+    const dashboardBgZ = screenSurfaceZ + 0.02;
+    const frontCameraZ = dashboardBgZ + 0.12;
 
     // Dashboard Background
     const dashboardWidth = screenWidth - 0.4;
@@ -343,68 +206,11 @@ export default function Laptop({ ...props }: LaptopProps) {
     const punchHoleRadius = 0.3;
     const punchHoleX = 0;
     // Y position relative to displayGroup origin (bottom edge is Y=0)
-    const dashboardTopY = screenBezel + screenHeight; // Top Y of the screen area within the lid
     // Place camera near the top edge of the dashboard area
-    const punchHoleY = dashboardTopY - punchHoleRadius + 0.5; // Adjusted Y for camera position
+    const punchHoleY = lidHeight - screenBezel / 2; // Adjusted Y for camera position
 
-    const dashboardShape = useMemo(() => {
-        const shape = createRoundedRectShape(dashboardWidth, dashboardHeight, screenCornerRadius);
-        const punchHolePath = new THREE.Path();
-        // Y position for absarc is relative to the shape's center (0,0)
-        // Calculate shape's center Y relative to displayGroup origin (bottom edge Y=0)
-        const shapeCenterY = screenBezel + screenHeight / 2;
-        const punchHoleShapeY = punchHoleY - shapeCenterY; // Y relative to shape center
-        punchHolePath.absarc(punchHoleX, punchHoleShapeY, punchHoleRadius, 0, Math.PI * 2, false);
-        shape.holes.push(punchHolePath);
-        return shape;
-    }, [dashboardWidth, dashboardHeight, screenCornerRadius, punchHoleX, punchHoleY, punchHoleRadius, screenBezel, screenHeight]);
-
-    const dashboardGeometry = useMemo(() => new THREE.ShapeGeometry(dashboardShape), [dashboardShape]);
-    const borderPoints = useMemo(() => dashboardShape.getPoints(50), [dashboardShape]);
-    const borderGeometry = useMemo(() => new THREE.BufferGeometry().setFromPoints(borderPoints), [borderPoints]);
+    // The webcam sits in the upper bezel, outside the display shape.
     const selfieCameraGeometry = useMemo(() => new THREE.CircleGeometry(punchHoleRadius * 0.9, 32), [punchHoleRadius]);
-    // Create LineLoop object for border
-    const dashboardBorderObject = useMemo(() => new THREE.LineLoop(borderGeometry, materials.dashboardBorder), [borderGeometry, materials.dashboardBorder]);
-
-
-    // --- Widget Layout Calculations (Relative to Display Group) ---
-    const widgetLayout = useMemo(() => {
-        const padding = 0.4;
-        const usableWidth = dashboardWidth - padding * 2;
-        const usableHeight = dashboardHeight - padding * 2; // Usable height within the dashboard bg
-        const widgetCols = 4;
-        const widgetRows = 2;
-        const widgetWidth = (usableWidth - padding * (widgetCols - 1)) / widgetCols;
-
-        const topOffsetForCamera = punchHoleRadius * 2 + 0.4; // Space above widgets near camera
-        const adjustedUsableHeight = usableHeight - topOffsetForCamera;
-        const widgetHeight = (adjustedUsableHeight - padding * (widgetRows - 1)) / widgetRows;
-
-        // Calculate positions relative to the displayGroup origin (bottom-back edge Y=0, Z=0)
-        // Center X relative to dashboard center (which is X=0)
-        const gridStartX = -usableWidth / 2 + widgetWidth / 2;
-
-        // Start Y for the top row, relative to displayGroup origin
-        // Bottom of usable area: screenBezel + padding
-        // Top of usable area (below camera offset): screenBezel + usableHeight - topOffsetForCamera
-        // ADD A SMALL OFFSET TO MOVE WIDGETS UP
-        const verticalOffset = 1; // Adjust this value to control how much to move up
-        const gridStartY = screenBezel + usableHeight - topOffsetForCamera - widgetHeight / 2 + verticalOffset;
-
-
-        const positions = [];
-        let widgetIndex = 0;
-        for (let r = 0; r < widgetRows; r++) {
-            for (let c = 0; c < widgetCols; c++) {
-                const x = gridStartX + c * (widgetWidth + padding);
-                const y = gridStartY - r * (widgetHeight + padding); // Move downwards for each row
-                positions.push({ x, y, w: widgetWidth, h: widgetHeight, index: widgetIndex });
-                widgetIndex++;
-            }
-        }
-        return positions;
-    }, [dashboardWidth, dashboardHeight, screenBezel, screenHeight, punchHoleRadius]);
-
 
     // --- Keyboard Calculations (Relative to Base Group) ---
     const keyboardLayout = useMemo(() => {
@@ -591,18 +397,8 @@ export default function Laptop({ ...props }: LaptopProps) {
                         receiveShadow
                     />
 
-                    {/* Dashboard Background - Position relative to display group pivot */}
-                    <mesh
-                        geometry={dashboardGeometry}
-                        material={materials.dashboardBackground}
-                        position={[0, screenBezel + screenHeight / 2, dashboardBgZ]}
-                    />
-
-                    {/* Dashboard Border - Position relative to display group pivot */}
-                    <primitive
-                        object={dashboardBorderObject}
-                        position={[0, screenBezel + screenHeight / 2, dashboardBgZ + 0.0001]}
-                    />
+                    <DeviceScreen device="laptop" width={dashboardWidth} height={dashboardHeight} radius={screenCornerRadius}
+                        position={[0, screenBezel + screenHeight / 2, dashboardBgZ]} />
 
                     {/* Front Camera - Position relative to display group pivot */}
                     <mesh
@@ -611,20 +407,6 @@ export default function Laptop({ ...props }: LaptopProps) {
                         position={[punchHoleX, punchHoleY, frontCameraZ]}
                     />
 
-                    {/* Widgets - Positioned relative to display group pivot */}
-                    {widgetLayout.map(widgetInfo => (
-                        <ScreenWidget
-                            key={widgetInfo.index}
-                            x={widgetInfo.x}
-                            y={widgetInfo.y}
-                            z={widgetZ} // Base Z for all widgets
-                            w={widgetInfo.w}
-                            h={widgetInfo.h}
-                            index={widgetInfo.index}
-                            materials={materials}
-                            isDarkMode={isDarkMode}
-                        />
-                    ))}
                 </group> {/* End Display Group */}
             </group> {/* End Base Group */}
         </group> // End Main Laptop Group

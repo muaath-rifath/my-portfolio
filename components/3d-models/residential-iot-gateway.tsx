@@ -1,5 +1,7 @@
 'use client';
 
+import { lightModelPalette } from '@/lib/model-palette';
+
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
@@ -18,7 +20,7 @@ const useGatewayMaterials = (isDarkMode: boolean) => {
     return useMemo(() => ({
         // Main body material
         mainBodyMaterial: new THREE.MeshStandardMaterial({
-            color: isDarkMode ? 0x1a2e20 : 0xd0e8ff,
+            color: isDarkMode ? 0x1a2e20 : lightModelPalette.housing,
             roughness: 0.7,
             metalness: 0.3,
             name: 'main_body'
@@ -54,7 +56,7 @@ const useGatewayMaterials = (isDarkMode: boolean) => {
         
         // Ventilation slots material
         ventilationMaterial: new THREE.MeshStandardMaterial({
-            color: isDarkMode ? 0x2a3e30 : 0xb0c8df,
+            color: isDarkMode ? 0x2a3e30 : lightModelPalette.metal,
             roughness: 0.6,
             metalness: 0.2,
             name: 'ventilation'
@@ -62,7 +64,7 @@ const useGatewayMaterials = (isDarkMode: boolean) => {
         
         // Port panel material
         portPanelMaterial: new THREE.MeshStandardMaterial({
-            color: isDarkMode ? 0x2a3e30 : 0xb0c8df,
+            color: isDarkMode ? 0x2a3e30 : lightModelPalette.metal,
             roughness: 0.6,
             metalness: 0.2,
             name: 'port_panel'

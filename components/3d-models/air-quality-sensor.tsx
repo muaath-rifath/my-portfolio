@@ -1,5 +1,7 @@
 'use client';
 
+import { lightModelPalette } from '@/lib/model-palette';
+
 import React, { useRef, useMemo, useState } from 'react'; // Import useState
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
@@ -37,7 +39,7 @@ interface ParticleData {
 const useSensorMaterials = (isDarkMode: boolean) => {
     return useMemo(() => ({
         housingMaterial: new THREE.MeshStandardMaterial({
-            color: isDarkMode ? 0x006633 : 0xc8e6c9,
+            color: isDarkMode ? 0x006633 : lightModelPalette.housing,
             roughness: 0.7,
             metalness: 0.3,
             name: 'housing'
@@ -149,7 +151,7 @@ const useSensorMaterials = (isDarkMode: boolean) => {
             name: 'usbPortConnector'
         }),
         stemMaterial: new THREE.MeshStandardMaterial({
-            color: isDarkMode ? 0x006633 : 0xc8e6c9,
+            color: isDarkMode ? 0x006633 : lightModelPalette.housing,
             roughness: 0.7,
             metalness: 0.3,
             name: 'stem'
@@ -168,7 +170,7 @@ const useSensorMaterials = (isDarkMode: boolean) => {
         }),
         gasSensorTopRed: new THREE.MeshStandardMaterial({ color: 0xff0000, roughness: 0.3, metalness: 0.5, name: 'gasSensorTop' }),
         gasSensorTopGreen: new THREE.MeshStandardMaterial({ color: 0x00ff00, roughness: 0.3, metalness: 0.5, name: 'gasSensorTop' }),
-        gasSensorTopBlue: new THREE.MeshStandardMaterial({ color: 0x0000ff, roughness: 0.3, metalness: 0.5, name: 'gasSensorTop' }),
+        gasSensorTopBlue: new THREE.MeshStandardMaterial({ color: isDarkMode ? 0x0000ff : lightModelPalette.secondary, roughness: 0.3, metalness: 0.5, name: 'gasSensorTop' }),
         gasSensorTopYellow: new THREE.MeshStandardMaterial({ color: 0xffff00, roughness: 0.3, metalness: 0.5, name: 'gasSensorTop' }),
     }), [isDarkMode]);
 };

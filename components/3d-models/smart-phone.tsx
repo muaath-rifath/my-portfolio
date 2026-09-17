@@ -1,37 +1,32 @@
 'use client';
 
+import { lightModelPalette } from '@/lib/model-palette';
+
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useDarkMode } from '@/hooks/useDarkMode';
+import DeviceScreen from './device-screen';
 
-type SmartPhoneProps = {
-    // isDarkMode prop removed - now using useDarkMode hook
-}
-
-export default function SmartPhone({}: SmartPhoneProps) {
+export default function SmartPhone() {
     const isDarkMode = useDarkMode();
     const phoneGroupRef = useRef<THREE.Group>(null);
-    const screenMeshRef = useRef<THREE.Mesh | null>(null);
     
     // Materials definition based on standalone page
     const materials = useMemo(() => ({
         phoneBody: new THREE.MeshStandardMaterial({
             name: 'phone_body',
-            color: isDarkMode ? 0x505e50 : 0xe0ffe0,
+            color: isDarkMode ? 0x505e50 : lightModelPalette.housing,
             metalness: 0.7,
             roughness: 0.3,
             emissive: isDarkMode ? 0x253025 : 0x000000,
             emissiveIntensity: isDarkMode ? 0.30 : 0,
         }),
         
-        screen: new THREE.MeshStandardMaterial({
+        screen: new THREE.MeshBasicMaterial({
             name: 'screen',
-            color: isDarkMode ? 0x00ffbb : 0x00aa99,
-            metalness: 0.1, 
-            roughness: 0.05,
-            emissive: isDarkMode ? 0x00aa88 : 0x008866,
-            emissiveIntensity: isDarkMode ? 5 : 0.2,
+            color: isDarkMode ? 0x1a241a : 0xe8f4e8,
+            toneMapped: false,
         }),
         
         uiElement: new THREE.MeshStandardMaterial({
@@ -91,7 +86,7 @@ export default function SmartPhone({}: SmartPhoneProps) {
         
         buttons: new THREE.MeshStandardMaterial({
             name: 'buttons',
-            color: isDarkMode ? 0x505e50 : 0xe0ffe0,
+            color: isDarkMode ? 0x505e50 : lightModelPalette.housing,
             metalness: 0.9, 
             roughness: 0.3,
             emissive: isDarkMode ? 0x253025 : 0x000000,
@@ -160,16 +155,6 @@ export default function SmartPhone({}: SmartPhoneProps) {
     
     // Animate screen content and subtle phone movement
     useFrame((state) => {
-        const time = state.clock.getElapsedTime();
-        
-        if (screenMeshRef.current && screenMeshRef.current.material instanceof THREE.MeshStandardMaterial) {
-            const pulsedIntensity = isDarkMode ? 
-                0.8 + Math.sin(time * 0.5) * 0.2 : 
-                0.2 + Math.sin(time * 0.5) * 0.05;
-                
-            screenMeshRef.current.material.emissiveIntensity = pulsedIntensity;
-        }
-        
         // Subtle rotation of the phone
         if (phoneGroupRef.current) {
             phoneGroupRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 0.2) * 0.05;
@@ -191,29 +176,14 @@ export default function SmartPhone({}: SmartPhoneProps) {
         return shape;
     };
     
-    // Helper function to create an annulus shape
-    const createAnnulusShape = (outerRadius: number, innerRadius: number) => {
+    const secondThirdRingGeometry = useMemo(() => {
         const shape = new THREE.Shape();
-        shape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false);
-        const holePath = new THREE.Path();
-        holePath.absarc(0, 0, innerRadius, 0, Math.PI * 2, true);
-        shape.holes.push(holePath);
-        return shape;
-    };
-
-    // Define extrusion settings for the rings
-    const ringExtrudeSettings = {
-        steps: 1,
-        depth: 0.05, // Thickness of the ring
-        bevelEnabled: false
-    };
-
-    // Create geometries for the rings using the annulus shape
-    const firstRingShape = useMemo(() => createAnnulusShape(0.5, 0.45), []);
-    const firstRingGeometry = useMemo(() => new THREE.ExtrudeGeometry(firstRingShape, ringExtrudeSettings), [firstRingShape]);
-
-    const secondThirdRingShape = useMemo(() => createAnnulusShape(0.35, 0.3), []);
-    const secondThirdRingGeometry = useMemo(() => new THREE.ExtrudeGeometry(secondThirdRingShape, ringExtrudeSettings), [secondThirdRingShape]);
+        shape.absarc(0, 0, 0.35, 0, Math.PI * 2, false);
+        const hole = new THREE.Path();
+        hole.absarc(0, 0, 0.3, 0, Math.PI * 2, true);
+        shape.holes.push(hole);
+        return new THREE.ExtrudeGeometry(shape, { steps: 1, depth: 0.05, bevelEnabled: false });
+    }, []);
 
     // Phone dimensions
     const height = 14;
@@ -221,7 +191,7 @@ export default function SmartPhone({}: SmartPhoneProps) {
     const thickness = 0.8;
     const cornerRadius = 0.7;
     const screenCornerRadius = 0.5;
-    const widgetCornerRadius = 0.2; // Added for widgets
+ // Added for widgets
     const punchHoleRadius = 0.2; // Selfie camera radius
 
     // Create geometries
@@ -241,219 +211,8 @@ export default function SmartPhone({}: SmartPhoneProps) {
     // Screen geometry
     const screenWidth = width - 0.3;
     const screenHeight = height - 0.4;
-    const screenShape = useMemo(() => createRoundedRectShape(screenWidth, screenHeight, screenCornerRadius), []);
-    const screenGeometry = useMemo(() => new THREE.ShapeGeometry(screenShape), [screenShape]);
-
-    // Z Positions for layering on screen
-    const screenSurfaceZ = thickness / 2 + 0.01;
-    const dashboardBgZ = screenSurfaceZ + 0.001;
-    const widgetZ = dashboardBgZ + 0.002;
-    const widgetContentZ = widgetZ + 0.001;
-    const frontCameraZ = dashboardBgZ + 0.005; // Z for notch/camera area
-
-    // REMOVE OLD Camera bump geometry
-    // const cameraBumpGeometry = useMemo(() => { ... });
-
-    // REIMPLEMENT createDashboardWidgets based on reference
-    const createDashboardWidgets = () => {
-        const widgets: Widget[] = []; // Use the Widget type defined later
-
-        // Dashboard parameters
-        const dashboardWidth = screenWidth - 0.2;
-        const dashboardHeight = screenHeight - 0.2;
-        const padding = 0.2;
-        const punchHoleRadius = 0.15; // Use the actual selfie camera radius
-        const topOffsetForCamera = punchHoleRadius * 2 + 0.4; // Keep offset for spacing below camera
-        const usableWidth = dashboardWidth - padding * 2;
-        // Correct calculation for usable height considering the top offset
-        const usableHeight = dashboardHeight - padding * 2 - topOffsetForCamera;
-
-        // Widget layout
-        const widgetCols = 2;
-        const widgetRows = 3;
-        const widgetWidth = (usableWidth - padding * (widgetCols - 1)) / widgetCols;
-        const adjustedWidgetHeight = (usableHeight - padding * (widgetRows - 1)) / widgetRows; // Use adjusted height
-
-        const startX = -usableWidth / 2 + widgetWidth / 2;
-        // Correct startY calculation based on reference file logic
-        const startY = (dashboardHeight / 2 - topOffsetForCamera) - adjustedWidgetHeight / 2;
-
-        // Deterministic random function
-        const seededRandom = (index: number, offset = 0) => {
-            const seed = (index + 1) * 1234;
-            let x = Math.sin(seed + offset) * 10000;
-            return x - Math.floor(x);
-        };
-
-        const widgetTypes = ["Temperature", "Humidity", "Light Level", "Energy Usage", "Device Status", "Network Traffic"];
-
-        // Create widget for each grid position
-        let widgetIndex = 0;
-        for (let r = 0; r < widgetRows; r++) {
-            for (let c = 0; c < widgetCols; c++) {
-                const x = startX + c * (widgetWidth + padding);
-                const y = startY - r * (adjustedWidgetHeight + padding);
-                const widgetTypeIndex = widgetIndex % widgetTypes.length;
-
-                // Widget Background
-                const widgetShape = createRoundedRectShape(widgetWidth, adjustedWidgetHeight, widgetCornerRadius);
-                widgets.push({
-                    type: 'widget_bg',
-                    position: [x, y, widgetZ], // Use correct Z
-                    geometry: new THREE.ShapeGeometry(widgetShape), // Use ShapeGeometry for rounded corners
-                    material: new THREE.MeshStandardMaterial({
-                        color: isDarkMode ? 0x304530 : 0xfcfffc,
-                        roughness: 0.4,
-                        metalness: 0.0,
-                        transparent: true,
-                        opacity: 0.88,
-                        emissive: isDarkMode ? 0x141f14 : 0x000000,
-                        emissiveIntensity: isDarkMode ? 0.15 : 0,
-                    })
-                });
-
-                // Widget Title
-                const titleHeight = 0.25;
-                widgets.push({
-                    type: 'widget_title',
-                    position: [x, y + adjustedWidgetHeight / 2 - titleHeight / 2 - 0.15, widgetContentZ], // Position relative to widget bg
-                    geometry: new THREE.PlaneGeometry(widgetWidth * 0.7, titleHeight),
-                    material: (() => {
-                        const mat = materials.textElement.clone();
-                        mat.color.set(isDarkMode ? 0xddffdd : 0x333333);
-                        mat.emissive.set(isDarkMode ? 0xaaccaa : 0x000000);
-                        mat.emissiveIntensity = isDarkMode ? 0.3 : 0;
-                        return mat;
-                    })()
-                });
-
-                // Widget content based on type
-                const contentY = y - 0.15; // Adjust content Y based on new widget height/title position
-                const contentWidth = widgetWidth * 0.8;
-                const contentHeight = adjustedWidgetHeight * 0.45;
-                const currentContentZ = widgetContentZ + 0.001; // Slightly in front of title
-
-                // Widget data visualization based on type (similar to reference)
-                switch (widgetTypeIndex) {
-                    case 0: // Temperature - graph
-                        const points: THREE.Vector3[] = [];
-                        const segments = 10;
-                        for (let i = 0; i <= segments; i++) {
-                            const px = x - contentWidth / 2 + (i / segments) * contentWidth;
-                            const py = contentY + (seededRandom(widgetIndex, i) - 0.5) * contentHeight;
-                            points.push(new THREE.Vector3(px, py, currentContentZ)); // Use correct Z
-                        }
-                        widgets.push({
-                            type: 'line',
-                            position: [0, 0, 0], // Position embedded in points
-                            geometry: new THREE.BufferGeometry().setFromPoints(points),
-                            material: new THREE.LineBasicMaterial({
-                                color: isDarkMode ? 0xffaaaa : 0xcc0000
-                            })
-                        });
-                        break;
-
-                    case 1: // Humidity - gauge
-                        const arcValue = seededRandom(widgetIndex);
-                        const gaugeRadius = contentHeight * 0.6;
-                        // Background arc
-                        widgets.push({
-                            type: 'gauge_bg',
-                            position: [x, contentY - gaugeRadius * 0.2, currentContentZ], // Position gauge correctly
-                            geometry: new THREE.RingGeometry(
-                                gaugeRadius * 0.8,
-                                gaugeRadius,
-                                32, 1, 0, Math.PI // Full background arc
-                            ),
-                            rotation: [0, 0, -Math.PI / 2], // Rotate to be a semi-circle on top
-                            material: new THREE.MeshStandardMaterial({
-                                color: isDarkMode ? 0x335533 : 0xcccccc,
-                                transparent: true,
-                                opacity: 0.3,
-                                side: THREE.DoubleSide
-                            })
-                        });
-                        // Value arc
-                        widgets.push({
-                            type: 'gauge',
-                            position: [x, contentY - gaugeRadius * 0.2, currentContentZ + 0.001], // Slightly in front
-                            geometry: new THREE.RingGeometry(
-                                gaugeRadius * 0.8,
-                                gaugeRadius,
-                                32, 1, 0, Math.PI * arcValue // Value arc
-                            ),
-                            rotation: [0, 0, -Math.PI / 2], // Match background rotation
-                            material: materials.chartElement
-                        });
-                        break;
-
-                    case 2: // Light level - circle
-                        const indicatorRadius = contentHeight * 0.5;
-                        widgets.push({
-                            type: 'light_indicator',
-                            position: [x, contentY, currentContentZ], // Center indicator
-                            geometry: new THREE.CircleGeometry(
-                                indicatorRadius * seededRandom(widgetIndex),
-                                32
-                            ),
-                            material: new THREE.MeshBasicMaterial({
-                                color: isDarkMode ? 0xffffcc : 0xffcc00
-                            })
-                        });
-                        widgets.push({
-                            type: 'light_ring',
-                            position: [x, contentY, currentContentZ - 0.001], // Slightly behind indicator
-                            geometry: new THREE.RingGeometry(
-                                indicatorRadius * 0.95,
-                                indicatorRadius,
-                                32
-                            ),
-                            material: new THREE.MeshBasicMaterial({
-                                color: isDarkMode ? 0xaaaa88 : 0x888888,
-                                side: THREE.DoubleSide
-                            })
-                        });
-                        break;
-
-                    // Add cases 3, 4, 5 here, adapting from reference page.tsx if needed
-                    // Ensure correct geometry, position [x, y, currentContentZ], and materials are used.
-
-                }
-
-                // Widget status indicator
-                const statusRadius = 0.15;
-                widgets.push({
-                    type: 'widget_status',
-                    position: [x - widgetWidth / 2 + statusRadius + 0.1, y - adjustedWidgetHeight / 2 + statusRadius + 0.1, currentContentZ], // Bottom-left corner
-                    geometry: new THREE.CircleGeometry(statusRadius, 16),
-                    material: (() => {
-                        const statusMat = materials.accent.clone();
-                        const statusColorsCycle = [0xff6666, 0x66ff66, 0x6666ff, 0xffff66, 0xff66ff, 0x66ffff];
-                        const color = statusColorsCycle[widgetIndex % statusColorsCycle.length];
-                        statusMat.color.set(color);
-                        statusMat.emissive.set(color);
-                        statusMat.emissiveIntensity = isDarkMode ? 0.4 : 0.1;
-                        return statusMat;
-                    })()
-                });
-
-                widgetIndex++;
-            }
-        }
-
-        return widgets;
-    };
-
-    const dashboardWidgets = useMemo(() => createDashboardWidgets(), [isDarkMode, screenWidth, screenHeight]); // Add dependencies
-
-    // Update the type definition of the widgets to properly specify position and rotation types
-    type Widget = {
-        type: string;
-        position: [number, number, number];
-        geometry: THREE.BufferGeometry;
-        material: THREE.Material;
-        rotation?: [number, number, number];
-    };
+    const screenSurfaceZ = thickness / 2 + 0.06;
+    const frontCameraZ = screenSurfaceZ + 0.06;
 
     return (
         <group ref={phoneGroupRef}>
@@ -465,39 +224,8 @@ export default function SmartPhone({}: SmartPhoneProps) {
                 receiveShadow
             />
 
-            {/* Screen */}
-            <mesh
-                ref={screenMeshRef}
-                geometry={screenGeometry}
-                material={materials.screen} // Use screen material (can be overridden by widgets)
-                position={[0, 0, screenSurfaceZ]} // Use screenSurfaceZ
-                receiveShadow
-            />
-
-            {/* Dashboard widgets - RENDER NEW IMPLEMENTATION */}
-            {dashboardWidgets.map((widget, idx) => {
-                if (widget.type === 'line') {
-                    // Handle line type widgets
-                    return (
-                        <primitive
-                            key={`line-${idx}`}
-                            object={new THREE.Line(widget.geometry, widget.material)}
-                            // No position/rotation needed here as it's in the geometry points
-                        />
-                    );
-                } else {
-                    // Handle mesh type widgets
-                    return (
-                        <mesh
-                            key={`${widget.type}-${idx}`}
-                            geometry={widget.geometry}
-                            material={widget.material}
-                            position={widget.position} // Use the calculated position
-                            rotation={widget.rotation ?? [0, 0, 0]} // Apply rotation if defined, default to none
-                        />
-                    );
-                }
-            })}
+            <DeviceScreen device="phone" width={screenWidth} height={screenHeight} radius={screenCornerRadius}
+                position={[0, 0, screenSurfaceZ]} />
 
             {/* Notch / Front Camera Area - REMOVE NOTCH MESH */}
             {/*

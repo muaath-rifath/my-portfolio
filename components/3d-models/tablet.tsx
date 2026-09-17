@@ -1,14 +1,13 @@
 "use client";
+
+import { lightModelPalette } from '@/lib/model-palette';
 import { useEffect, useRef, useMemo } from 'react'; // Added useMemo
 import * as THREE from 'three';
 // OrbitControls will likely be added in page.tsx now, removing from here
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { useFrame } from '@react-three/fiber'; // Import useFrame for animation
 import { useDarkMode } from '@/hooks/useDarkMode';
-
-interface TabletProps {
-  // isDarkMode prop removed - now using useDarkMode hook
-}
+import DeviceScreen from './device-screen';
 
 // Define the structure for the materials object (Moved outside component)
 interface TabletMaterials {
@@ -32,15 +31,11 @@ interface TabletMaterials {
 const createMaterials = (isDark: boolean): TabletMaterials => {
     // Green Theme Colors
     const primaryDark = 0x1a241a; // Dark green-grey
-    const primaryLight = 0xe8f4e8; // Light pale green
-    const secondaryDark = 0x304530; // Mid-dark green
-    const secondaryLight = 0xfcfffc; // Almost white green tint
+    const primaryLight = lightModelPalette.housing; // Light pale green
     const accentDark = 0x88ff88; // Bright green accent
     const accentLight = 0x00aa00; // Darker green accent
     const textDark = 0xddffdd; // Light green text
     const textLight = 0x333333; // Dark grey text
-    const borderDark = 0x446644; // Dark green border
-    const borderLight = 0xaaaaaa; // Light grey border
     const graphDark = 0x66ffaa; // Tealish green for graphs
     const graphLight = 0x00aa66; // Darker tealish green
     const chartDark = 0xaaffcc; // Lighter mint green for charts
@@ -142,12 +137,11 @@ const createMaterials = (isDark: boolean): TabletMaterials => {
 };
 
 // Renamed component
-export default function Tablet({}: TabletProps) {
+export default function Tablet() {
     const isDarkMode = useDarkMode();
     // R3F ref for the tablet group
     const tabletRef = useRef<THREE.Group>(null!);
     // Ref for scene needed by updateMaterials (though ideally lights are updated declaratively)
-    const sceneRef = useRef<THREE.Scene | null>(null); // Keep for now if updateMaterials modifies scene directly
 
     // Function to update materials based on dark mode (Keep this logic)
     const updateMaterials = (isDark: boolean) => {
@@ -166,7 +160,7 @@ export default function Tablet({}: TabletProps) {
 
                 // Identify parts by their name and update accordingly - Green Theme
                 if (material.name === 'tablet_body') {
-                    material.color.set(isDark ? 0x505e50 : 0xe0ffe0); // Adapted green body
+                    material.color.set(isDark ? 0x505e50 : lightModelPalette.housing); // Adapted green body
                     material.emissive.set(isDark ? 0x253025 : 0x000000);
                     material.emissiveIntensity = isDark ? 0.30 : 0;
                 }
@@ -199,7 +193,7 @@ export default function Tablet({}: TabletProps) {
                     material.color.set(isDark ? 0x444444 : 0x888888); // Keep neutral grey
                 }
                 else if (material.name === 'buttons') {
-                    material.color.set(isDark ? 0x505e50 : 0xe0ffe0); // Match green body
+                    material.color.set(isDark ? 0x505e50 : lightModelPalette.housing); // Match green body
                     material.emissive.set(isDark ? 0x253025 : 0x000000);
                     material.emissiveIntensity = isDark ? 0.3 : 0.0;
                 }
@@ -248,7 +242,7 @@ export default function Tablet({}: TabletProps) {
     // Note: Creating materials inside useMemo might be complex if they need isDark state initially.
     // A simpler approach might be to create them once and update in useEffect.
     const materials = useMemo(() => createMaterials(isDarkMode), [isDarkMode]); // Recreate materials if needed
-    const tabletGroup = useMemo(() => createTablet(materials, isDarkMode), [materials, isDarkMode]); // Pass isDarkMode
+    const tabletGroup = useMemo(() => createTablet(materials), [materials]); // Pass isDarkMode
 
     // Assign the created group to the ref
     useEffect(() => {
@@ -273,32 +267,11 @@ export default function Tablet({}: TabletProps) {
     // Return R3F components
     return (
         <>
-            {/* Lights - Add declaratively, controlled by isDarkMode */}
-            <ambientLight
-                color={isDarkMode ? 0x445544 : 0x909090}
-                intensity={isDarkMode ? 0.4 : 0.8}
-            />
-            <directionalLight
-                color={isDarkMode ? 0xaaffcc : 0xffffff}
-                intensity={isDarkMode ? 0.7 : 0.9}
-                position={[5, 10, 7]}
-                castShadow
-                shadow-mapSize-width={1024}
-                shadow-mapSize-height={1024}
-                shadow-camera-near={0.5}
-                shadow-camera-far={50}
-            />
-            <directionalLight
-                color={isDarkMode ? 0x44aa66 : 0xddffee}
-                intensity={isDarkMode ? 0.3 : 0.3}
-                position={[-3, 5, -5]}
-            />
-            {/* Spotlight needs a target, which is tricky declaratively without refs */}
-            {/* Consider adding spotlight logic if essential, or simplifying */}
-
             {/* Add the created tablet group to the scene */}
             {/* Use key prop if tabletGroup identity changes, forcing remount */}
-            <primitive object={tabletGroup} ref={tabletRef} key={isDarkMode ? 'dark' : 'light'} />
+            <primitive object={tabletGroup} ref={tabletRef} key={isDarkMode ? 'dark' : 'light'}>
+                <DeviceScreen device="tablet" width={16.6} height={23.6} radius={1} position={[0, 0, 0.41]} />
+            </primitive>
 
             {/* REMOVED: The div container */}
         </>
@@ -306,7 +279,7 @@ export default function Tablet({}: TabletProps) {
 }
 
 // Tablet geometry creation (Moved outside component)
-const createTablet = (materials: TabletMaterials, isDarkMode: boolean) => { // <-- Added isDarkMode param
+const createTablet = (materials: TabletMaterials) => { // <-- Added isDarkMode param
     const tablet = new THREE.Group(); // Ensure it returns a Group
 
     // Tablet dimensions in cm - Adjusted
@@ -314,9 +287,6 @@ const createTablet = (materials: TabletMaterials, isDarkMode: boolean) => { // <
     const width = 18; // Larger width
     const thickness = 0.7; // Slightly thinner
     const cornerRadius = 1.2; // Larger corner radius
-    const screenCornerRadius = 1.0; // Larger screen radius
-    const widgetCornerRadius = 0.3; // Slightly larger widget radius
-    const bevelSize = 0.1; // Keep bevel size consistent
 
     // Main tablet body with rounded corners
     const tabletShape = new THREE.Shape(); // Renamed shape variable
@@ -347,344 +317,10 @@ const createTablet = (materials: TabletMaterials, isDarkMode: boolean) => { // <
     tabletBody.position.set(0, 0, 0);
     tablet.add(tabletBody); // Add to renamed group
 
-    // --- Screen and UI Layering ---
-    // Adjusted screen dimensions based on tablet size
-    const screenHeight = height - 1.0; // Larger bezels typical for tablets
-    const screenWidth = width - 1.0;
-    const screenSurfaceZ = thickness / 2 + 0.01;
-    const dashboardBgZ = screenSurfaceZ + 0.001;
-    const widgetZ = dashboardBgZ + 0.002;
-    const widgetContentZ = widgetZ + 0.001;
-    const frontCameraZ = dashboardBgZ + 0.005; // Keep camera slightly above dashboard
-
-    // --- IoT Dashboard Design ---
-
-    // Helper function to create rounded rectangle shapes (no changes needed)
-    const createRoundedRectShape = (w: number, h: number, r: number) => {
-        const shape = new THREE.Shape();
-        shape.moveTo(-w / 2 + r, -h / 2);
-        shape.lineTo(w / 2 - r, -h / 2);
-        shape.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r);
-        shape.lineTo(w / 2, h / 2 - r);
-        shape.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2);
-        shape.lineTo(-w / 2 + r, h / 2);
-        shape.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r);
-        shape.lineTo(-w / 2, -h / 2 + r);
-        shape.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
-        return shape;
-    };
-
-    // Dashboard Background - Adjusted dimensions and Green Theme
-    const dashboardWidth = screenWidth - 0.4;
-    const dashboardHeight = screenHeight - 0.4;
-    const dashboardShape = createRoundedRectShape(dashboardWidth, dashboardHeight, screenCornerRadius);
-
-    // Create a hole for the punch-hole camera
-    const punchHoleRadius = 0.3;
-    const punchHoleX = 0;
-    const punchHoleY = dashboardHeight / 2 - 0.6;
-
-    const punchHolePath = new THREE.Path();
-    punchHolePath.absarc(punchHoleX, punchHoleY, punchHoleRadius, 0, Math.PI * 2, false);
-    dashboardShape.holes.push(punchHolePath);
-
-    // Adjusted dashboard material colors - Green Theme
-    const dashboardMaterial = new THREE.MeshStandardMaterial({
-        color: isDarkMode ? 0x1a241a : 0xe8f4e8, // Greenish dashboard
-        roughness: 0.6,
-        metalness: 0.02,
-        side: THREE.FrontSide,
-        transparent: true,
-        opacity: 0.97,
-        emissive: isDarkMode ? 0x020502 : 0x000000,
-        emissiveIntensity: isDarkMode ? 0.05 : 0,
-    });
-    const dashboardGeometry = new THREE.ShapeGeometry(dashboardShape);
-    const dashboardBg = new THREE.Mesh(dashboardGeometry, dashboardMaterial);
-    dashboardBg.position.z = dashboardBgZ;
-    tablet.add(dashboardBg);
-
-    // Add Dashboard Border (Optional, subtle) - Adjusted colors - Green Theme
-    const borderPoints = dashboardShape.getPoints(50);
-    const borderGeometry = new THREE.BufferGeometry().setFromPoints(borderPoints);
-    const borderMaterial = new THREE.LineBasicMaterial({
-        color: isDarkMode ? 0x446644 : 0xaaaaaa, // Greenish border
-        linewidth: 1,
-        transparent: true,
-        opacity: 0.5
-    });
-    const dashboardBorder = new THREE.LineLoop(borderGeometry, borderMaterial);
-    dashboardBorder.position.z = dashboardBgZ + 0.0001;
-    tablet.add(dashboardBorder);
-
-    // --- Front Camera --- (No color changes needed)
-    const selfieCameraGeometry = new THREE.CircleGeometry(punchHoleRadius * 0.9, 32);
-    const selfieCamera = new THREE.Mesh(selfieCameraGeometry, materials.selfieCamera);
-    selfieCamera.position.set(punchHoleX, punchHoleY, frontCameraZ);
+    // Front camera stays physically above the single display surface.
+    const selfieCamera = new THREE.Mesh(new THREE.CircleGeometry(0.27, 32), materials.selfieCamera);
+    selfieCamera.position.set(0, 11.2, 0.47);
     tablet.add(selfieCamera);
-
-    // Create Widget function - Green Theme
-    const createWidget = (x: number, y: number, w: number, h: number, index: number) => {
-        const widgetGroup = new THREE.Group();
-        widgetGroup.position.set(x, y, widgetZ);
-
-        // Widget Background - Adjusted colors - Green Theme
-        const widgetShape = createRoundedRectShape(w, h, widgetCornerRadius);
-        const widgetGeometry = new THREE.ShapeGeometry(widgetShape);
-        const widgetMaterial = new THREE.MeshStandardMaterial({
-            color: isDarkMode ? 0x304530 : 0xfcfffc, // Greenish widget
-            roughness: 0.4,
-            metalness: 0.0,
-            side: THREE.FrontSide,
-            transparent: true,
-            opacity: 0.88,
-            emissive: isDarkMode ? 0x141f14 : 0x000000,
-            emissiveIntensity: isDarkMode ? 0.15 : 0,
-        });
-        const widgetBg = new THREE.Mesh(widgetGeometry, widgetMaterial);
-        widgetBg.castShadow = false;
-        widgetBg.receiveShadow = true;
-        widgetGroup.add(widgetBg);
-
-        // Widget Title - Green Theme
-        const titles = ["Temperature", "Humidity", "Light Level", "Energy Usage", "Device Status", "Network Traffic", "Air Quality", "System Load"];
-        const titleText = titles[index % titles.length] || `Sensor ${index + 1}`;
-        const titleHeight = 0.3;
-        const titleWidth = w * 0.75;
-        const titleGeometry = new THREE.PlaneGeometry(titleWidth, titleHeight);
-        const titleMaterial = materials.textElement.clone(); // No cast needed
-        titleMaterial.color.set(isDarkMode ? 0xddffdd : 0x333333); // Greenish title
-        titleMaterial.emissive.set(isDarkMode ? 0xaaccaa : 0x000000);
-        titleMaterial.emissiveIntensity = isDarkMode ? 0.3 : 0;
-        titleMaterial.side = THREE.FrontSide;
-        const titleMesh = new THREE.Mesh(titleGeometry, titleMaterial);
-        titleMesh.position.set(0, h / 2 - titleHeight / 2 - 0.2, widgetContentZ - widgetZ);
-        widgetGroup.add(titleMesh);
-
-        // --- Widget Data Area - Generate different content based on index ---
-        const dataAreaX = 0;
-        const dataAreaY = -0.15; // Adjusted Y position
-        const dataAreaWidth = w * 0.85; // Wider data area
-        const dataAreaHeight = h * 0.5; // Adjusted height
-        const contentZ = widgetContentZ - widgetZ + 0.001;
-
-        const randomSeed = (index + 1) * 1234;
-        const seededRandom = (offset = 0) => {
-            let x = Math.sin(randomSeed + offset) * 10000;
-            return x - Math.floor(x);
-        };
-
-        const widgetType = index % titles.length;
-
-        // --- Switch statement for widget types - Update colors for Green Theme ---
-        switch (widgetType) {
-            case 0: // Temperature - Line Graph Simulation
-                const points = [];
-                const segments = 10;
-                for (let i = 0; i <= segments; i++) {
-                    const px = -dataAreaWidth / 2 + (i / segments) * dataAreaWidth;
-                    const py = (seededRandom(i) - 0.5) * dataAreaHeight * 0.8; // Random Y variation
-                    points.push(new THREE.Vector3(px, py, 0));
-                }
-                const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-                const lineMaterial = new THREE.LineBasicMaterial({ color: isDarkMode ? 0xffaaaa : 0xcc0000, linewidth: 2 }); // Keep red for temp
-                const line = new THREE.Line(lineGeometry, lineMaterial);
-                line.position.set(dataAreaX, dataAreaY, contentZ);
-                widgetGroup.add(line);
-                break;
-
-            case 1: // Humidity - Gauge Simulation (Arc) - Use Chart Element Color
-                const gaugeRadius = dataAreaHeight * 0.6;
-                const arcPercentage = seededRandom();
-                const arcGeometry = new THREE.RingGeometry(gaugeRadius * 0.8, gaugeRadius, 32, 1, 0, Math.PI * arcPercentage);
-                const arcMaterial = materials.chartElement.clone(); // No cast needed
-                arcMaterial.side = THREE.DoubleSide;
-                const arcMesh = new THREE.Mesh(arcGeometry, arcMaterial);
-                arcMesh.position.set(dataAreaX, dataAreaY - gaugeRadius * 0.2, contentZ);
-                arcMesh.rotation.z = -Math.PI / 2;
-                widgetGroup.add(arcMesh);
-                // Add background arc
-                const bgArcGeometry = new THREE.RingGeometry(gaugeRadius * 0.8, gaugeRadius, 32, 1, 0, Math.PI);
-                const bgArcMaterial = new THREE.MeshStandardMaterial({ color: isDarkMode ? 0x335533 : 0xcccccc, side: THREE.DoubleSide, opacity: 0.3, transparent: true }); // Dark green bg
-                const bgArcMesh = new THREE.Mesh(bgArcGeometry, bgArcMaterial);
-                bgArcMesh.position.copy(arcMesh.position);
-                bgArcMesh.rotation.copy(arcMesh.rotation);
-                widgetGroup.add(bgArcMesh);
-                break;
-
-            case 2: // Light Level - Radial Indicator - Yellow
-                const indicatorRadius = dataAreaHeight * 0.5;
-                const lightLevel = seededRandom();
-                const indicatorGeometry = new THREE.CircleGeometry(indicatorRadius * lightLevel, 32);
-                const indicatorMaterial = new THREE.MeshBasicMaterial({ color: isDarkMode ? 0xffffcc : 0xffcc00 }); // Keep yellow
-                const indicatorMesh = new THREE.Mesh(indicatorGeometry, indicatorMaterial);
-                indicatorMesh.position.set(dataAreaX, dataAreaY, contentZ);
-                widgetGroup.add(indicatorMesh);
-                // Add outer ring
-                const ringGeometry = new THREE.RingGeometry(indicatorRadius * 0.95, indicatorRadius, 32);
-                const ringMaterial = new THREE.MeshBasicMaterial({ color: isDarkMode ? 0xaaaa88 : 0x888888, side: THREE.DoubleSide }); // Yellowish grey
-                const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
-                ringMesh.position.copy(indicatorMesh.position);
-                widgetGroup.add(ringMesh);
-                break;
-
-            case 3: // Energy Usage - Stacked Bars Simulation - Use Graph/Chart Colors
-                const barCountEnergy = 3;
-                const barWidthEnergy = dataAreaWidth / (barCountEnergy * 1.8);
-                const barSpacingEnergy = barWidthEnergy * 0.8;
-                const maxTotalHeight = dataAreaHeight * 0.9;
-                for (let i = 0; i < barCountEnergy; i++) {
-                    const height1 = seededRandom(i) * maxTotalHeight * 0.6;
-                    const height2 = seededRandom(i + 10) * maxTotalHeight * 0.4;
-                    const geom1 = new THREE.BoxGeometry(barWidthEnergy, height1, 0.01);
-                    const mat1 = materials.graphElement.clone(); // No cast needed
-                    const mesh1 = new THREE.Mesh(geom1, mat1);
-                    const barX = -dataAreaWidth / 2 + barWidthEnergy / 2 + i * (barWidthEnergy + barSpacingEnergy);
-                    mesh1.position.set(barX, dataAreaY - dataAreaHeight / 2 + height1 / 2, contentZ);
-                    widgetGroup.add(mesh1);
-
-                    const geom2 = new THREE.BoxGeometry(barWidthEnergy, height2, 0.01);
-                    const mat2 = materials.chartElement.clone(); // No cast needed
-                    const mesh2 = new THREE.Mesh(geom2, mat2);
-                    mesh2.position.set(barX, mesh1.position.y + height1 / 2 + height2 / 2, contentZ);
-                    widgetGroup.add(mesh2);
-                }
-                break;
-
-            case 4: // Device Status - Text/Indicator Simulation - Use Status Colors
-                const statusCount = 3;
-                const statusHeight = dataAreaHeight / statusCount * 0.6;
-                const statusWidth = dataAreaWidth * 0.8;
-                const statusSpacing = (dataAreaHeight - (statusHeight * statusCount)) / (statusCount + 1);
-                const statuses = ["Online", "Scanning", "Idle"];
-                const statusColors = [0x88ff88, 0xffff88, 0xaaaaff]; // Keep these distinct colors
-
-                for (let i = 0; i < statusCount; i++) {
-                    const planeGeom = new THREE.PlaneGeometry(statusWidth, statusHeight);
-                    const planeMat = materials.textElement.clone(); // No cast needed
-                    planeMat.color.set(isDarkMode ? 0xaaaaaa : 0x555555); // Grey background for text simulation
-                    const planeMesh = new THREE.Mesh(planeGeom, planeMat);
-                    const planeY = dataAreaY + dataAreaHeight / 2 - statusSpacing * (i + 1) - statusHeight * (i + 0.5);
-                    planeMesh.position.set(dataAreaX, planeY, contentZ);
-                    widgetGroup.add(planeMesh);
-
-                    // Add status indicator circle
-                    const indicatorGeom = new THREE.CircleGeometry(statusHeight * 0.4, 16);
-                    const indicatorMat = new THREE.MeshBasicMaterial({ color: statusColors[i % statusColors.length] });
-                    const indicatorMesh = new THREE.Mesh(indicatorGeom, indicatorMat);
-                    indicatorMesh.position.set(dataAreaX - statusWidth / 2 + statusHeight * 0.5, planeY, contentZ + 0.001);
-                    widgetGroup.add(indicatorMesh);
-                }
-                break;
-
-            case 5: // Network Traffic - Dual Line Graph Simulation - Use Graph/Accent Colors
-                const pointsUp: THREE.Vector3[] = [];
-                const pointsDown: THREE.Vector3[] = [];
-                const segmentsNet = 10;
-                for (let i = 0; i <= segmentsNet; i++) {
-                    const px = -dataAreaWidth / 2 + (i / segmentsNet) * dataAreaWidth;
-                    const pyUp = (seededRandom(i) - 0.5) * dataAreaHeight * 0.4 + dataAreaHeight * 0.25;
-                    const pyDown = (seededRandom(i + 50) - 0.5) * dataAreaHeight * 0.4 - dataAreaHeight * 0.25;
-                    pointsUp.push(new THREE.Vector3(px, pyUp, 0));
-                    pointsDown.push(new THREE.Vector3(px, pyDown, 0));
-                }
-                const lineGeomUp = new THREE.BufferGeometry().setFromPoints(pointsUp);
-                const lineMatUp = new THREE.LineBasicMaterial({ color: isDarkMode ? 0x88ff88 : 0x00aa00, linewidth: 2 }); // Lighter green
-                const lineUp = new THREE.Line(lineGeomUp, lineMatUp);
-                lineUp.position.set(dataAreaX, dataAreaY, contentZ);
-                widgetGroup.add(lineUp);
-
-                const lineGeomDown = new THREE.BufferGeometry().setFromPoints(pointsDown);
-                const lineMatDown = new THREE.LineBasicMaterial({ color: isDarkMode ? 0x66ffaa : 0x00aa66, linewidth: 2 }); // Use accent green
-                const lineDown = new THREE.Line(lineGeomDown, lineMatDown);
-                lineDown.position.set(dataAreaX, dataAreaY, contentZ);
-                widgetGroup.add(lineDown);
-                break;
-            case 6: // Air Quality - Simple Bar - Orange/Yellow
-                const airQualityValue = seededRandom();
-                const aqBarWidth = dataAreaWidth * 0.8;
-                const aqBarHeight = dataAreaHeight * 0.3;
-                const aqGeom = new THREE.BoxGeometry(aqBarWidth * airQualityValue, aqBarHeight, 0.01);
-                const aqMat = materials.graphElement.clone(); // No cast needed
-                aqMat.color.set(isDarkMode ? 0xffcc66 : 0xcc8800); // Keep Orange/Yellow tones
-                const aqMesh = new THREE.Mesh(aqGeom, aqMat);
-                aqMesh.position.set(dataAreaX - (aqBarWidth * (1-airQualityValue))/2, dataAreaY, contentZ); // Align left
-                widgetGroup.add(aqMesh);
-                 // Add background bar
-                const bgAqGeom = new THREE.BoxGeometry(aqBarWidth, aqBarHeight, 0.01);
-                const bgAqMat = new THREE.MeshStandardMaterial({ color: isDarkMode ? 0x443322 : 0xddccaa, side: THREE.FrontSide, opacity: 0.3, transparent: true }); // Dark orange bg
-                const bgAqMesh = new THREE.Mesh(bgAqGeom, bgAqMat);
-                bgAqMesh.position.set(dataAreaX, dataAreaY, contentZ - 0.0001); // Slightly behind
-                widgetGroup.add(bgAqMesh);
-                break;
-            case 7: // System Load - Multiple small bars - Use Chart Color
-                const loadBarCount = 5;
-                const loadBarWidth = dataAreaWidth / (loadBarCount * 1.5);
-                const loadBarSpacing = loadBarWidth * 0.5;
-                const maxLoadHeight = dataAreaHeight * 0.8;
-                 for (let i = 0; i < loadBarCount; i++) {
-                    const loadHeight = seededRandom(i) * maxLoadHeight;
-                    const loadGeom = new THREE.BoxGeometry(loadBarWidth, loadHeight, 0.01);
-                    const loadMat = materials.chartElement.clone(); // No cast needed
-                    const loadMesh = new THREE.Mesh(loadGeom, loadMat);
-                    const loadBarX = -dataAreaWidth / 2 + loadBarWidth / 2 + i * (loadBarWidth + loadBarSpacing);
-                    loadMesh.position.set(loadBarX, dataAreaY - dataAreaHeight / 2 + loadHeight / 2, contentZ);
-                    widgetGroup.add(loadMesh);
-                }
-                break;
-
-            default:
-                break;
-        }
-
-
-        // Widget Status/Icon Area - Keep multi-color for now
-        const statusRadius = 0.2;
-        const statusGeometry = new THREE.CircleGeometry(statusRadius, 16);
-        const statusMaterial = materials.accent.clone(); // No cast needed
-        const statusColorsCycle = [0xff8888, 0x88ff88, 0x8888ff, 0xffff88, 0xff88ff, 0x88ffff]; // Keep distinct colors
-        statusMaterial.color.set(statusColorsCycle[index % statusColorsCycle.length]);
-        statusMaterial.emissive.set(statusColorsCycle[index % statusColorsCycle.length]);
-        statusMaterial.emissiveIntensity = isDarkMode ? 0.4 : 0.1;
-        statusMaterial.side = THREE.FrontSide;
-        const statusMesh = new THREE.Mesh(statusGeometry, statusMaterial);
-        statusMesh.position.set(-w / 2 + statusRadius + 0.15, -h / 2 + statusRadius + 0.15, widgetContentZ - widgetZ);
-        widgetGroup.add(statusMesh);
-
-        return widgetGroup;
-    };
-
-    // --- Arrange Widgets --- Adjusted for tablet screen
-    const padding = 0.4; // Increased padding
-    const usableWidth = dashboardWidth - padding * 2;
-    const usableHeight = dashboardHeight - padding * 2;
-    // More columns and rows for tablet
-    const widgetCols = 3;
-    const widgetRows = 3;
-    const widgetWidth = (usableWidth - padding * (widgetCols - 1)) / widgetCols;
-    // const widgetHeight = (usableHeight - padding * (widgetRows - 1)) / widgetRows; // Original calculation
-
-    const startX = -usableWidth / 2 + widgetWidth / 2;
-    // Adjust startY if punch hole is at the top
-    const topOffsetForCamera = punchHoleRadius * 2 + 0.4; // Increased space below camera
-    const adjustedUsableHeight = usableHeight - topOffsetForCamera;
-    // Use adjusted height for widget calculation if camera offset is significant
-    const adjustedWidgetHeight = (adjustedUsableHeight - padding * (widgetRows - 1)) / widgetRows;
-    const startY = usableHeight / 2 - topOffsetForCamera - adjustedWidgetHeight / 2;
-
-
-    let widgetIndex = 0;
-    for (let r = 0; r < widgetRows; r++) {
-        for (let c = 0; c < widgetCols; c++) {
-            const x = startX + c * (widgetWidth + padding);
-            const y = startY - r * (adjustedWidgetHeight + padding);
-            // Use adjustedWidgetHeight for creation
-            const widget = createWidget(x, y, widgetWidth, adjustedWidgetHeight, widgetIndex);
-            tablet.add(widget); // Add to tablet group
-            widgetIndex++;
-        }
-    }
-
 
     // --- Back Camera, Buttons, Ports ---
     const backSurfaceZ = -thickness / 2;

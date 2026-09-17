@@ -101,7 +101,7 @@ const fontSans = FontSans({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${pyeongChangPeace.variable} nojs`} suppressHydrationWarning>
+    <html lang="en" className={pyeongChangPeace.variable} suppressHydrationWarning>
       <head />
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",

@@ -1,0 +1,68 @@
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  pointer-events: none;
+  color: #006b42;
+  /* Keep the routing visible around the composition, quiet behind the copy. */
+  mask-image: linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
+}
+
+:global(.dark) .background {
+  color: #8fffaa;
+}
+
+.board {
+  width: 100%;
+  height: 100%;
+}
+
+.traces {
+  stroke: currentColor;
+  opacity: 0.14;
+}
+
+.pads {
+  stroke: currentColor;
+  opacity: 0.23;
+}
+
+:global(.dark) .traces {
+  opacity: 0.11;
+}
+
+:global(.dark) .pads {
+  opacity: 0.19;
+}
+
+.signals {
+  stroke: currentColor;
+  filter: drop-shadow(0 0 3px currentColor);
+}
+
+.signals path {
+  stroke-dasharray: 10 110;
+  animation: trace-signal 9s linear infinite;
+  opacity: 0;
+}
+
+.signals path:nth-child(2) { animation-delay: -5s; }
+.signals path:nth-child(3) { animation-delay: -2s; }
+.signals path:nth-child(4) { animation-delay: -7s; }
+.signals path:nth-child(5) { animation-delay: -4s; }
+
+@keyframes trace-signal {
+  0% { stroke-dashoffset: 12; opacity: 0; }
+  12% { opacity: 0.5; }
+  65% { opacity: 0.5; }
+  82%, 100% { stroke-dashoffset: -110; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signals path {
+    animation: none;
+    stroke-dashoffset: -45;
+    opacity: 0.25;
+  }
+}

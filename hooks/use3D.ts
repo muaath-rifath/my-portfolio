@@ -1,5 +1,7 @@
 "use client";
 
+import { lightModelPalette } from '@/lib/model-palette';
+
 import { useMemo } from 'react';
 import * as THREE from 'three';
 import { useDarkMode } from './useDarkMode';
@@ -11,10 +13,10 @@ export function use3DMaterials() {
   return useMemo(() => {
     // Base colors that work well in both modes
     const colors = {
-      primary: isDarkMode ? 0x00cc66 : 0x6699cc,
-      secondary: isDarkMode ? 0x115533 : 0x445566,
-      accent: isDarkMode ? 0xccffdd : 0xeeeeee,
-      dark: isDarkMode ? 0x224433 : 0x223344,
+      primary: isDarkMode ? 0x00cc66 : lightModelPalette.metal,
+      secondary: isDarkMode ? 0x115533 : lightModelPalette.panel,
+      accent: isDarkMode ? 0xccffdd : lightModelPalette.steel,
+      dark: isDarkMode ? 0x224433 : lightModelPalette.frame,
       warning: isDarkMode ? 0xffaa00 : 0xff6600,
       emissive: isDarkMode ? 0xff7700 : 0xff3300,
     };

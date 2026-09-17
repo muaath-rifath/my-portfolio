@@ -1,5 +1,7 @@
 'use client';
 
+import { lightModelPalette } from '@/lib/model-palette';
+
 import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
@@ -78,7 +80,7 @@ const WAVE_CONFIG = {
 const useGatewayMaterials = (isDarkMode: boolean) => {
   return useMemo(() => ({
     mainBodyMaterial: new THREE.MeshStandardMaterial({
-      color: isDarkMode ? 0x1a2e20 : 0xc0e8d0,
+      color: isDarkMode ? 0x1a2e20 : lightModelPalette.housing,
       roughness: 0.7,
       metalness: 0.3
     }),
@@ -115,7 +117,7 @@ const useGatewayMaterials = (isDarkMode: boolean) => {
       metalness: 0.9
     }),
     ledGreen: new THREE.MeshStandardMaterial({ color: 0x00ff00, emissive: 0x00ff00, emissiveIntensity: 0.8 }),
-    ledBlue: new THREE.MeshStandardMaterial({ color: 0x0000ff, emissive: 0x0000ff, emissiveIntensity: 0.8 }),
+    ledBlue: new THREE.MeshStandardMaterial({ color: isDarkMode ? 0x0000ff : lightModelPalette.secondary, emissive: isDarkMode ? 0x0000ff : lightModelPalette.secondary, emissiveIntensity: 0.8 }),
     ledRed: new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.8 }),
     ledYellow: new THREE.MeshStandardMaterial({ color: 0xffff00, emissive: 0xffff00, emissiveIntensity: 0.8 }),
     mountHole: new THREE.MeshBasicMaterial({ color: 0x000000 }),
@@ -489,10 +491,10 @@ export default function VehicleIoTGateway({}: VehicleIoTGatewayProps) {
 
   // Antenna configurations
   const antennas = [
-    { x: -LENGTH / 4 - 1, z: 0, height: 2.5, label: "CELL", color: new THREE.Color(0x00aaff), interval: 1500 + Math.random() * 1000 },
+    { x: -LENGTH / 4 - 1, z: 0, height: 2.5, label: "CELL", color: new THREE.Color(isDarkMode ? 0x00aaff : lightModelPalette.accent), interval: 1500 + Math.random() * 1000 },
     { x: -LENGTH / 4, z: -DEVICE_WIDTH / 6, height: 2.0, label: "GPS", color: new THREE.Color(0xffaa00), interval: 1800 + Math.random() * 1000 },
     { x: -LENGTH / 4, z: DEVICE_WIDTH / 6, height: 1.5, label: "WIFI", color: new THREE.Color(0x00ff88), interval: 1200 + Math.random() * 1000 },
-    { x: -LENGTH / 4 + 1, z: 0, height: 1.8, label: "BT/ZB", color: new THREE.Color(0x8844ff), interval: 2000 + Math.random() * 1000 },
+    { x: -LENGTH / 4 + 1, z: 0, height: 1.8, label: "BT/ZB", color: new THREE.Color(isDarkMode ? 0x8844ff : lightModelPalette.secondary), interval: 2000 + Math.random() * 1000 },
   ];
 
   return (

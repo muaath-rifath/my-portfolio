@@ -107,12 +107,12 @@ const Tower5G = memo(({ height = 25 }: Tower5GProps) => {
     return (
         <group ref={towerRef} dispose={null}>
             {/* Tower base */}
-            <mesh material={materials.darkMetalMaterial} position-y={0}>
+            <mesh material={materials.darkMetalMaterial} position-y={0} castShadow>
                 <boxGeometry args={[4, 1, 4]} />
             </mesh>
 
             {/* Tower main shaft */}
-            <mesh material={materials.metalMaterial} position-y={configuration.mainTowerHeight / 2 + 0.5}>
+            <mesh material={materials.metalMaterial} position-y={configuration.mainTowerHeight / 2 + 0.5} castShadow>
                 <boxGeometry args={[1.5, configuration.mainTowerHeight, 1.5]} />
             </mesh>
 
@@ -127,7 +127,7 @@ const Tower5G = memo(({ height = 25 }: Tower5GProps) => {
             ))}
 
             {/* Top equipment platform */}
-            <mesh material={materials.darkMetalMaterial} position-y={configuration.mainTowerHeight + 1}>
+            <mesh material={materials.darkMetalMaterial} position-y={configuration.mainTowerHeight + 1} castShadow>
                 <cylinderGeometry args={[3, 3, 0.5, 8]} />
             </mesh>
 

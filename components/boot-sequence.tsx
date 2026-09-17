@@ -16,46 +16,51 @@ export function BootSequence() {
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const isDirectPageLoad = !window.performance
-        .getEntriesByType('navigation')
-        .some((nav) => (nav as any).type === 'back_forward');
+    const mountFrame = requestAnimationFrame(() => setMounted(true));
 
-      if (!isDirectPageLoad) {
-        setShowBootSequence(false);
-        document.documentElement.classList.remove('nojs');
-        return;
-      }
+    const isHomePage = window.location.pathname === "/";
+    const startedAt = performance.now();
+    let finished = false;
+    let finishTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      clearInterval(interval);
+      clearTimeout(fallbackTimer);
+      setProgress(100);
+      setProgressComplete(true);
+      finishTimer = setTimeout(handleSequenceComplete, 180);
+    };
+
+    const finishAfterMinimumDuration = () => {
+      const remaining = Math.max(0, 850 - (performance.now() - startedAt));
+      finishTimer = setTimeout(finish, remaining);
+    };
+
+    const progressCeiling = isHomePage ? 90 : 100;
+    const interval = setInterval(() => {
+      setProgress((current) => Math.min(current + 5, progressCeiling));
+    }, 60);
+
+    const handleSceneReady = () => finishAfterMinimumDuration();
+    window.addEventListener("home-scene-ready", handleSceneReady, { once: true });
+    window.addEventListener("home-scene-unavailable", handleSceneReady, { once: true });
+
+    if (isHomePage && document.documentElement.dataset.homeSceneReady === "true") {
+      finishAfterMinimumDuration();
     }
 
-    setMounted(true);
-
-    // Fallback timer
-    const fallbackTimer = setTimeout(() => {
-      handleSequenceComplete();
-    }, 5000);
-
-    // Progress: 5% every 60ms → ~1.2s to reach 100%
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          clearTimeout(fallbackTimer);
-          setTimeout(() => {
-            setProgressComplete(true);
-            setTimeout(() => {
-              handleSequenceComplete();
-            }, 200);
-          }, 200);
-          return 100;
-        }
-        return Math.min(prev + 5, 100);
-      });
-    }, 60);
+    // Never keep the page behind the overlay if WebGL or the scene fails.
+    const fallbackTimer = setTimeout(finishAfterMinimumDuration, isHomePage ? 2500 : 1000);
 
     return () => {
       clearInterval(interval);
       clearTimeout(fallbackTimer);
+      clearTimeout(finishTimer);
+      cancelAnimationFrame(mountFrame);
+      window.removeEventListener("home-scene-ready", handleSceneReady);
+      window.removeEventListener("home-scene-unavailable", handleSceneReady);
     };
   }, []);
 

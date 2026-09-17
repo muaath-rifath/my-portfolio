@@ -1,5 +1,7 @@
 'use client';
 
+import { lightModelPalette } from '@/lib/model-palette';
+
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
@@ -31,12 +33,12 @@ const WIRE_LENGTH = 5;
 const useMotorMaterials = (isDarkMode: boolean) => {
     return useMemo(() => ({
         housingMaterial: new THREE.MeshPhongMaterial({
-            color: isDarkMode ? 0x1a2e20 : 0xd0e8ff,
+            color: isDarkMode ? 0x1a2e20 : lightModelPalette.housing,
             shininess: 30,
             name: 'housing'
         }),
         ribMaterial: new THREE.MeshPhongMaterial({
-            color: isDarkMode ? 0x1a2e20 : 0xd0e8ff,
+            color: isDarkMode ? 0x1a2e20 : lightModelPalette.housing,
             shininess: 50,
             name: 'rib'
         }),
@@ -57,7 +59,7 @@ const useMotorMaterials = (isDarkMode: boolean) => {
             name: 'connector_box'
         }),
         pinMaterial: new THREE.MeshStandardMaterial({
-            color: 0xdddddd,
+            color: isDarkMode ? 0xdddddd : lightModelPalette.steel,
             metalness: 0.9,
             roughness: 0.1,
             name: 'pin'
@@ -81,7 +83,7 @@ const useMotorMaterials = (isDarkMode: boolean) => {
         wireMaterials: [
             new THREE.MeshPhongMaterial({ color: 0xff0000, name: 'wire_red' }),
             new THREE.MeshPhongMaterial({ color: 0x000000, name: 'wire_black' }),
-            new THREE.MeshPhongMaterial({ color: 0x0000ff, name: 'wire_blue' })
+            new THREE.MeshPhongMaterial({ color: isDarkMode ? 0x0000ff : lightModelPalette.secondary, name: 'wire_blue' })
         ]
     }), [isDarkMode]);
 };

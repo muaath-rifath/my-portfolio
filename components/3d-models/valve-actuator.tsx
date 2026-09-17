@@ -1,5 +1,7 @@
 'use client';
 
+import { lightModelPalette } from '@/lib/model-palette';
+
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
@@ -27,7 +29,7 @@ const BRACKET_SIZE = { x: 0.1, y: 0.3, z: 0.5 };
 const useValveMaterials = (isDarkMode: boolean) => {
     return useMemo(() => ({
         valveBodyMaterial: new THREE.MeshStandardMaterial({
-            color: isDarkMode ? 0x1a2e20 : 0xd0e8ff,
+            color: isDarkMode ? 0x1a2e20 : lightModelPalette.housing,
             roughness: 0.3,
             metalness: 0.8,
             name: 'valve_body'
@@ -39,7 +41,7 @@ const useValveMaterials = (isDarkMode: boolean) => {
             name: 'pipe'
         }),
         housingMaterial: new THREE.MeshStandardMaterial({
-            color: isDarkMode ? 0x006633 : 0xc8e6c9,
+            color: isDarkMode ? 0x006633 : lightModelPalette.housing,
             roughness: 0.7,
             metalness: 0.2,
             name: 'housing'

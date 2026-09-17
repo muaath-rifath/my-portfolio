@@ -1,29 +1,7 @@
 "use client";
 import ContactForm from "@/components/ContactForm";
 import ContactInfo from "@/components/ContactInfo";
-import { Metadata } from "next";
 import { useEffect, useRef, useState } from "react";
-
-const metadata: Metadata = {
-  title: "Contact | Muaath Rifath",
-  description: "Get in touch with Mohamed Muaath Rifath for any inquiries or collaborations. Fill out the contact form or reach out via email or phone.",
-  keywords: ["Contact", "Mohamed Muaath Rifath", "inquiries", "collaborations", "email", "phone"],
-  openGraph: {
-    title: "Contact | Muaath Rifath",
-    description: "Get in touch with Mohamed Muaath Rifath for any inquiries or collaborations. Fill out the contact form or reach out via email or phone.",
-    images: ["/assets/contact-page.png"],
-    type: "website",
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Contact | Muaath Rifath',
-    description: 'Get in touch with Mohamed Muaath Rifath for any inquiries or collaborations. Fill out the contact form or reach out via email or phone.',
-    images: '/assets/contact-page.png',
-  },
-  alternates: {
-    canonical: 'https://muaathrifath.me/contact',
-  },
-};
 
 export default function Contact() {
   const [isVisible, setIsVisible] = useState(false);

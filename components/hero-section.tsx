@@ -1,88 +1,134 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { TypewriterText } from "@/components/typewriter-text";
-import dynamic from 'next/dynamic';
-import { IconBrandX, IconBrandGithub, IconBrandLinkedin } from '@tabler/icons-react';
 
-// Correctly typed dynamic import for Model3D with SSR disabled
-const Model3D = dynamic(
-  () => import('@/components/model-3d').then(mod => mod.Model3D), // Corrected path
-  {
-    ssr: false,
-    loading: () => <div className="w-full h-64 flex items-center justify-center"><p>Loading 3D model...</p></div> // Correct loading state syntax
-  }
-);
+import { useMotionPreference } from "@/hooks/useMotionPreference";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { TypewriterText } from "./typewriter-text";
+import dynamic from "next/dynamic";
+import { useInView, useMotionValue } from "framer-motion";
+import { ArrowDown, ArrowUpRight, MoveUpRight } from "lucide-react";
+import { IconBrandGithub, IconBrandLinkedin, IconBrandX } from "@tabler/icons-react";
+import { use3dCapability } from "@/hooks/use-3d-capability";
+
+const Model3D = dynamic(() => import("./home-model-3d").then(mod => mod.HomeModel3D), {
+  ssr: false,
+  loading: () => null,
+});
 
 export function HeroSection() {
-  return (
-    <section className="container mx-auto px-4 pt-24 lg:pt-0 lg:min-h-screen lg:flex lg:flex-col lg:justify-center overflow-visible relative">
-      {/* Content grid - text on left, 3D on right */}
-      <div className="grid lg:grid-cols-2 gap-8 items-center mt-16 lg:mt-0 relative z-10">
-        <div className="space-y-8">
-          {/* PCB-inspired name treatment */}
-          <div className="mb-8">
-            <h1 className="text-5xl md:text-6xl font-bold mb-2 font-mono tracking-tighter relative">
-              <span className="block text-2xl text-muted-foreground dark:text-gray-300 mb-2">
-                Hi, I&apos;m
-              </span>
-              <span className="relative inline-block">
-                <span className="inline-block dark:text-white text-[#006b42] pr-2 relative z-10">
-                  Mohamed Muaath Rifath
-                </span>
-                <span className="absolute left-0 bottom-0 h-[2px] w-full dark:bg-white bg-[#006b42]"></span>
-              </span>
-            </h1>
+  const section = useRef<HTMLElement>(null);
+  const reducedMotion = useMotionPreference();
+  const sceneVisible = useInView(section);
+  const rotationProgress = useMotionValue(0);
+  const [spinComplete, setSpinComplete] = useState(false);
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false);
+  const canRender3D = use3dCapability();
+  const spinCompleted = useRef(false);
+  const spinCueTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const completeSpin = useCallback(() => {
+    spinCompleted.current = true;
+    if (spinCueTimer.current) clearTimeout(spinCueTimer.current);
+    setSpinComplete(true);
+    setIsSpinning(false);
+  }, []);
+  const reportSceneReady = useCallback(() => {
+    setSceneReady(true);
+    document.documentElement.dataset.homeSceneReady = "true";
+    window.dispatchEvent(new Event("home-scene-ready"));
+  }, []);
 
-            {/* Replace static text with TypewriterText component */}
-            <div className="mt-4">
-              <TypewriterText />
+  useEffect(() => {
+    if (canRender3D === false) window.dispatchEvent(new Event("home-scene-unavailable"));
+  }, [canRender3D]);
+
+  useEffect(() => {
+    if (reducedMotion || spinComplete) return;
+
+    const isDesktopHero = () => {
+      const hero = section.current;
+      if (!hero || window.innerWidth < 768) return false;
+      const heroTop = hero.offsetTop;
+      return Math.abs(window.scrollY - heroTop) <= 1;
+    };
+
+    const advanceRotation = (amount: number) => {
+      rotationProgress.set(Math.min(1, rotationProgress.get() + amount));
+    };
+
+    const showSpinCue = () => {
+      if (spinCueTimer.current) clearTimeout(spinCueTimer.current);
+      if (spinCompleted.current || rotationProgress.get() >= 1 || !isDesktopHero()) {
+        setIsSpinning(false);
+        return;
+      }
+      setIsSpinning(true);
+      spinCueTimer.current = setTimeout(() => setIsSpinning(false), 180);
+    };
+
+    const handleWheel = (event: WheelEvent) => {
+      if (spinCompleted.current || event.deltaY <= 0 || !isDesktopHero()) return;
+      event.preventDefault();
+      // A long virtual travel distance keeps the complete turn calm even on a fast trackpad flick.
+      advanceRotation(Math.min(event.deltaY, 120) / 2800);
+      showSpinCue();
+    };
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (spinCompleted.current || !isDesktopHero() || !["ArrowDown", "PageDown", "End", " "].includes(event.key)) return;
+      event.preventDefault();
+      advanceRotation(0.05);
+      showSpinCue();
+    };
+
+    const hideCueOnScroll = () => {
+      if (spinCueTimer.current) clearTimeout(spinCueTimer.current);
+      setIsSpinning(false);
+    };
+
+    window.addEventListener("scroll", hideCueOnScroll, { passive: true });
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("keydown", handleKeydown);
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("scroll", hideCueOnScroll);
+      window.removeEventListener("keydown", handleKeydown);
+      if (spinCueTimer.current) clearTimeout(spinCueTimer.current);
+    };
+  }, [reducedMotion, rotationProgress, spinComplete]);
+
+  return (
+    <section ref={section} className={`lab-hero ${reducedMotion ? "lab-reduced" : ""}`}>
+      <div className="lab-sticky">
+        <div className="lab-hero-inner">
+          <div className="lab-intro">
+            <p className="lab-eyebrow">Hi, I’m</p>
+            <h1><span>Mohamed</span>{" "}<span>Muaath</span>{" "}<span className="lab-name-outline">Rifath<span className="lab-name-dot">.</span></span></h1>
+            <div className="lab-hero-role"><TypewriterText /></div>
+            <p className="mt-5 max-w-[42ch] text-base leading-relaxed text-muted-foreground">I build the backend services, APIs, and AI voice systems that power the experience.</p>
+            <div className="lab-actions">
+              <Link href="/experience" className="lab-button">Explore my work <ArrowUpRight size={18} /></Link>
+              <Link href="/contact" className="lab-contact-link">Let’s talk <MoveUpRight size={16} /></Link>
+            </div>
+            <div className="lab-socials">
+              <a href="https://github.com/muaath-rifath" target="_blank" rel="noopener noreferrer me" aria-label="GitHub"><IconBrandGithub size={20} /></a>
+              <a href="https://linkedin.com/in/muaath-rifath" target="_blank" rel="noopener noreferrer me" aria-label="LinkedIn"><IconBrandLinkedin size={20} /></a>
+              <a href="https://x.com/MuaathRifath" target="_blank" rel="noopener noreferrer me" aria-label="X"><IconBrandX size={20} /></a>
+              <span />
+              <Link href="/resume">View resume <ArrowUpRight size={14} /></Link>
             </div>
           </div>
-
-          {/* Social links */}
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="https://github.com/muaath-rifath" target="_blank" rel="me">
-              <Button variant="outline" size="icon" className="rounded-full dark:border-white dark:text-white border-[#006b42] text-[#006b42]">
-                <IconBrandGithub className="h-5 w-5" stroke={1.5} />
-              </Button>
-            </Link>
-            <Link href="https://linkedin.com/in/muaath-rifath" target="_blank" rel="me">
-              <Button variant="outline" size="icon" className="rounded-full dark:border-white dark:text-white border-[#006b42] text-[#006b42]">
-                <IconBrandLinkedin className="h-5 w-5" stroke={1.5} />
-              </Button>
-            </Link>
-            <Link href="https://x.com/MuaathRifath" target="_blank" rel="me">
-              <Button variant="outline" size="icon" className="rounded-full dark:border-white dark:text-white border-[#006b42] text-[#006b42]">
-                <IconBrandX className="h-5 w-5" stroke={1.5} />
-              </Button>
-            </Link>
-          </div>
-
-          {/* Contact and Resume buttons on the same row */}
-          <div className="flex flex-wrap items-center gap-4 mt-6">
-            <Link href="/contact">
-              <Button className="dark:bg-white dark:text-[#111] dark:hover:bg-white/90 bg-[#006b42] hover:bg-[#006b42]/90 text-white">
-                Contact Me
-              </Button>
-            </Link>
-
-            <Link href="/resume">
-              <Button
-                variant="outline"
-                className="relative px-6 py-3 font-mono border-2 overflow-hidden group dark:border-white dark:text-white border-[#006b42] text-[#006b42]"
-              >
-                <span>VIEW RESUME</span>
-                <span className="absolute inset-0 dark:bg-white/10 bg-[#006b42]/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-              </Button>
-            </Link>
+          <div className={`lab-scene-stage ${sceneReady && canRender3D ? "lab-scene-ready" : ""}`}>
+            <div className="lab-scene-frame">
+              <Image className="lab-scene-poster lab-scene-poster-light" src="/assets/home-hero-poster-light.webp" alt="" aria-hidden="true" fill priority sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 55vw" />
+              <Image className="lab-scene-poster lab-scene-poster-dark" src="/assets/home-hero-poster.webp" alt="" aria-hidden="true" fill priority sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 55vw" />
+              {canRender3D && <div className="lab-scene-layer"><Model3D progress={rotationProgress} active={sceneVisible} onSpinComplete={completeSpin} onSceneReady={reportSceneReady} /></div>}
+            </div>
           </div>
         </div>
-
-        {/* 3D Model container - right side on desktop, bottom on mobile */}
-        <div className="relative h-[400px] md:h-[500px] lg:h-[600px]">
-          <Model3D />
-        </div>
+        {isSpinning && !spinComplete && !reducedMotion && <div className="lab-hero-bottom"><span className="inline-flex items-center gap-3">Keep scrolling <ArrowDown size={15} /></span></div>}
       </div>
     </section>
   );
