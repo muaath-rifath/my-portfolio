@@ -72,7 +72,7 @@ function ScrollGroup({ progress, children, onSpinComplete, onSceneReady }: {
   useFrame(({ clock, pointer, gl }) => {
     if (group.current) {
       // A steady ambient rotation keeps the scene alive without taking over page scroll.
-      const rotation = reducedMotion ? 0 : clock.getElapsedTime() * 0.08;
+      const rotation = reducedMotion ? 0 : clock.getElapsedTime() * 0.15;
       group.current.rotation.y = rotation;
       if (progress.get() >= 1 && !hasReportedCompletion.current) {
         hasReportedCompletion.current = true;
