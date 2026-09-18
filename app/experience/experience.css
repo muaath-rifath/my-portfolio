@@ -1,11 +1,11 @@
 .experience-page {
   --experience-accent: #006b42;
-  --experience-muted: #53625b;
+  --experience-muted: var(--muted-foreground);
   --experience-rule: color-mix(in srgb, var(--foreground) 17%, var(--background));
   --experience-soft: color-mix(in srgb, var(--background) 96%, var(--experience-accent));
   width: 100%; min-width: 0; background: var(--background); color: var(--foreground);
 }
-.dark .experience-page { --experience-accent: #8fffaa; --experience-muted: #afb8b1; }
+.dark .experience-page { --experience-accent: #8fffaa; }
 .experience-container { width: min(calc(100% - 96px), 1200px); margin-inline: auto; }
 .experience-hero { padding-top: 144px; }
 .experience-kicker { color: var(--experience-accent); font-size: 12px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; margin-bottom: 24px; }

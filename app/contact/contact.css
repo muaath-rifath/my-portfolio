@@ -1,14 +1,13 @@
 /* Match the home and experience palette without changing contact's layout. */
 .contact-page {
   --contact-accent: #006b42;
-  --contact-muted: #53625b;
+  --contact-muted: var(--muted-foreground);
   --contact-rule: color-mix(in srgb, var(--foreground) 17%, var(--background));
   --contact-field: color-mix(in srgb, var(--background) 45%, white);
   color: var(--foreground);
 }
 .dark .contact-page {
   --contact-accent: #8fffaa;
-  --contact-muted: #afb8b1;
   --contact-field: color-mix(in srgb, var(--background) 95%, white);
 }
 .contact-title { font-weight: 550; letter-spacing: -.055em; }

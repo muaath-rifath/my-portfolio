@@ -10,7 +10,7 @@ const workExperience = [
   {
     company: "Introspect Labs",
     role: "Full Stack Developer",
-    location: "Remote — Bengaluru, India",
+    location: "Remote, Bengaluru, India",
     duration: "Oct 2025 – Feb 2026",
     type: "Full-time",
     bullets: [
@@ -239,7 +239,7 @@ const educations = [
 export const metadata: Metadata = {
   title: "Experience | Muaath Rifath",
   description:
-    "Explore the professional experience and skills of Mohamed Muaath Rifath — Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
+    "Explore the professional experience and skills of Mohamed Muaath Rifath, a Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
   keywords: [
     "Experience",
     "Mohamed Muaath Rifath",
@@ -253,7 +253,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Experience | Muaath Rifath",
     description:
-      "Explore the professional experience and skills of Mohamed Muaath Rifath — Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
+      "Explore the professional experience and skills of Mohamed Muaath Rifath, a Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
     images: ["/assets/expertise-page.png"],
     type: "website",
   },
@@ -261,7 +261,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Experience | Muaath Rifath",
     description:
-      "Explore the professional experience and skills of Mohamed Muaath Rifath — Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
+      "Explore the professional experience and skills of Mohamed Muaath Rifath, a Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
     images: "/assets/expertise-page.png",
   },
   alternates: {

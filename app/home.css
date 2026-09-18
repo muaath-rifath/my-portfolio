@@ -8,7 +8,7 @@
   --home-surface-soft: color-mix(in srgb, var(--background) 96%, var(--home-accent));
   --home-contact-surface: color-mix(in srgb, var(--background) 38%, transparent);
 }
-.dark .home-enhancements { --home-accent: #8fffaa; }
+.dark .home-enhancements { --home-accent: #8fffaa; --home-muted: oklch(0.86 0.01 285.823); }
 .home-enhancements .home-story { position: relative; z-index: 1; background: var(--home-surface); border-top: 1px solid var(--home-border); }
 .home-enhancements .home-principles { background: var(--home-surface-soft); }
 .home-enhancements .home-chapter { width: 100%; margin-inline: auto; padding: 104px max(48px, calc((100% - 1280px) / 2)); border-bottom: 1px solid var(--home-border); scroll-margin-top: 88px; }

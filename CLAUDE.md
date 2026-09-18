@@ -17,11 +17,11 @@ This is a **Next.js 16 App Router** portfolio site using React 19, TypeScript, T
 
 ### Route structure (`app/`)
 
-- `/` — Home: `HeroSection` (3D model + typewriter) + `AboutSection`
-- `/experience` — Skills, projects, certifications, education (all data is hardcoded in the page file)
-- `/contact` — Contact form backed by Firebase Firestore + reCAPTCHA v3
-- `/resume` — Resume viewer/download
-- `/blog` — Blog page
+- `/`: Home: `HeroSection` (3D model + typewriter) + `AboutSection`
+- `/experience`: Skills, projects, certifications, education (all data is hardcoded in the page file)
+- `/contact`: Contact form backed by Firebase Firestore + reCAPTCHA v3
+- `/resume`: Resume viewer/download
+- `/blog`: Blog page
 
 ### Key architectural patterns
 
@@ -29,7 +29,7 @@ This is a **Next.js 16 App Router** portfolio site using React 19, TypeScript, T
 
 **Server/Client split**: Most page-level components in `app/` are Server Components. Interactive components use `"use client"`. The contact page itself is `"use client"` due to scroll animations via `IntersectionObserver`. The 3D model is loaded with `dynamic()` and `ssr: false`.
 
-**Animated components** (`components/animated/`): Reusable animated wrappers — `PageEntryWrapper`, `AnimatedSectionTitle`, `AnimatedBackground`, and grid components (`ProgrammingLanguagesGrid`, `FrameworksGrid`, `ToolsGrid`, `ProjectsGrid`, `CertificationsGrid`). These wrap data passed as props with Framer Motion animations.
+**Animated components** (`components/animated/`): Reusable animated wrappers: `PageEntryWrapper`, `AnimatedSectionTitle`, `AnimatedBackground`, and grid components (`ProgrammingLanguagesGrid`, `FrameworksGrid`, `ToolsGrid`, `ProjectsGrid`, `CertificationsGrid`). These wrap data passed as props with Framer Motion animations.
 
 **Background/visual layer**: `BackgroundElements` (global, in root layout) renders decorative circuit-board SVG elements. `AnimatedBackground` is used inside the experience page for additional decoration. The design uses a tech/circuit-board aesthetic throughout with green accent colors (`#006b42` light, `#8fffaa` dark).
 
