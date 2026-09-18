@@ -5,73 +5,67 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 
 export default function ContactInfo() {
   return (
-    <div className="relative mb-0 flex flex-col justify-center rounded-xl border border-gray-200 bg-background/90 p-6 backdrop-blur-sm transition-colors duration-300 dark:border-gray-700 lg:w-1/2 lg:items-center lg:rounded-r-none lg:border-0 lg:bg-transparent lg:backdrop-blur-none">
-      {/* Circuit trace decorations */}
-      <div className="absolute top-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
-      <div className="absolute bottom-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
-      <div className="absolute top-4 right-4 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
-      
+    <div className="contact-panel contact-info relative mb-0 flex flex-col justify-center p-6 lg:w-1/2 lg:items-center">
       <div className="w-full mb-6">
-        <h2 className="text-3xl text-center font-mono dark:text-white text-[#006b42] font-bold relative">
+        <h2 className="contact-panel-title text-3xl text-center relative">
           Contact
-          <span className="absolute left-0 right-0 bottom-0 mx-auto w-16 h-[2px] dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
         </h2>
       </div>
-      
+
       <div className="flex flex-col justify-center space-y-6 w-full">
         <div className="flex flex-col lg:flex-row items-start lg:items-center flex-wrap gap-4 group/item relative">
-          <span className="flex items-center gap-2 font-mono">
-            <div className="flex items-center justify-center h-8 w-8 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10">
-              <MdAttachEmail className="text-lg dark:text-[#8fffaa] text-[#006b42]" />
+          <span className="contact-detail-label flex items-center gap-2">
+            <div className="contact-icon flex items-center justify-center h-8 w-8">
+              <MdAttachEmail className="text-lg" />
             </div>
-            <span className="dark:text-[#8fffaa] text-[#006b42] font-medium">
+            <span className="font-medium">
               Email:
             </span>
           </span>
-          <Link 
-            href="mailto:contact@muaathrifath.me" 
-            target="_blank" 
-            type="email" 
-            className="flex items-center gap-2 flex-nowrap dark:hover:text-[#8fffaa] hover:text-[#006b42] transition-colors duration-300"
+          <Link
+            href="mailto:contact@muaathrifath.me"
+            target="_blank"
+            type="email"
+            className="contact-detail-link flex items-center gap-2 flex-nowrap"
           >
             contact@muaathrifath.me
             <FaExternalLinkAlt className="w-3 h-3" />
           </Link>
         </div>
-        
+
         <div className="flex flex-col lg:flex-row items-start lg:items-center flex-wrap gap-4 group/item relative">
-          <span className="flex items-center gap-2 font-mono">
-            <div className="flex items-center justify-center h-8 w-8 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10">
-              <FaPhoneAlt className="text-lg dark:text-[#8fffaa] text-[#006b42]" />
+          <span className="contact-detail-label flex items-center gap-2">
+            <div className="contact-icon flex items-center justify-center h-8 w-8">
+              <FaPhoneAlt className="text-lg" />
             </div>
-            <span className="dark:text-[#8fffaa] text-[#006b42] font-medium">
+            <span className="font-medium">
               Phone:
             </span>
           </span>
-          <Link 
-            href="tel:+918883735079" 
-            target="_blank" 
-            type="tel" 
-            className="flex items-center gap-2 flex-nowrap dark:hover:text-[#8fffaa] hover:text-[#006b42] transition-colors duration-300"
+          <Link
+            href="tel:+918883735079"
+            target="_blank"
+            type="tel"
+            className="contact-detail-link flex items-center gap-2 flex-nowrap"
           >
             +91 88837 35079
             <FaExternalLinkAlt className="w-3 h-3" />
           </Link>
         </div>
-        
+
         <div className="flex flex-col lg:flex-row items-start lg:items-center flex-wrap gap-4 group/item relative">
-          <span className="flex items-center gap-2 font-mono">
-            <div className="flex items-center justify-center h-8 w-8 rounded-full dark:bg-[#8fffaa]/10 bg-[#006b42]/10">
-              <FaAddressCard className="text-lg dark:text-[#8fffaa] text-[#006b42]" />
+          <span className="contact-detail-label flex items-center gap-2">
+            <div className="contact-icon flex items-center justify-center h-8 w-8">
+              <FaAddressCard className="text-lg" />
             </div>
-            <span className="dark:text-[#8fffaa] text-[#006b42] font-medium">
+            <span className="font-medium">
               Address:
             </span>
           </span>
-          <Link 
-            href="" 
-            target="_blank" 
-            className="flex items-center gap-2 flex-nowrap dark:hover:text-[#8fffaa] hover:text-[#006b42] transition-colors duration-300"
+          <Link
+            href=""
+            target="_blank"
+            className="contact-detail-link flex items-center gap-2 flex-nowrap"
           >
             Chennai, India
             <FaExternalLinkAlt className="w-3 h-3" />

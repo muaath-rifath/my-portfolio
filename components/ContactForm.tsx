@@ -76,17 +76,11 @@ function ContactFormInner() {
   }
 
   return (
-    <div className="relative flex flex-col rounded-xl border border-gray-200 bg-background/90 p-6 backdrop-blur-sm transition-colors duration-300 dark:border-gray-700 lg:w-1/2 lg:rounded-l-none lg:border-0 lg:bg-transparent lg:backdrop-blur-none">
-      {/* Circuit trace decorations */}
-      <div className="absolute top-0 left-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
-      <div className="absolute bottom-0 right-0 w-[40%] h-[1px] dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
-      <div className="absolute bottom-4 left-4 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30 opacity-0 group-hover/contact-card:opacity-100 transition-all duration-500"></div>
-      
-      <h2 className="text-2xl font-mono dark:text-white text-[#006b42] font-bold relative mb-6 inline-block">
+    <div className="contact-panel contact-form relative flex flex-col p-6 lg:w-1/2">
+      <h2 className="contact-panel-title text-2xl relative mb-6 inline-block">
         Send a Message
-        <span className="absolute left-0 bottom-0 w-16 h-[2px] dark:bg-[#8fffaa]/50 bg-[#006b42]/50"></span>
       </h2>
-      
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex flex-col items-start">
           <FormField
@@ -94,12 +88,12 @@ function ContactFormInner() {
             name="name"
             render={({ field }) => (
               <FormItem className="flex flex-col items-start w-full">
-                <FormLabel className="font-mono dark:text-[#8fffaa] text-[#006b42] font-medium">Full Name</FormLabel>
+                <FormLabel className="contact-label font-medium">Full Name</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Enter Your Name" 
-                    className="w-full border-gray-400 dark:border-gray-600 focus:border-[#006b42] dark:focus:border-[#8fffaa] transition-colors dark:bg-black/50 bg-white/70 dark:placeholder:text-gray-400 placeholder:text-gray-500" 
-                    {...field} 
+                  <Input
+                    placeholder="Enter Your Name"
+                    className="contact-input w-full"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -111,12 +105,12 @@ function ContactFormInner() {
             name="email"
             render={({ field }) => (
               <FormItem className="flex flex-col items-start w-full">
-                <FormLabel className="font-mono dark:text-[#8fffaa] text-[#006b42] font-medium">Email</FormLabel>
+                <FormLabel className="contact-label font-medium">Email</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Enter Your Email" 
-                    className="w-full border-gray-400 dark:border-gray-600 focus:border-[#006b42] dark:focus:border-[#8fffaa] transition-colors dark:bg-black/50 bg-white/70 dark:placeholder:text-gray-400 placeholder:text-gray-500" 
-                    {...field} 
+                  <Input
+                    placeholder="Enter Your Email"
+                    className="contact-input w-full"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -128,12 +122,12 @@ function ContactFormInner() {
             name="phone"
             render={({ field }) => (
               <FormItem className="flex flex-col items-start w-full">
-                <FormLabel className="font-mono dark:text-[#8fffaa] text-[#006b42] font-medium">Phone Number</FormLabel>
+                <FormLabel className="contact-label font-medium">Phone Number</FormLabel>
                 <FormControl className="w-full">
-                  <PhoneInput 
-                    placeholder="Enter a phone number" 
-                    className="focus:border-[#006b42] dark:focus:border-[#8fffaa] transition-colors dark:bg-black/50 bg-white/70 dark:placeholder:text-gray-400 placeholder:text-gray-500" 
-                    {...field} 
+                  <PhoneInput
+                    placeholder="Enter a phone number"
+                    className="contact-phone"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -145,27 +139,23 @@ function ContactFormInner() {
             name="message"
             render={({ field }) => (
               <FormItem className="flex flex-col items-start w-full">
-                <FormLabel className="font-mono dark:text-[#8fffaa] text-[#006b42] font-medium">Message</FormLabel>
+                <FormLabel className="contact-label font-medium">Message</FormLabel>
                 <FormControl>
-                  <Textarea 
-                    placeholder="Enter Your Message" 
-                    className="w-full border-gray-400 dark:border-gray-600 focus:border-[#006b42] dark:focus:border-[#8fffaa] transition-colors min-h-[150px] dark:bg-black/50 bg-white/70 dark:placeholder:text-gray-400 placeholder:text-gray-500" 
-                    {...field} 
+                  <Textarea
+                    placeholder="Enter Your Message"
+                    className="contact-input w-full min-h-[150px]"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button 
-            type="submit" 
-            className="relative group/btn overflow-hidden bg-gradient-to-r from-[#006b42]/90 to-[#006b42] dark:from-[#8fffaa]/70 dark:to-[#8fffaa]/90 text-white dark:text-[#111] hover:shadow-lg hover:shadow-[#006b42]/20 dark:hover:shadow-[#8fffaa]/20 transition-all duration-300"
+          <Button
+            type="submit"
+            className="contact-submit"
           >
-            <span className="relative z-10">Submit</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-[#00805e] to-[#008050] dark:from-[#a5ffbc] dark:to-[#95ffc4] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
-            {/* Circuit trace accent */}
-            <span className="absolute top-0 left-0 h-[1px] w-8 bg-white/40 dark:bg-black/40"></span>
-            <span className="absolute bottom-0 right-0 h-[1px] w-8 bg-white/40 dark:bg-black/40"></span>
+            Submit
           </Button>
         </form>
       </Form>
