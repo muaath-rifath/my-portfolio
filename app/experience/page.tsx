@@ -298,7 +298,7 @@ export default function ExperiencePage() {
       <header className="experience-hero experience-container">
         <p className="experience-kicker">Experience & selected work</p>
         <div className="experience-hero-grid">
-          <h1>Behind the code.<br /><em>The work itself.</em></h1>
+          <h1>Where I’ve been.<br /><em>What I’ve built.</em></h1>
           <div className="experience-hero-copy">
             <p>From web applications to AI voice systems and connected devices. A closer look at what I’ve built, the problems I’ve worked on, and the tools I use.</p>
             <Link href="/resume" className="experience-text-link"><FileText size={17} aria-hidden="true" /> View my resume <ArrowUpRight size={17} aria-hidden="true" /></Link>
