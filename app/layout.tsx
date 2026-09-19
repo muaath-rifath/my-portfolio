@@ -42,7 +42,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Muaath Rifath',
     description: 'Full-Stack Developer specializing in Next.js, TypeScript, and modern web development. Building production applications with React, FastAPI, Docker, and cloud infrastructure.',
-    images: 'assets/home-page.png',
     url: 'https://muaathrifath.me',
     type: 'website',
     siteName: 'Muaath Rifath',
@@ -52,7 +51,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Muaath Rifath',
     description: 'Full-Stack Developer specializing in Next.js, TypeScript, and modern web development. Building production applications with React, FastAPI, Docker, and cloud infrastructure.',
-    images: 'assets/home-page.png',
     creator: '@MuaathRifath',
   },
   icons: {

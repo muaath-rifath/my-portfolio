@@ -13,13 +13,11 @@ export const metadata: Metadata = {
     title: "Mohamed Muaath Rifath | Full-Stack Developer",
     description: "Software engineer in Chennai focused on backend services, APIs, and AI voice systems. Explore my experience and projects.",
     url: "/",
-    images: ["/assets/home-page.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Mohamed Muaath Rifath | Full-Stack Developer",
     description: "Software engineer in Chennai focused on backend services, APIs, and AI voice systems. Explore my experience and projects.",
-    images: ["/assets/home-page.png"],
   },
 };
 

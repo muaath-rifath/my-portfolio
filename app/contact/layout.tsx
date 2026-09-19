@@ -7,13 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact | Muaath Rifath",
     description: "Start a conversation with Mohamed Muaath Rifath about your next product or technical challenge.",
-    images: ["/assets/contact-page.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact | Muaath Rifath",
     description: "Start a conversation with Mohamed Muaath Rifath about your next product or technical challenge.",
-    images: ["/assets/contact-page.png"],
   },
 };
 

@@ -254,7 +254,6 @@ export const metadata: Metadata = {
     title: "Experience | Muaath Rifath",
     description:
       "Explore the professional experience and skills of Mohamed Muaath Rifath, a Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
-    images: ["/assets/expertise-page.png"],
     type: "website",
   },
   twitter: {
@@ -262,7 +261,6 @@ export const metadata: Metadata = {
     title: "Experience | Muaath Rifath",
     description:
       "Explore the professional experience and skills of Mohamed Muaath Rifath, a Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
-    images: "/assets/expertise-page.png",
   },
   alternates: {
     canonical: "https://muaathrifath.me/experience",
