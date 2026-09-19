@@ -68,7 +68,7 @@ function ScrollGroup({ progress, children, onSpinComplete, onSceneReady }: {
       }
     });
   }, []);
-  useFrame(({ clock, pointer, gl }) => {
+  useFrame(({ clock, gl }) => {
     if (group.current) {
       // A steady ambient rotation keeps the scene alive without taking over page scroll.
       const rotation = reducedMotion ? 0 : clock.getElapsedTime() * 0.15;
@@ -77,8 +77,8 @@ function ScrollGroup({ progress, children, onSpinComplete, onSceneReady }: {
         hasReportedCompletion.current = true;
         onSpinComplete?.();
       }
-      gl.domElement.dataset.sceneReady = "true";
       if (!hasReportedSceneReady.current) {
+        gl.domElement.dataset.sceneReady = "true";
         hasReportedSceneReady.current = true;
         requestAnimationFrame(() => onSceneReady?.());
       }
@@ -99,8 +99,17 @@ export function HomeModel3D({ progress, onSpinComplete, onSceneReady }: Model3DP
   const frame = useRef<HTMLDivElement>(null);
   const [viewport, setViewport] = useState<SceneViewport | null>(null);
   const [pageVisible, setPageVisible] = useState(true);
+  const [inView, setInView] = useState(true);
+  useEffect(() => {
+    const element = frame.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { rootMargin: `${VERTICAL_BLEED}px 0px` });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
   useEffect(() => {
     const handleVisibility = () => setPageVisible(!document.hidden);
+    handleVisibility();
     document.addEventListener("visibilitychange", handleVisibility);
     return () => document.removeEventListener("visibilitychange", handleVisibility);
   }, []);
@@ -144,7 +153,7 @@ export function HomeModel3D({ progress, onSpinComplete, onSceneReady }: Model3DP
     <div ref={frame} className="lab-canvas">
       <div className="lab-canvas-layer" style={viewport ? { position: 'absolute', left: -viewport.left, top: -VERTICAL_BLEED, width: viewport.screenWidth, height: viewport.height + VERTICAL_BLEED * 2, pointerEvents: 'none' } : { width: '100%', height: '100%' }}>
       {/* Adjusted camera position - further back */}
-      <Canvas shadows frameloop={pageVisible ? "always" : "never"} dpr={[1, 1.25]} gl={{ powerPreference: "high-performance", antialias: true }} camera={{ position: [0, 15, 60], fov: 50 }}>
+      <Canvas shadows frameloop={pageVisible && inView ? "always" : "never"} dpr={[1, 1.25]} gl={{ powerPreference: "high-performance", antialias: true }} camera={{ position: [0, 15, 60], fov: 50 }}>
         <OverflowCamera viewport={viewport} />
         <Suspense fallback={null}>
           {/* Add helpers for debugging */}

@@ -2,33 +2,14 @@
 
 import { lightModelPalette } from '@/lib/model-palette';
 
-import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox, Text } from '@react-three/drei'; // Use RoundedBox and Text
 import { useDarkMode } from '@/hooks/useDarkMode';
 
 // --- Interfaces & Types ---
-interface WaveData {
-  id: number;
-  meshRef: React.RefObject<THREE.Mesh | null>; // Allow null
-  materialRef: React.RefObject<THREE.MeshStandardMaterial | null>; // Allow null
-  scale: number;
-  opacity: number;
-  created: number;
-  coneHeight: number;
-  coneRadius: number;
-}
 
-interface WaveEmitterState {
-  waves: WaveData[];
-  nextWaveTime: number;
-}
-
-type VehicleIoTGatewayProps = {
-  // isDarkMode prop removed - now using useDarkMode hook
-  // Removed width and height props
-}
 
 // --- Constants ---
 const LENGTH = 12;
@@ -121,17 +102,7 @@ const useGatewayMaterials = (isDarkMode: boolean) => {
     ledRed: new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.8 }),
     ledYellow: new THREE.MeshStandardMaterial({ color: 0xffff00, emissive: 0xffff00, emissiveIntensity: 0.8 }),
     mountHole: new THREE.MeshBasicMaterial({ color: 0x000000 }),
-    waveMaterialBase: (color: THREE.Color) => new THREE.MeshStandardMaterial({
-        color: color,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0.8,
-        depthWrite: false,
-        metalness: 0.3,
-        roughness: 0.4,
-        emissive: color,
-        emissiveIntensity: 0.3
-      }),
+
   }), [isDarkMode]);
 };
 
@@ -168,67 +139,8 @@ const Antenna = React.memo(({
   isDarkMode: boolean;
   waveInterval: number;
 }) => {
-  const waveGroupRef = useRef<THREE.Group>(null);
-  const [emitterState, setEmitterState] = useState<WaveEmitterState>({ waves: [], nextWaveTime: 0 });
-  const waveMaterial = useMemo(() => materials.waveMaterialBase(waveColor), [materials, waveColor]);
-  let waveCounter = useRef(0);
-
-  useFrame(() => {
-    const now = Date.now();
-    let updatedWaves = [...emitterState.waves];
-    let needsUpdate = false;
-
-    // Create new wave
-    if (now >= emitterState.nextWaveTime) {
-      const newWave: WaveData = {
-        id: waveCounter.current++,
-        meshRef: React.createRef(),
-        materialRef: React.createRef(),
-        scale: 1,
-        opacity: 0.8,
-        created: now,
-        coneHeight: 0,
-        coneRadius: WAVE_CONFIG.initialRingSize,
-      };
-      updatedWaves.push(newWave);
-      setEmitterState(prev => ({ ...prev, nextWaveTime: now + waveInterval, waves: updatedWaves }));
-      needsUpdate = true;
-    }
-
-    // Animate existing waves
-    for (let i = updatedWaves.length - 1; i >= 0; i--) {
-      const wave = updatedWaves[i];
-      const age = now - wave.created;
-      const lifespan = WAVE_CONFIG.lifespan;
-
-      if (age < lifespan) {
-        const progress = age / lifespan;
-        const waveHeight = progress * WAVE_CONFIG.maxHeight;
-        const radius = Math.tan(WAVE_CONFIG.coneAngle) * waveHeight;
-        const ringScale = 1 + radius / WAVE_CONFIG.initialRingSize;
-        const newOpacity = 0.8 * (1 - progress);
-
-        // Update wave data (will be used by the WaveMesh component)
-        wave.coneHeight = waveHeight;
-        wave.scale = ringScale;
-        wave.opacity = newOpacity;
-        needsUpdate = true; // Mark for potential state update if values changed significantly
-
-      } else {
-        // Remove expired waves
-        updatedWaves.splice(i, 1);
-        needsUpdate = true;
-      }
-    }
-
-    // Only update state if waves array changed length or significant updates occurred
-    // This check might need refinement based on performance
-    if (needsUpdate && updatedWaves.length !== emitterState.waves.length) {
-         setEmitterState(prev => ({ ...prev, waves: updatedWaves }));
-    }
-    // If only properties changed, the WaveMesh component will handle updates via refs
-
-  });
+  // Fixed pool avoids allocating and mounting meshes as each wave is emitted.
+  const waveCount = Math.ceil(WAVE_CONFIG.lifespan / waveInterval);
 
   return (
     <group position={position}>
@@ -245,9 +157,9 @@ const Antenna = React.memo(({
         <coneGeometry args={[ANTENNA_TIP_RADIUS, ANTENNA_TIP_HEIGHT, 8]} />
       </mesh>
       {/* Wave Emission Point & Waves */}
-      <group ref={waveGroupRef} position-y={antennaHeight + 0.55}>
-        {emitterState.waves.map(wave => (
-          <WaveMesh key={wave.id} waveData={wave} material={waveMaterial} />
+      <group position-y={antennaHeight + 0.55}>
+        {Array.from({ length: waveCount }, (_, index) => (
+          <WaveMesh key={index} index={index} interval={waveInterval} count={waveCount} color={waveColor} />
         ))}
       </group>
       {/* Label */}
@@ -266,55 +178,36 @@ const Antenna = React.memo(({
 });
 Antenna.displayName = 'Antenna';
 
-// Wave Mesh Component (Handles individual wave animation updates)
-const WaveMesh = ({ waveData, material }: { waveData: WaveData, material: THREE.MeshStandardMaterial }) => {
-  const meshRef = useRef<THREE.Mesh>(null!);
-  const matRef = useRef<THREE.MeshStandardMaterial>(null!);
-
-  useFrame(() => {
-    if (meshRef.current && matRef.current) {
-      meshRef.current.position.y = waveData.coneHeight;
-      meshRef.current.scale.set(waveData.scale, waveData.scale, 1);
-      meshRef.current.rotation.z += WAVE_CONFIG.rotationSpeed;
-      matRef.current.opacity = waveData.opacity;
-    }
+// Reuse each wave's geometry and material for its entire lifetime.
+const WaveMesh = ({ index, interval, count, color }: {
+  index: number; interval: number; count: number; color: THREE.Color;
+}) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const matRef = useRef<THREE.MeshStandardMaterial>(null);
+  const elapsed = useRef(0);
+  useFrame((_, delta) => {
+    elapsed.current += Math.min(delta, 0.05) * 1000;
+    const age = elapsed.current - index * interval;
+    const phase = age < 0 ? -1 : age % (count * interval);
+    const mesh = meshRef.current;
+    if (!mesh || !matRef.current) return;
+    mesh.visible = phase >= 0 && phase < WAVE_CONFIG.lifespan;
+    if (!mesh.visible) return;
+    const progress = phase / WAVE_CONFIG.lifespan;
+    const height = progress * WAVE_CONFIG.maxHeight;
+    const scale = 1 + Math.tan(WAVE_CONFIG.coneAngle) * height / WAVE_CONFIG.initialRingSize;
+    mesh.position.y = height;
+    mesh.scale.set(scale, scale, 1);
+    mesh.rotation.z += WAVE_CONFIG.rotationSpeed * Math.min(delta, 0.05) * 60;
+    matRef.current.opacity = 0.8 * (1 - progress);
   });
-
-  return (
-    <mesh ref={meshRef} rotation-x={Math.PI / 2}>
-      <ringGeometry args={[WAVE_CONFIG.initialRingSize * 0.7, WAVE_CONFIG.initialRingSize, WAVE_CONFIG.segments]} />
-      <primitive object={material.clone()} ref={matRef} attach="material" />
-    </mesh>
-  );
+  return <mesh ref={meshRef} rotation-x={Math.PI / 2} visible={false}>
+    <ringGeometry args={[WAVE_CONFIG.initialRingSize * 0.7, WAVE_CONFIG.initialRingSize, WAVE_CONFIG.segments]} />
+    <meshStandardMaterial ref={matRef} color={color} transparent opacity={0} side={THREE.DoubleSide} depthWrite={false} metalness={0.3} roughness={0.4} />
+  </mesh>;
 };
 
-// Status Display Component
-const StatusDisplay = React.memo(({ position, rotation, materials, isDarkMode }: {
-  position: [number, number, number];
-  rotation: [number, number, number];
-  materials: ReturnType<typeof useGatewayMaterials>;
-  isDarkMode: boolean;
-}) => {
-  const [timeString, setTimeString] = useState('');
-  const [strengths, setStrengths] = useState({ cell: 0, gps: 0, wifi: 0, vehicle: 0 });
-  const textMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: isDarkMode ? '#00ffaa' : '#00aa88' }), [isDarkMode]);
-  const valueMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: '#ccddee' }), []);
-  const statusMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: '#00ff00' }), []);
-
-  useFrame(({ clock }) => {
-    const now = new Date();
-    setTimeString(now.toLocaleTimeString());
-
-    const t = clock.elapsedTime;
-    setStrengths({
-      cell: 75 + 15 * Math.sin(t * 0.3),
-      gps: 85 + 10 * Math.sin(t * 0.2 + 1),
-      wifi: 60 + 20 * Math.sin(t * 0.4 + 2),
-      vehicle: 95 + 5 * Math.sin(t * 0.1),
-    });
-  });
-
-  const StrengthBar = ({ y, label, strength }: { y: number, label: string, strength: number }) => {
+const StrengthBar = ({ y, label, strength, valueMaterial }: { y: number; label: string; strength: number; valueMaterial: THREE.MeshBasicMaterial }) => {
     const barWidth = DISPLAY_WIDTH * 0.4;
     const barHeight = DISPLAY_HEIGHT * 0.08;
     const activeWidth = barWidth * (strength / 100);
@@ -329,14 +222,46 @@ const StatusDisplay = React.memo(({ position, rotation, materials, isDarkMode }:
           <meshBasicMaterial color="#333333" />
         </mesh>
         {/* Active Bar */}
-        <mesh position={[-DISPLAY_WIDTH * 0.15 + activeWidth / 2, 0, 0.02]}>
-          <planeGeometry args={[activeWidth, barHeight]} />
+        <mesh position={[-DISPLAY_WIDTH * 0.15 + activeWidth / 2, 0, 0.02]} scale-x={strength / 100}>
+          <planeGeometry args={[barWidth, barHeight]} />
           <meshBasicMaterial color={strengthColor} />
         </mesh>
         <Text material={valueMaterial} fontSize={0.15} anchorX="left" position={[DISPLAY_WIDTH * 0.3, 0, 0.01]}>{`${Math.round(strength)}%`}</Text>
       </group>
     );
   };
+
+
+// Status Display Component
+const StatusDisplay = React.memo(({ position, rotation, materials, isDarkMode }: {
+  position: [number, number, number];
+  rotation: [number, number, number];
+  materials: ReturnType<typeof useGatewayMaterials>;
+  isDarkMode: boolean;
+}) => {
+  const [timeString, setTimeString] = useState('');
+  const [strengths, setStrengths] = useState({ cell: 0, gps: 0, wifi: 0, vehicle: 0 });
+  const textMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: isDarkMode ? '#00ffaa' : '#00aa88' }), [isDarkMode]);
+  const valueMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: '#ccddee' }), []);
+  const statusMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: '#00ff00' }), []);
+
+  const nextDisplayUpdate = useRef(0);
+  useFrame(({ clock }) => {
+    // Telemetry text only needs four updates per second.
+    if (clock.elapsedTime < nextDisplayUpdate.current) return;
+    nextDisplayUpdate.current = clock.elapsedTime + 0.25;
+    const now = new Date();
+    setTimeString(now.toLocaleTimeString());
+
+    const t = clock.elapsedTime;
+    setStrengths({
+      cell: 75 + 15 * Math.sin(t * 0.3),
+      gps: 85 + 10 * Math.sin(t * 0.2 + 1),
+      wifi: 60 + 20 * Math.sin(t * 0.4 + 2),
+      vehicle: 95 + 5 * Math.sin(t * 0.1),
+    });
+  });
+
 
   return (
     <group position={position} rotation={rotation}>
@@ -359,10 +284,10 @@ const StatusDisplay = React.memo(({ position, rotation, materials, isDarkMode }:
           {timeString}
         </Text>
         {/* Strength Bars */}
-        <StrengthBar y={DISPLAY_HEIGHT * 0.1} label="CELL" strength={strengths.cell} />
-        <StrengthBar y={-DISPLAY_HEIGHT * 0.05} label="GPS" strength={strengths.gps} />
-        <StrengthBar y={-DISPLAY_HEIGHT * 0.2} label="WIFI" strength={strengths.wifi} />
-        <StrengthBar y={-DISPLAY_HEIGHT * 0.35} label="VEHICLE" strength={strengths.vehicle} />
+        <StrengthBar valueMaterial={valueMaterial} y={DISPLAY_HEIGHT * 0.1} label="CELL" strength={strengths.cell} />
+        <StrengthBar valueMaterial={valueMaterial} y={-DISPLAY_HEIGHT * 0.05} label="GPS" strength={strengths.gps} />
+        <StrengthBar valueMaterial={valueMaterial} y={-DISPLAY_HEIGHT * 0.2} label="WIFI" strength={strengths.wifi} />
+        <StrengthBar valueMaterial={valueMaterial} y={-DISPLAY_HEIGHT * 0.35} label="VEHICLE" strength={strengths.vehicle} />
         {/* Status */}
         <Text material={statusMaterial} fontSize={0.2} anchorX="center" anchorY="bottom" position={[0, -DISPLAY_HEIGHT * 0.45, 0.01]}>
           ● ONLINE
@@ -484,17 +409,19 @@ const StatusLED = React.memo(({ position, material }: { position: [number, numbe
 StatusLED.displayName = 'StatusLED';
 
 // --- Main Component ---
-export default function VehicleIoTGateway({}: VehicleIoTGatewayProps) {
+export default function VehicleIoTGateway() {
   const isDarkMode = useDarkMode();
   const gatewayGroupRef = useRef<THREE.Group>(null);
   const materials = useGatewayMaterials(isDarkMode);
 
-  // Antenna configurations
+  const [waveIntervals] = useState(() => [1500, 1800, 1200, 2000].map(base => base + Math.random() * 1000));
+
+  // Stable emission intervals survive theme changes and parent renders.
   const antennas = [
-    { x: -LENGTH / 4 - 1, z: 0, height: 2.5, label: "CELL", color: new THREE.Color(isDarkMode ? 0x00aaff : lightModelPalette.accent), interval: 1500 + Math.random() * 1000 },
-    { x: -LENGTH / 4, z: -DEVICE_WIDTH / 6, height: 2.0, label: "GPS", color: new THREE.Color(0xffaa00), interval: 1800 + Math.random() * 1000 },
-    { x: -LENGTH / 4, z: DEVICE_WIDTH / 6, height: 1.5, label: "WIFI", color: new THREE.Color(0x00ff88), interval: 1200 + Math.random() * 1000 },
-    { x: -LENGTH / 4 + 1, z: 0, height: 1.8, label: "BT/ZB", color: new THREE.Color(isDarkMode ? 0x8844ff : lightModelPalette.secondary), interval: 2000 + Math.random() * 1000 },
+    { x: -LENGTH / 4 - 1, z: 0, height: 2.5, label: "CELL", color: new THREE.Color(isDarkMode ? 0x00aaff : lightModelPalette.accent), interval: waveIntervals[0] },
+    { x: -LENGTH / 4, z: -DEVICE_WIDTH / 6, height: 2.0, label: "GPS", color: new THREE.Color(0xffaa00), interval: waveIntervals[1] },
+    { x: -LENGTH / 4, z: DEVICE_WIDTH / 6, height: 1.5, label: "WIFI", color: new THREE.Color(0x00ff88), interval: waveIntervals[2] },
+    { x: -LENGTH / 4 + 1, z: 0, height: 1.8, label: "BT/ZB", color: new THREE.Color(isDarkMode ? 0x8844ff : lightModelPalette.secondary), interval: waveIntervals[3] },
   ];
 
   return (

@@ -2,15 +2,13 @@
 
 import { lightModelPalette } from '@/lib/model-palette';
 
-import React, { useRef, useMemo, useState } from 'react'; // Import useState
+import React, { useRef, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import { useDarkMode } from '@/hooks/useDarkMode';
 
-type AirQualitySensorProps = {
-    // isDarkMode prop removed - now using useDarkMode hook
-}
+
 
 // Remove mesh from SignalRingData if managed by state/rendering
 interface SignalRingData {
@@ -220,14 +218,16 @@ function MountingHole({ x, z, material }: { x: number, z: number, material: THRE
     );
 }
 
-export default function AirQualitySensor({}: AirQualitySensorProps) {
+export default function AirQualitySensor() {
     const isDarkMode = useDarkMode();
     const sensorGroupRef = useRef<THREE.Group>(null);
     const indicatorRef = useRef<THREE.Mesh>(null);
     const indicatorLightRef = useRef<THREE.PointLight>(null);
 
-    // Use state for rings and particles
-    const [signalRings, setSignalRings] = useState<SignalRingData[]>(() =>
+    // Keep animation data stable; frame updates mutate meshes without React renders.
+    const ringMeshes = useRef<(THREE.Mesh | null)[]>([]);
+    const particleMeshes = useRef<(THREE.Mesh | null)[]>([]);
+    const [signalRings] = useState<SignalRingData[]>(() =>
         Array.from({ length: 3 }).map((_, i) => ({
             id: i,
             initialY: 0.9 + i * 0.2,
@@ -238,7 +238,7 @@ export default function AirQualitySensor({}: AirQualitySensorProps) {
         }))
     );
 
-    const [particles, setParticles] = useState<ParticleData[]>(() =>
+    const [particles] = useState<ParticleData[]>(() =>
         Array.from({ length: 15 }).map((_, i) => ({
             id: i,
             initialX: (Math.random() - 0.5) * 0.4,
@@ -254,7 +254,8 @@ export default function AirQualitySensor({}: AirQualitySensorProps) {
     const materials = useSensorMaterials(isDarkMode);
     const textColor = isDarkMode ? '#00ff88' : '#00ff88';
 
-    useFrame((state) => {
+    useFrame((state, delta) => {
+        const step = Math.min(delta, 0.05) * 60;
         const time = state.clock.elapsedTime;
 
         if (sensorGroupRef.current) {
@@ -270,29 +271,26 @@ export default function AirQualitySensor({}: AirQualitySensorProps) {
             }
         }
 
-        // Update signal rings state
-        setSignalRings(prevRings => prevRings.map(ring => {
-            let newY = ring.currentY + ring.speed;
-            const progress = (newY - ring.initialY) / 0.5;
-            let newOpacity = Math.max(0, 0.7 * (1 - progress));
-            let newScale = 1 + progress * 2;
-
-            if (newOpacity <= 0) {
-                newY = ring.initialY;
-                newOpacity = 0.7;
-                newScale = 1;
+        signalRings.forEach((ring, i) => {
+            ring.currentY += ring.speed * step;
+            let progress = (ring.currentY - ring.initialY) / 0.5;
+            if (progress >= 1) { ring.currentY = ring.initialY; progress = 0; }
+            const mesh = ringMeshes.current[i];
+            if (mesh) {
+                mesh.position.y = ring.currentY;
+                mesh.scale.setScalar(1 + progress * 2);
+                (mesh.material as THREE.MeshBasicMaterial).opacity = 0.7 * (1 - progress);
             }
-            return { ...ring, currentY: newY, opacity: newOpacity, scale: newScale };
-        }));
+        });
 
-        // Update particles state
-        setParticles(prevParticles => prevParticles.map(particle => {
-            const newAngle = particle.angle + particle.speed;
-            const newX = particle.initialX + Math.sin(newAngle) * 0.05;
-            const newZ = particle.initialZ + Math.cos(newAngle) * 0.05;
-            const newY = Math.sin(time * particle.speed * 5 + newAngle) * 0.05;
-            return { ...particle, angle: newAngle, currentX: newX, currentY: newY, currentZ: newZ };
-        }));
+        particles.forEach((particle, i) => {
+            particle.angle += particle.speed * step;
+            particleMeshes.current[i]?.position.set(
+                particle.initialX + Math.sin(particle.angle) * 0.05,
+                Math.sin(time * particle.speed * 5 + particle.angle) * 0.05,
+                particle.initialZ + Math.cos(particle.angle) * 0.05,
+            );
+        });
     });
 
     const tracePositions = useMemo(() => Array.from({ length: 8 }).map((_, i) => {
@@ -350,6 +348,7 @@ export default function AirQualitySensor({}: AirQualitySensorProps) {
                     {particles.map(particle => (
                         <mesh
                             key={particle.id}
+                            ref={mesh => { particleMeshes.current[particle.id] = mesh; }}
                             material={materials.particleMaterial}
                             position={[particle.currentX, particle.currentY, particle.currentZ]}
                             scale={0.02} // Small scale for particles
@@ -415,18 +414,13 @@ export default function AirQualitySensor({}: AirQualitySensorProps) {
             {signalRings.map(ring => (
                 <mesh
                     key={ring.id}
+                    ref={mesh => { ringMeshes.current[ring.id] = mesh; }}
                     position={[0, ring.currentY, 0]}
                     scale={ring.scale}
                     rotation-x={Math.PI / 2} // Rotate rings to be horizontal
                 >
                     <ringGeometry args={[0.1, 0.12, 32]} />
-                    {/* Clone material to allow independent opacity control */}
-                    <primitive
-                        object={materials.signalMaterial.clone()}
-                        attach="material"
-                        opacity={ring.opacity} // Apply opacity from state
-                        transparent // Ensure material is transparent
-                    />
+                    <meshBasicMaterial color={materials.signalMaterial.color} opacity={0.7} transparent />
                 </mesh>
             ))}
 
