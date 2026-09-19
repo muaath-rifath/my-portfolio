@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Award, ChevronDown, FileText } from "lucide-react";
@@ -236,36 +236,11 @@ const educations = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: "Experience | Muaath Rifath",
-  description:
-    "Explore the professional experience and skills of Mohamed Muaath Rifath, a Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
-  keywords: [
-    "Experience",
-    "Mohamed Muaath Rifath",
-    "Full-Stack Developer",
-    "Next.js",
-    "TypeScript",
-    "FastAPI",
-    "React",
-    "professional experience",
-  ],
-  openGraph: {
-    title: "Experience | Muaath Rifath",
-    description:
-      "Explore the professional experience and skills of Mohamed Muaath Rifath, a Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Experience | Muaath Rifath",
-    description:
-      "Explore the professional experience and skills of Mohamed Muaath Rifath, a Full-Stack Developer specializing in Next.js, TypeScript, FastAPI, and modern web development.",
-  },
-  alternates: {
-    canonical: "https://muaathrifath.me/experience",
-  },
-};
+export const metadata = pageMetadata(
+  "Software Projects & Development Experience",
+  "Explore Muaath Rifath’s work in web applications, payments, AI voice systems, and backend engineering before discussing your freelance project.",
+  "/experience",
+);
 
 const roleNotes: Record<string, { summary: string; stack: string[] }> = {
   "Erlang Labs": {

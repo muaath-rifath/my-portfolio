@@ -3,21 +3,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from "next/navigation"
-import { sidebarLinks } from "@/constants";
 import { ModeToggle } from './mode-toggle';
 import MenuBar from "@/components/menu";
-import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+
+const topbarLinks = [
+  { route: "/", label: "Home" },
+  { route: "/experience", label: "Experience" },
+  { route: "/services", label: "Services" },
+  { route: "/contact", label: "Contact" },
+  { route: "/blogs", label: "Blog" },
+];
 
 export default function Topbar() {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
-  
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  
-  if (!mounted) return null;
   
   return (
     <nav className="fixed inset-x-0 top-0 z-50 backdrop-blur-sm bg-background/80">
@@ -67,8 +66,8 @@ export default function Topbar() {
             </Link>
             
             {/* Navigation links with LED indicators like mobile menu */}
-            <nav className="hidden md:flex items-center space-x-3">
-              {sidebarLinks.map((link) => {
+            <nav className="hidden lg:flex flex-wrap items-center gap-1">
+              {topbarLinks.map((link) => {
                 const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
                 return (
                   <Link 
@@ -115,7 +114,7 @@ export default function Topbar() {
             </nav>
             
             {/* Mobile menu button with circuit-inspired styling */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <MenuBar />
             </div>
           </div>

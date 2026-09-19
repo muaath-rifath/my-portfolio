@@ -61,7 +61,7 @@ export default function Contact() {
             ? 'opacity-100 translate-x-0'
             : 'opacity-0 translate-x-4'
         }`}>
-          Have a question or want to work together? Feel free to reach out using the form below or through my contact details.
+          Need an MVP, business website, ecommerce store, or a custom technical solution? Tell me what you want to build, who it’s for, and your budget and timeline. I’m based in Chennai and work remotely with clients worldwide.
         </p>
       </div>
 

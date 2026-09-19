@@ -24,7 +24,7 @@ export default function MenuBar() {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden dark:hover:bg-[#8fffaa]/10 hover:bg-[#006b42]/10 relative"
+          className="lg:hidden dark:hover:bg-[#8fffaa]/10 hover:bg-[#006b42]/10 relative"
         >
           <Menu className="h-5 w-5 dark:text-white text-[#006b42]" />
           <span className="sr-only">Open menu</span>

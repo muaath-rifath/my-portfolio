@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { services } from "@/lib/services";
 import { ArrowUpRight } from "lucide-react";
 
 export function HomeStory() {
@@ -22,9 +23,9 @@ export function HomeStory() {
       <div className="home-intro-copy">
         <p className="home-kicker">About me</p>
         <h2 id="intro-title">From first prototype<br /><em>to production.</em></h2>
-        <p className="home-lead">I’m Muaath, a full-stack developer focused on backend and AI engineering. I turn ideas into working prototypes quickly, validate them with real users, and take them through to production.</p>
-        <p>I build scalable backends, asynchronous workflows, and secure infrastructure, from databases and queues to access control, deployments, and monitoring.</p>
-        <p>My AI work connects models to knowledge, tools, and APIs to complete real tasks. I start with the engineering problem and choose the architecture that fits.</p>
+        <p className="home-lead">I’m Muaath, a full-stack developer based in Chennai. I work on websites, applications, and the backend services behind them.</p>
+        <p>My work includes APIs, databases, background jobs, and deployment.</p>
+        <p>I also build AI features, including voice agents and document search.</p>
         <Link href="/experience" className="home-text-link">See what I’ve built <ArrowUpRight size={18} /></Link>
       </div>
     </section>
@@ -32,11 +33,9 @@ export function HomeStory() {
     <section className="home-chapter home-services" aria-labelledby="services-title">
       <div><p className="home-kicker">How I can help</p><h2 id="services-title">Wherever you are,<br /><em>let’s move forward.</em></h2></div>
       <div className="home-service-options">
-        <article><p className="home-service-stage">You have an idea</p><h3>Start with an MVP.</h3><p>Build the core experience your first users need, test your assumptions, and learn what’s worth building next.</p></article>
-        <article><p className="home-service-stage">You’re ready to launch</p><h3>Turn it into a product.</h3><p>Bring the interface, backend, and integrations together into a product you can put in your customers’ hands.</p></article>
-        <article><p className="home-service-stage">Your product is growing</p><h3>Make room to scale.</h3><p>Resolve performance bottlenecks, strengthen reliability, and add the capabilities your next stage needs.</p></article>
+        {services.map((service) => <article key={service.slug}><h3><Link href={`/services/${service.slug}`} className="underline-offset-4 hover:underline">{service.name}</Link></h3><p>{service.intro}</p><Link href={`/services/${service.slug}`} className="home-text-link">Explore service <ArrowUpRight size={16} aria-hidden="true" /></Link></article>)}
       </div>
-      <Link href="/contact" className="home-text-link">Find the right next step <ArrowUpRight size={18} aria-hidden="true" /></Link>
+      <Link href="/services" className="home-text-link">View all freelance services <ArrowUpRight size={18} aria-hidden="true" /></Link>
     </section>
 
     <section className="home-chapter home-principles" aria-labelledby="approach-title">
@@ -50,7 +49,7 @@ export function HomeStory() {
     </section>
 
     <section className="home-chapter home-toolkit" aria-labelledby="toolkit-title">
-      <div><p className="home-kicker">My toolkit</p><h2 id="toolkit-title">The right tools<br /><em>for the job.</em></h2><p>React and TypeScript for interfaces, Go and Python for services, and MQTT for connected devices. These are tools I’ve used in real projects, chosen around what each product needs.</p><p>My everyday workspace runs Arch Linux and Hyprland. I like understanding the tools I depend on, right down to my desktop.</p></div>
+      <div><p className="home-kicker">My toolkit</p><h2 id="toolkit-title">The right tools<br /><em>for the job.</em></h2><p>I use React and TypeScript for interfaces, Go and Python for services, and MQTT for connected devices.</p><p>My everyday workspace runs Arch Linux and Hyprland. I like understanding the tools I depend on, right down to my desktop.</p></div>
       <dl className="home-tool-rows"><div><dt>Web & mobile</dt><dd>TypeScript / React / Next.js / Kotlin</dd></div><div><dt>Backend & data</dt><dd>Go / Python / PostgreSQL / Redis</dd></div><div><dt>AI, live communication & devices</dt><dd>LiveKit / WebRTC / MQTT / C</dd></div><div><dt>Build & deploy</dt><dd>Docker / GitHub Actions / Linux</dd></div></dl>
     </section>
   </div>;

@@ -9,6 +9,7 @@ export const sidebarLinks = [
       route: "/experience",
       label: "Experience",
     },
+    { imgURL: "/assets/skills.svg", route: "/services", label: "Services" },
     {
       imgURL: "/assets/contact.svg",
       route: "/contact",

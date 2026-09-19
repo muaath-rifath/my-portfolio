@@ -2,7 +2,7 @@
 
 import { useMotionPreference } from "@/hooks/useMotionPreference";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { TypewriterText } from "./typewriter-text";
@@ -25,13 +25,7 @@ export function HeroSection() {
   const canRender3D = use3dCapability();
   const reportSceneReady = useCallback(() => {
     setSceneReady(true);
-    document.documentElement.dataset.homeSceneReady = "true";
-    window.dispatchEvent(new Event("home-scene-ready"));
   }, []);
-
-  useEffect(() => {
-    if (canRender3D === false) window.dispatchEvent(new Event("home-scene-unavailable"));
-  }, [canRender3D]);
 
   return (
     <section ref={section} className={`lab-hero ${reducedMotion ? "lab-reduced" : ""}`}>

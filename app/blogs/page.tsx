@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { erlanglabsPost, readingMinutes } from "@/lib/blogs/erlanglabs";
 
-export const metadata: Metadata = {
-  title: "Blog | Muaath Rifath",
-  description: "Engineering stories about the systems I build, from voice AI to distributed backends.",
-  alternates: { canonical: "https://muaathrifath.me/blogs" },
-  openGraph: { title: "Blog | Muaath Rifath", description: "Engineering stories about the systems I build.", url: "/blogs", type: "website" },
-};
+export const metadata = pageMetadata(
+  "Web Development & AI Engineering Blog",
+  "Read Muaath Rifath’s engineering notes on building web products, AI systems, and production backends, with lessons from real software projects.",
+  "/blogs",
+);
 
 export default function BlogsPage() {
   return (

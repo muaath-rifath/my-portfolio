@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { pageMetadata, siteDescription, siteUrl } from "@/lib/seo";
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
 import { BackgroundElements } from "@/components/background-elements";
-import { BootSequence } from "@/components/boot-sequence";
 import localFont from 'next/font/local';
 import { Suspense } from "react";
 
@@ -16,22 +15,14 @@ const pyeongChangPeace = localFont({
   variable: '--font-pyeongchang'
 })
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Muaath Rifath',
-  description: 'Full-Stack Developer specializing in Next.js, TypeScript, and modern web development. Building production applications with React, FastAPI, Docker, and cloud infrastructure.',
-  metadataBase: new URL('https://muaathrifath.me'),
-  authors: [
-    {
-      name: 'Muaath Rifath',
-      url: 'https://muaathrifath.me',
-    }
-  ],
-  creator: 'Muaath Rifath',
-  applicationName: 'Muaath Rifath',
-  generator: 'Next.js',
-  referrer: 'origin-when-cross-origin',
+  ...pageMetadata("Freelance Web & MVP Developer", siteDescription, "/"),
+  metadataBase: new URL(siteUrl),
+  authors: [{ name: "Mohamed Muaath Rifath", url: siteUrl }],
+  creator: "Muaath Rifath",
+  applicationName: "Muaath Rifath",
+  referrer: "origin-when-cross-origin",
   verification: {
     yandex: '11f01083e7c530fb',
     other: {
@@ -39,52 +30,13 @@ export const metadata: Metadata = {
       'seznam-wmt': 'ieWWkMIDyegS11rBv5HWimQ33HrmEO6x',
     },
   },
-  openGraph: {
-    title: 'Muaath Rifath',
-    description: 'Full-Stack Developer specializing in Next.js, TypeScript, and modern web development. Building production applications with React, FastAPI, Docker, and cloud infrastructure.',
-    url: 'https://muaathrifath.me',
-    type: 'website',
-    siteName: 'Muaath Rifath',
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Muaath Rifath',
-    description: 'Full-Stack Developer specializing in Next.js, TypeScript, and modern web development. Building production applications with React, FastAPI, Docker, and cloud infrastructure.',
-    creator: '@MuaathRifath',
-  },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/assets/logo-portfolio.svg',
-  },
-  keywords: [
-    "Muaath Rifath",
-    "Full-Stack Developer",
-    "Next.js Developer",
-    "TypeScript",
-    "React Developer",
-    "Web Developer",
-  ],
-  alternates: {
-    canonical: 'https://muaathrifath.me',
-    languages: {
-      'en': 'https://muaathrifath.me',
-    },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    noimageindex: false,
-  },
+  icons: { icon: "/favicon.ico", shortcut: "/favicon.ico", apple: "/assets/logo-portfolio.svg" },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
 };
 
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   colorScheme: 'dark light',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
@@ -111,7 +63,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          <BootSequence />
           <BackgroundElements />
           <Suspense fallback={null}>
             <Topbar />

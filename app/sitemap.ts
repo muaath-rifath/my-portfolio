@@ -1,12 +1,9 @@
 import type { MetadataRoute } from "next";
-
-const baseUrl = "https://muaathrifath.me";
+import { siteUrl } from "@/lib/seo";
+import { services } from "@/lib/services";
+import { erlanglabsPost } from "@/lib/blogs/erlanglabs";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ["", "/experience", "/resume", "/contact", "/blogs", "/blogs/building-erlanglabs-on-open-source"].map((path) => ({
-    url: `${baseUrl}${path}`,
-    lastModified: new Date(),
-    changeFrequency: path === "" ? "monthly" : "yearly",
-    priority: path === "" ? 1 : 0.7,
-  }));
+  // Omit lastModified until genuine content revision dates are tracked.
+  return ["", "/services", ...services.map(({ slug }) => `/services/${slug}`), "/experience", "/resume", "/contact", "/blogs", `/blogs/${erlanglabsPost.slug}`].map((path) => ({ url: `${siteUrl}${path}` }));
 }

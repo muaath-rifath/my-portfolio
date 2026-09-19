@@ -6,9 +6,9 @@ import { IconBrandGithub, IconBrandLinkedin, IconBrandX, IconMail } from "@table
 import { cn } from "@/lib/utils";
 
 const navigation = [
-  { href: "/", label: "Home" },
   { href: "/experience", label: "Experience" },
-  { href: "/contact", label: "Contact" },
+  { href: "/services", label: "Freelance services" },
+  { href: "/blogs", label: "Blog" },
 ];
 
 export default function Footer() {
@@ -27,7 +27,7 @@ export default function Footer() {
               <span className="text-[#006b42] dark:text-[#8fffaa]">Muaath</span><span className="text-muted-foreground">Rifath</span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Full-stack developer building dependable products across web, AI, real-time systems, and embedded software.
+              Freelance developer in Chennai building MVPs, websites, ecommerce stores, and custom software for clients worldwide.
             </p>
           </div>
 
@@ -76,7 +76,13 @@ export default function Footer() {
               <SocialLink href="mailto:contact@muaathrifath.me" label="Email"><IconMail size={19} /></SocialLink>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Have a product idea or technical challenge? Let’s talk.
+              Have a product idea or technical challenge?{" "}
+              <Link
+                href="/contact"
+                className="font-medium text-[#006b42] underline decoration-current/30 underline-offset-4 hover:decoration-current dark:text-[#8fffaa]"
+              >
+                Let’s talk.
+              </Link>
             </p>
           </div>
         </div>

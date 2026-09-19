@@ -7,5 +7,5 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpenGraphImage() {
-  return new ImageResponse(<OgImage eyebrow="Let’s work together" title="Start a conversation" description="Have a product, technical challenge, or collaboration in mind? Get in touch." />, size);
+  return new ImageResponse(<OgImage eyebrow="Let’s work together" title="Start a conversation" description="MVPs, websites, ecommerce, and custom software. Tell me what you want to build." />, size);
 }
