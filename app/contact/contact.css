@@ -55,16 +55,20 @@
 .contact-page .contact-phone input:focus-visible { border-left-color: var(--contact-rule); }
 .contact-page .contact-phone:has(input[aria-invalid="true"]) { border-color: var(--destructive); }
 .contact-page .contact-phone input[aria-invalid="true"] { border-color: transparent; border-left-color: var(--contact-rule); }
-.contact-page .contact-turnstile {
+.contact-page .contact-turnstile-shell {
   width: 100%;
-  max-width: 300px;
-  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
   min-height: 65px;
-  border-radius: 4px;
 }
-.contact-page .contact-turnstile iframe { display: block; border-radius: inherit; }
-@media (max-width: 479px) {
-  .contact-page .contact-turnstile { width: 150px; min-height: 140px; }
+.contact-page .contact-turnstile {
+  flex: 0 0 300px;
+  transform-origin: center;
+}
+@media (max-width: 639px) {
+  .contact-page .contact-turnstile { transform: scale(.85); }
 }
 .contact-page .contact-submit {
   border-radius: 4px;
