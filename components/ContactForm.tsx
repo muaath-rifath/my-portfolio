@@ -160,6 +160,7 @@ function ContactFormInner() {
               </FormItem>
             )}
           />
+          <Turnstile key={turnstileKey} onTokenChange={setTurnstileToken} />
           <Button
             type="submit"
             className="contact-submit"
@@ -167,7 +168,6 @@ function ContactFormInner() {
           >
             Submit
           </Button>
-          <Turnstile key={turnstileKey} onTokenChange={setTurnstileToken} />
         </form>
       </Form>
       <Toaster />

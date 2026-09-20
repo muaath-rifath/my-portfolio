@@ -69,7 +69,7 @@ export default function Turnstile({ onTokenChange }: TurnstileProps) {
         strategy="afterInteractive"
         onLoad={renderWidget}
       />
-      <div ref={containerRef} className="w-full" />
+      <div ref={containerRef} className="contact-turnstile" />
     </>
   );
 }

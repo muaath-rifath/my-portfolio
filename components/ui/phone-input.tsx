@@ -13,11 +13,12 @@ import { CheckIcon, ChevronsUpDown } from "lucide-react";
 // Define types for PhoneInputProps
 type PhoneInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> & {
   onChange?: (value: Value | "") => void;
+  smartCaret?: boolean;
 };
 
 const PhoneInputComponent: React.ForwardRefExoticComponent<PhoneInputProps> =
   React.forwardRef<React.ElementRef<typeof PhoneInput>, PhoneInputProps>(
-    ({ className, onChange, ...props }, ref) => {
+    ({ className, onChange, smartCaret = false, ...props }, ref) => {
       return (
         <PhoneInput
           ref={ref}
@@ -26,6 +27,7 @@ const PhoneInputComponent: React.ForwardRefExoticComponent<PhoneInputProps> =
           countrySelectComponent={CountrySelect}
           inputComponent={InputComponent}
           onChange={(value) => onChange?.(value || "")}
+          smartCaret={smartCaret}
           {...props}
         />
       );

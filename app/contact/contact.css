@@ -34,16 +34,37 @@
 .contact-page .contact-input { border-radius: 4px; }
 .contact-phone { min-width: 0; }
 .contact-page input::placeholder, .contact-page textarea::placeholder { color: var(--contact-muted); }
-.contact-page .contact-input:focus-visible,
-.contact-page .contact-phone input:focus-visible,
-.contact-page .contact-phone button:focus-visible {
+.contact-page .contact-input:focus-visible {
   border-color: var(--contact-accent);
-  outline: 2px solid color-mix(in srgb, var(--contact-accent) 35%, transparent);
-  outline-offset: 2px;
   box-shadow: none;
 }
-.contact-page .contact-input[aria-invalid="true"],
-.contact-page .contact-phone input[aria-invalid="true"] { border-color: var(--destructive); }
+.contact-page .contact-input[aria-invalid="true"] { border-color: var(--destructive); }
+.contact-page .contact-phone {
+  overflow: hidden;
+  border: 1px solid var(--contact-rule);
+  border-radius: 4px;
+  background: var(--contact-field);
+  transition: border-color .18s, box-shadow .18s;
+}
+.contact-page .contact-phone input,
+.contact-page .contact-phone button { border-color: transparent; }
+.contact-page .contact-phone input { border-left-color: var(--contact-rule); }
+.contact-page .contact-phone:focus-within { border-color: var(--contact-accent); }
+.contact-page .contact-phone input:focus-visible,
+.contact-page .contact-phone button:focus-visible { border-color: transparent; }
+.contact-page .contact-phone input:focus-visible { border-left-color: var(--contact-rule); }
+.contact-page .contact-phone:has(input[aria-invalid="true"]) { border-color: var(--destructive); }
+.contact-page .contact-phone input[aria-invalid="true"] { border-color: transparent; border-left-color: var(--contact-rule); }
+.contact-page .contact-turnstile {
+  width: min(100%, 300px);
+  min-width: 0;
+  min-height: 65px;
+  overflow: hidden;
+  border: 1px solid var(--contact-rule);
+  border-radius: 4px;
+  background: var(--contact-field);
+}
+.contact-page .contact-turnstile iframe { display: block; border-radius: inherit; }
 .contact-page .contact-submit {
   border-radius: 4px;
   background: var(--contact-accent);
