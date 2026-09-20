@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { type MotionValue } from "framer-motion";
 import * as THREE from "three";
 import { useMotionPreference } from "@/hooks/useMotionPreference";
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -26,7 +25,7 @@ import VehicleIotGateway from "./3d-models/vehicle-iot-gateway";
 
 // Model3D props interface - removed scale prop since it's now handled internally
 interface Model3DProps {
-  progress: MotionValue<number>;
+  progress: { get: () => number };
   onSpinComplete?: () => void;
   onSceneReady?: () => void;
 }
@@ -49,7 +48,7 @@ function OverflowCamera({ viewport }: { viewport: SceneViewport | null }) {
 }
 
 function ScrollGroup({ progress, children, onSpinComplete, onSceneReady }: {
-  progress: MotionValue<number>;
+  progress: { get: () => number };
   children: ReactNode;
   onSpinComplete?: () => void;
   onSceneReady?: () => void;

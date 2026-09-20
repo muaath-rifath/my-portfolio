@@ -2,12 +2,11 @@
 
 import { useMotionPreference } from "@/hooks/useMotionPreference";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { TypewriterText } from "./typewriter-text";
 import dynamic from "next/dynamic";
-import { useMotionValue } from "framer-motion";
 import { ArrowUpRight, MoveUpRight } from "lucide-react";
 import { IconBrandGithub, IconBrandLinkedin, IconBrandX } from "@tabler/icons-react";
 import { use3dCapability } from "@/hooks/use-3d-capability";
@@ -16,13 +15,30 @@ const Model3D = dynamic(() => import("./home-model-3d").then(mod => mod.HomeMode
   ssr: false,
   loading: () => null,
 });
+const staticRotationProgress = { get: () => 0 };
 
 export function HeroSection() {
   const section = useRef<HTMLElement>(null);
   const reducedMotion = useMotionPreference();
-  const rotationProgress = useMotionValue(0);
   const [sceneReady, setSceneReady] = useState(false);
   const canRender3D = use3dCapability();
+  const [shouldLoadScene, setShouldLoadScene] = useState(false);
+
+  useEffect(() => {
+    if (!canRender3D) return;
+
+    // The poster is the hero's LCP image. Loading WebGL immediately competes with
+    // it for bandwidth and main-thread time, so only start the enhancement after
+    // the initial page has had a chance to settle.
+    const load = () => setShouldLoadScene(true);
+    const idleCallback = window.requestIdleCallback?.(load, { timeout: 8_000 });
+    const timeout = idleCallback === undefined ? window.setTimeout(load, 4_000) : undefined;
+
+    return () => {
+      if (idleCallback !== undefined) window.cancelIdleCallback?.(idleCallback);
+      if (timeout !== undefined) window.clearTimeout(timeout);
+    };
+  }, [canRender3D]);
   const reportSceneReady = useCallback(() => {
     setSceneReady(true);
   }, []);
@@ -52,7 +68,7 @@ export function HeroSection() {
             <div className="lab-scene-frame">
               <Image className="lab-scene-poster lab-scene-poster-light" src="/assets/home-hero-poster-light.webp" alt="" aria-hidden="true" fill priority sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 55vw" />
               <Image className="lab-scene-poster lab-scene-poster-dark" src="/assets/home-hero-poster.webp" alt="" aria-hidden="true" fill priority sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 55vw" />
-              {canRender3D && <div className="lab-scene-layer"><Model3D progress={rotationProgress} onSceneReady={reportSceneReady} /></div>}
+              {shouldLoadScene && <div className="lab-scene-layer"><Model3D progress={staticRotationProgress} onSceneReady={reportSceneReady} /></div>}
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 
 type Role = {
   text: string;
@@ -129,11 +128,7 @@ export function TypewriterText() {
         {highlightText()}
         
         {/* Blinking cursor */}
-        <motion.span
-          className="h-4 w-[2px] ml-1 dark:bg-white bg-[#006b42]"
-          animate={{ opacity: [1, 0, 1] }}
-          transition={{ repeat: Infinity, duration: 1 }}
-        />
+        <span className="typewriter-cursor h-4 w-[2px] ml-1 dark:bg-white bg-[#006b42]" />
       </div>
     </div>
   );

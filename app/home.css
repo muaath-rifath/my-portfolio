@@ -160,7 +160,10 @@
 }
 @keyframes home-mobile-copy-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes home-mobile-scene-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes typewriter-cursor-blink { 50% { opacity: 0; } }
+.home-enhancements .typewriter-cursor { animation: typewriter-cursor-blink 1s step-end infinite; }
 @media (prefers-reduced-motion: reduce) {
   .home-enhancements .lab-button, .home-enhancements .lab-contact-link { transition: none; }
   .home-enhancements .lab-scene-poster, .home-enhancements .lab-scene-layer { transition: none; }
+  .home-enhancements .typewriter-cursor { animation: none; }
 }
