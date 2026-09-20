@@ -56,15 +56,16 @@
 .contact-page .contact-phone:has(input[aria-invalid="true"]) { border-color: var(--destructive); }
 .contact-page .contact-phone input[aria-invalid="true"] { border-color: transparent; border-left-color: var(--contact-rule); }
 .contact-page .contact-turnstile {
-  width: min(100%, 300px);
+  width: 100%;
+  max-width: 300px;
   min-width: 0;
   min-height: 65px;
-  overflow: hidden;
-  border: 1px solid var(--contact-rule);
   border-radius: 4px;
-  background: var(--contact-field);
 }
 .contact-page .contact-turnstile iframe { display: block; border-radius: inherit; }
+@media (max-width: 479px) {
+  .contact-page .contact-turnstile { width: 150px; min-height: 140px; }
+}
 .contact-page .contact-submit {
   border-radius: 4px;
   background: var(--contact-accent);
