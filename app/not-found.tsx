@@ -1,53 +1,32 @@
-"use client";
-import { Suspense } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-function NotFoundContent() {
-  const pathname = usePathname();
-  
-  return (
-    <div className="container flex flex-col items-center justify-center min-h-screen px-4 py-16 mx-auto text-center">
-      <div className="relative">
-        <h1 className="text-6xl font-bold font-mono tracking-tighter mb-4">
-          <span className="dark:text-white text-[#006b42]">404</span>
-        </h1>
-        <div className="absolute -top-2 -right-2 h-2 w-2 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30"></div>
-        <div className="absolute -bottom-2 -left-2 h-2 w-2 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30"></div>
-      </div>
-      
-      <h2 className="text-2xl font-semibold mb-6">Page Not Found</h2>
-      
-      <p className="text-muted-foreground mb-8 max-w-md">
-        Sorry, the page at <code className="px-1 py-0.5 rounded bg-muted">{pathname}</code> doesn't exist or has been moved.
-      </p>
-      
-      <Link 
-        href="/" 
-        className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium rounded-md text-white dark:bg-[#8fffaa]/80 bg-[#006b42] hover:opacity-90 transition-opacity"
-      >
-        Return Home
-      </Link>
-      
-      {/* Circuit trace decorations */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-12 h-[1px] w-16 dark:bg-[#8fffaa]/20 bg-[#006b42]/20"></div>
-        <div className="absolute bottom-1/4 right-10 h-[1px] w-24 dark:bg-[#8fffaa]/20 bg-[#006b42]/20"></div>
-        <div className="absolute top-1/3 right-1/4 h-2 w-2 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30"></div>
-        <div className="absolute bottom-1/3 left-1/4 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/20 bg-[#006b42]/20"></div>
-      </div>
-    </div>
-  );
-}
+export const metadata: Metadata = {
+  title: "Page Not Found | Muaath Rifath",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (
-    <Suspense fallback={
-      <div className="container flex items-center justify-center min-h-screen">
-        <p>Loading...</p>
+    <section className="mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-5xl items-center px-6 pb-24 pt-32 sm:px-8 sm:pt-40">
+      <div className="w-full max-w-3xl border-y border-border py-10 sm:py-14">
+        <p className="font-mono text-sm uppercase tracking-wider text-primary">404 · Page not found</p>
+        <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl">This route isn&apos;t on the map.</h1>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+          The page may have moved, or the address may be incorrect. Head back home or explore the work and services here.
+        </p>
+        <nav aria-label="Helpful links" className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
+          <Link href="/" className="inline-flex min-h-11 items-center font-semibold underline underline-offset-4 hover:text-primary">
+            Return home →
+          </Link>
+          <Link href="/services" className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-primary">
+            Explore services →
+          </Link>
+          <Link href="/experience" className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-primary">
+            See experience →
+          </Link>
+        </nav>
       </div>
-    }>
-      <NotFoundContent />
-    </Suspense>
+    </section>
   );
-} 
+}
