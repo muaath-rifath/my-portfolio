@@ -18,7 +18,8 @@ import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import { Toaster } from "@/components/ui/toaster";
 import { submitContact } from "@/app/_actions/contact";
-import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import Turnstile from "@/components/Turnstile";
+import { useState } from "react";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -41,17 +42,21 @@ function ContactFormInner() {
   });
 
   const { toast } = useToast();
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileKey, setTurnstileKey] = useState(0);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    if (!executeRecaptcha) {
-      console.log("Execute recaptcha not yet available");
+    if (!turnstileToken) {
+      toast({
+        title: "Complete the security check",
+        description: "Please wait for verification before submitting your message.",
+        variant: "destructive",
+      });
       return;
     }
 
     try {
-      const token = await executeRecaptcha("contact_form");
-      const result = await submitContact({ ...data, recaptchaToken: token });
+      const result = await submitContact({ ...data, turnstileToken });
 
       if (result.success) {
         toast({
@@ -66,12 +71,16 @@ function ContactFormInner() {
           variant: 'destructive',
         });
       }
+      setTurnstileToken(null);
+      setTurnstileKey((key) => key + 1);
     } catch (error) {
       toast({
         title: 'Error submitting form',
         description: 'An error occurred while submitting the form.',
         variant: 'destructive',
       });
+      setTurnstileToken(null);
+      setTurnstileKey((key) => key + 1);
     }
   }
 
@@ -154,9 +163,11 @@ function ContactFormInner() {
           <Button
             type="submit"
             className="contact-submit"
+            disabled={!turnstileToken}
           >
             Submit
           </Button>
+          <Turnstile key={turnstileKey} onTokenChange={setTurnstileToken} />
         </form>
       </Form>
       <Toaster />
@@ -165,9 +176,5 @@ function ContactFormInner() {
 }
 
 export default function ContactForm() {
-  return (
-    <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}>
-      <ContactFormInner />
-    </GoogleReCaptchaProvider>
-  );
+  return <ContactFormInner />;
 }

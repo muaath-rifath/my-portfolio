@@ -32,14 +32,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Environment Variables
 
-To set up the environment variables for MongoDB, create a `.env` file in the root of your project and add the following:
+Create a `.env.local` file in the project root:
 
 ```env
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority
-MONGODB_DB=<dbname>
+RESEND_API_KEY=re_your_resend_api_key
+RESEND_FROM_EMAIL="Portfolio <hello@your-verified-domain.com>"
+CONTACT_TO_EMAIL=contact@muaathrifath.me
+TURNSTILE_SECRET_KEY=your_turnstile_secret_key
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
 ```
 
-Replace `<username>`, `<password>`, and `<dbname>` with your actual MongoDB credentials and database name.
+`RESEND_FROM_EMAIL` must use a domain verified in Resend. `CONTACT_TO_EMAIL` is optional and defaults to `contact@muaathrifath.me`.
 
 ## Learn More
 

@@ -19,7 +19,7 @@ This is a **Next.js 16 App Router** portfolio site using React 19, TypeScript, T
 
 - `/`: Home: `HeroSection` (3D model + typewriter) + `AboutSection`
 - `/experience`: Skills, projects, certifications, education (all data is hardcoded in the page file)
-- `/contact`: Contact form backed by Firebase Firestore + reCAPTCHA v3
+- `/contact`: Contact form delivered by Resend + Cloudflare Turnstile
 - `/resume`: Resume viewer/download
 - `/blog`: Blog page
 
@@ -33,7 +33,7 @@ This is a **Next.js 16 App Router** portfolio site using React 19, TypeScript, T
 
 **Background/visual layer**: `BackgroundElements` (global, in root layout) renders decorative circuit-board SVG elements. `AnimatedBackground` is used inside the experience page for additional decoration. The design uses a tech/circuit-board aesthetic throughout with green accent colors (`#006b42` light, `#8fffaa` dark).
 
-**Contact form flow**: `ContactForm` (client component) → calls `submitContact` server action (`app/_actions/contact.ts`) → verifies reCAPTCHA v3 via Google API → saves to Firestore via Firebase Admin SDK. Required env vars: `FIREBASE_SERVICE_ACCOUNT_KEY` (JSON string), `RECAPTCHA_SECRET_KEY`.
+**Contact form flow**: `ContactForm` (client component) → obtains a Cloudflare Turnstile token → calls `submitContact` server action (`app/_actions/contact.ts`) → validates input and verifies the token with Cloudflare Siteverify → sends an inquiry email with Resend. Required env vars: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY`; `CONTACT_TO_EMAIL` defaults to `contact@muaathrifath.me`.
 
 **3D models**: `components/model-3d.tsx` wraps `@react-three/fiber` + `@react-three/drei`. Individual model geometries live in `components/3d-models/`. The hero section loads `Model3D` dynamically with `ssr: false`.
 

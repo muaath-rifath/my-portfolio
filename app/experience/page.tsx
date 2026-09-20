@@ -141,10 +141,10 @@ const projectsData = [
   {
     title: "Portfolio",
     description:
-      "Interactive 3D portfolio with Three.js scene rendering, smooth page transitions via Framer Motion, Firestore-backed contact form with reCAPTCHA v3, and SSR-safe dark/light mode.",
+      "Interactive 3D portfolio with Three.js scene rendering, smooth page transitions via Framer Motion, a Resend-powered contact form protected by Cloudflare Turnstile, and SSR-safe dark/light mode.",
     imageUrl: "/assets/portfolio.png",
     projectUrl: "https://github.com/muaath-rifath/my-portfolio",
-    tags: ["Next.js", "Three.js", "Framer Motion", "Tailwind CSS", "Firestore"],
+    tags: ["Next.js", "Three.js", "Framer Motion", "Tailwind CSS", "Resend"],
   },
   {
     title: "HR Dashboard",
