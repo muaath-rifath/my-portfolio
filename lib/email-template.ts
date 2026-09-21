@@ -23,6 +23,7 @@ export function contactEmailTemplate({ name, email, phone, message }: ContactEma
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safePhone = escapeHtml(phone);
+  const safePhoneHref = escapeHtml(phone.replace(/[^\d+]/g, '') || phone);
   const safeMessage = escapeHtml(message).replace(/\r?\n/g, '<br />');
 
   return `<!doctype html>
@@ -121,7 +122,7 @@ export function contactEmailTemplate({ name, email, phone, message }: ContactEma
               <table role="presentation" class="details" cellpadding="0" cellspacing="0" border="0">
                 <tr><th scope="row">Name</th><td>${safeName}</td></tr>
                 <tr><th scope="row">Email</th><td><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
-                <tr><th scope="row">Phone</th><td>${safePhone}</td></tr>
+                <tr><th scope="row">Phone</th><td><a href="tel:${safePhoneHref}">${safePhone}</a></td></tr>
               </table>
               <p class="message-label">Message</p>
               <div class="message-box"><p class="message">${safeMessage}</p></div>
