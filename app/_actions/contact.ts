@@ -1,6 +1,7 @@
 'use server'
 import { z } from 'zod';
 import { resend } from '@/lib/resend';
+import { contactEmailTemplate } from '@/lib/email-template';
 
 const ContactSchema = z.object({
   name: z.string().trim().min(2).max(100),
@@ -8,6 +9,7 @@ const ContactSchema = z.object({
   phone: z.string().trim().min(7).max(32),
   message: z.string().trim().min(10).max(5_000),
   turnstileToken: z.string().min(1).max(2_048),
+  idempotencyKey: z.string().uuid(),
 });
 
 type ContactData = z.infer<typeof ContactSchema>;
@@ -56,14 +58,18 @@ export async function submitContact(data: ContactData) {
       return { success: false, message: 'The contact form is temporarily unavailable.' };
     }
 
-    const { name, email, phone, message } = parsedData.data;
-    const { error } = await resend.emails.send({
-      from,
-      to,
-      replyTo: email,
-      subject: `Portfolio inquiry from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`,
-    });
+    const { name, email, phone, message, idempotencyKey } = parsedData.data;
+    const { error } = await resend.emails.send(
+      {
+        from,
+        to,
+        replyTo: email,
+        subject: `Portfolio inquiry from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`,
+        html: contactEmailTemplate({ name, email, phone, message }),
+      },
+      { idempotencyKey: `portfolio-contact/${idempotencyKey}` },
+    );
 
     if (error) {
       console.error('Resend contact email error:', error);

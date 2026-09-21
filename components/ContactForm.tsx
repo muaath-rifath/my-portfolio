@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Toaster } from "@/components/ui/toaster";
 import { submitContact } from "@/app/_actions/contact";
 import Turnstile from "@/components/Turnstile";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -44,8 +44,12 @@ function ContactFormInner() {
   const { toast } = useToast();
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [turnstileKey, setTurnstileKey] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submissionRef = useRef<{ key: string; payload: string } | null>(null);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    if (isSubmitting) return;
+
     if (!turnstileToken) {
       toast({
         title: "Complete the security check",
@@ -55,8 +59,18 @@ function ContactFormInner() {
       return;
     }
 
+    const payload = JSON.stringify(data);
+    if (submissionRef.current?.payload !== payload) {
+      submissionRef.current = { key: crypto.randomUUID(), payload };
+    }
+
+    setIsSubmitting(true);
     try {
-      const result = await submitContact({ ...data, turnstileToken });
+      const result = await submitContact({
+        ...data,
+        turnstileToken,
+        idempotencyKey: submissionRef.current.key,
+      });
 
       if (result.success) {
         toast({
@@ -64,6 +78,7 @@ function ContactFormInner() {
           description: result.message,
         });
         form.reset();
+        submissionRef.current = null;
       } else {
         toast({
           title: 'Error submitting form',
@@ -81,6 +96,8 @@ function ContactFormInner() {
       });
       setTurnstileToken(null);
       setTurnstileKey((key) => key + 1);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -164,9 +181,9 @@ function ContactFormInner() {
           <Button
             type="submit"
             className="contact-submit"
-            disabled={!turnstileToken}
+            disabled={!turnstileToken || isSubmitting}
           >
-            Submit
+            {isSubmitting ? "Sending…" : "Submit"}
           </Button>
         </form>
       </Form>
