@@ -43,6 +43,7 @@ export function contactEmailTemplate({ name, email, phone, message }: ContactEma
       .brand-table { border-collapse: collapse; }
       .brand { font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 700; line-height: 1; letter-spacing: -0.5px; color: #006b42; margin: 0; }
       .brand-logo { display: block; width: 24px; height: 24px; border: 0; outline: none; text-decoration: none; }
+      .dark-logo { display: none; }
       .brand-last { color: #76716d; font-weight: 500; }
       .eyebrow { margin: 25px 0 0; font-family: Arial, Helvetica, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.3px; line-height: 16px; text-transform: uppercase; color: #006b42; }
       .content { padding: 30px 32px 32px; }
@@ -69,6 +70,8 @@ export function contactEmailTemplate({ name, email, phone, message }: ContactEma
         .card { background: #211918 !important; border-color: #3b302d !important; }
         .header, .footer { border-color: #3b302d !important; }
         .brand { color: #8fffaa !important; }
+        .light-logo { display: none !important; }
+        .dark-logo { display: block !important; max-height: none !important; }
         .brand-last, .eyebrow, .details th, .message-label, .footer { color: #b6afa9 !important; }
         .eyebrow { color: #8fffaa !important; }
         h1, .details td { color: #faf9f4 !important; }
@@ -81,6 +84,8 @@ export function contactEmailTemplate({ name, email, phone, message }: ContactEma
       [data-ogsc] .card { background: #211918 !important; border-color: #3b302d !important; }
       [data-ogsc] .header, [data-ogsc] .footer, [data-ogsc] .details, [data-ogsc] .details th, [data-ogsc] .details td { border-color: #3b302d !important; }
       [data-ogsc] .brand, [data-ogsc] .eyebrow, [data-ogsc] .details a, [data-ogsc] .footer a { color: #8fffaa !important; }
+      [data-ogsc] .light-logo { display: none !important; }
+      [data-ogsc] .dark-logo { display: block !important; max-height: none !important; }
       [data-ogsc] .brand-last, [data-ogsc] .details th, [data-ogsc] .message-label, [data-ogsc] .footer { color: #b6afa9 !important; }
       [data-ogsc] h1, [data-ogsc] .details td { color: #faf9f4 !important; }
       [data-ogsc] .intro, [data-ogsc] .message { color: #d0c9c3 !important; }
@@ -97,7 +102,10 @@ export function contactEmailTemplate({ name, email, phone, message }: ContactEma
                 <tr>
                   <td valign="middle" style="vertical-align: middle; padding-right: 10px; line-height: 0;">
                     <a href="${siteUrl}" target="_blank" style="text-decoration: none; display: inline-block;">
-                      <img src="${siteUrl}/assets/logo-portfolio.svg" width="24" height="24" alt="Muaath Rifath" class="brand-logo" style="display: block; width: 24px; height: 24px; border: 0; outline: none; text-decoration: none;" />
+                      <img src="${siteUrl}/assets/logo-portfolio.png" width="24" height="24" alt="Muaath Rifath" class="brand-logo light-logo" style="display: block; width: 24px; height: 24px; border: 0; outline: none; text-decoration: none;" />
+                      <!--[if !mso]><!-->
+                      <img src="${siteUrl}/assets/logo-portfolio-dark.png" width="24" height="24" alt="Muaath Rifath" class="brand-logo dark-logo" style="display: none; width: 24px; height: 24px; border: 0; outline: none; text-decoration: none; max-height: 0px;" />
+                      <!--<![endif]-->
                     </a>
                   </td>
                   <td valign="middle" style="vertical-align: middle; line-height: 1;">
