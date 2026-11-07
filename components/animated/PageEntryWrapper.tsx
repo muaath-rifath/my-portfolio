@@ -9,7 +9,7 @@ interface PageEntryWrapperProps {
 
 export const PageEntryWrapper: React.FC<PageEntryWrapperProps> = ({ children, delay = 0.5 }) => {
   return (
-    <div style={{
+    <div className="w-full" style={{
       opacity: 0,
       animation: `pageEntryFadeIn 0.4s ease-out 0.05s forwards`
     }}>

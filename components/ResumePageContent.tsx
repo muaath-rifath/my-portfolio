@@ -7,23 +7,52 @@ import { AnimatedSectionTitle } from '@/components/animated/AnimatedSectionTitle
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { fadeInUp, fadeInLeft, fadeInRight } from '@/lib/animations';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Download, FileText, Mail, Phone, MapPin, Globe, Linkedin, Github } from 'lucide-react';
 
-const sectionTitle = 'text-lg sm:text-xl font-bold mb-3 sm:mb-4 dark:text-[#8fffaa] text-[#006b42] border-b border-border pb-1 sm:pb-2';
-const bodyText = 'text-zinc-700 dark:text-zinc-100 text-sm sm:text-base';
-const bulletList = `space-y-1 ${bodyText} ml-3 sm:ml-4`;
+const sectionTitle =
+  'mb-4 border-b border-border pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#006b42] dark:text-[#8fffaa]';
+const bodyText = 'text-sm leading-relaxed text-muted-foreground sm:text-[15px]';
+const bulletList = `list-disc space-y-1.5 pl-5 marker:text-[#006b42] dark:marker:text-[#8fffaa] ${bodyText}`;
 
 function ResumeSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return <section className="mb-6 sm:mb-8"><h2 className={sectionTitle}>{title}</h2>{children}</section>;
+  return (
+    <section className="mb-8 last:mb-0">
+      <h2 className={sectionTitle}>{title}</h2>
+      {children}
+    </section>
+  );
 }
 
 function ResumeBullets({ children }: { children: React.ReactNode }) {
   return <ul className={bulletList}>{children}</ul>;
 }
 
-function Bullet({ children }: { children: React.ReactNode }) {
-  return <li className="flex"><span className="mr-1 sm:mr-2 mt-0.5 text-xs">•</span><span>{children}</span></li>;
+function ExperienceItem({
+  company,
+  period,
+  role,
+  location,
+  children,
+}: {
+  company: React.ReactNode;
+  period: string;
+  role: string;
+  location: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+        <h3 className="text-base font-semibold text-foreground">{company}</h3>
+        <span className="text-xs tabular-nums text-muted-foreground sm:text-sm">{period}</span>
+      </div>
+      <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+        <span className="text-sm font-medium text-[#006b42] dark:text-[#8fffaa]">{role}</span>
+        <span className="text-xs text-muted-foreground sm:text-sm">{location}</span>
+      </div>
+      {children}
+    </div>
+  );
 }
 
 export default function ResumePageContent() {
@@ -42,87 +71,308 @@ export default function ResumePageContent() {
 
   return (
     <PageEntryWrapper>
-      <section className="relative container mx-auto min-h-screen px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8 lg:pt-16">
-        <div className="absolute inset-0 z-0 pointer-events-none hidden sm:block">
-          <div className="absolute top-40 left-12 h-px w-16 dark:bg-[#8fffaa]/20 bg-[#006b42]/20" />
-          <div className="absolute bottom-1/4 right-10 h-px w-24 dark:bg-[#8fffaa]/20 bg-[#006b42]/20" />
-          <div className="absolute top-1/3 right-1/4 h-2 w-2 rounded-full dark:bg-[#8fffaa]/30 bg-[#006b42]/30" />
-          <div className="absolute bottom-1/3 left-1/4 h-1.5 w-1.5 rounded-full dark:bg-[#8fffaa]/20 bg-[#006b42]/20" />
-        </div>
-        <div className="absolute inset-0 z-0 hidden bg-[url('/assets/circuit-overlay.svg')] bg-cover bg-no-repeat opacity-10 mix-blend-overlay pointer-events-none sm:block" />
+      <div className="relative w-full px-4 pb-16 pt-20 sm:px-6 sm:pb-20 sm:pt-24">
+        <div className="mx-auto w-full max-w-5xl">
+          <div
+            ref={headerAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInUp(headerAnimation.isVisible, 0)}
+            className="mb-6 sm:mb-8"
+          >
+            <AnimatedSectionTitle>
+              <h1 className="relative inline-block font-mono text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
+                <span className="text-[#006b42] dark:text-[#8fffaa]">Resume</span>
+                <span className="absolute bottom-0 left-0 h-0.5 w-full bg-[#006b42]/50 dark:bg-[#8fffaa]/50" />
+              </h1>
+              <p className="mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
+                View my professional background, skills, and experience. Download the PDF version for
+                your records.
+              </p>
+            </AnimatedSectionTitle>
+          </div>
 
-        <div ref={headerAnimation.ref as React.RefObject<HTMLDivElement>} style={fadeInUp(headerAnimation.isVisible, 0)} className="relative z-10 mb-4 sm:mb-6 lg:mb-8">
-          <AnimatedSectionTitle>
-            <h1 className="relative inline-block font-mono text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl">
-              <span className="dark:text-white text-[#006b42]">Resume</span>
-              <span className="absolute bottom-0 left-0 h-0.5 w-full dark:bg-[#8fffaa]/50 bg-[#006b42]/50" />
-            </h1>
-            <p className="mt-2 max-w-2xl text-sm text-zinc-700 dark:text-zinc-100 sm:mt-4 sm:text-base lg:text-lg">View my professional background, skills, and experience. Download the PDF version for your records.</p>
-          </AnimatedSectionTitle>
-        </div>
-
-        <div ref={downloadAnimation.ref as React.RefObject<HTMLDivElement>} style={fadeInRight(downloadAnimation.isVisible, 0)} className="relative z-10 mb-4 sm:mb-6 lg:mb-8">
-          <Card className="flex flex-col items-start justify-between gap-3 border-border bg-background/90 p-4 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-4 sm:p-6">
-            <div className="flex items-center gap-3"><div className="rounded-lg bg-primary/10 p-2"><FileText className="h-4 w-4 text-primary sm:h-5 sm:w-5" /></div><div><h2 className="text-sm font-semibold sm:text-base">Download Resume</h2><p className="text-xs text-zinc-700 dark:text-zinc-100 sm:text-sm">Get the latest PDF version</p></div></div>
-            <Button onClick={handleDownloadPDF} className="border border-[#006b42]/30 bg-white/80 text-xs text-[#006b42] shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#006b42]/10 dark:border-[#8fffaa]/30 dark:bg-[#111]/80 dark:text-[#8fffaa] dark:hover:bg-[#8fffaa]/10 sm:text-sm"><Download className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />Download PDF</Button>
-          </Card>
-        </div>
-
-        <div ref={contentAnimation.ref as React.RefObject<HTMLDivElement>} style={fadeInLeft(contentAnimation.isVisible, 0)} className="relative z-10 mb-8 sm:mb-12 lg:mb-16">
-          <Card className="border-border bg-background/90 p-3 backdrop-blur-sm sm:p-4 md:p-6 lg:p-8">
-            <div className="max-w-none">
-              <header className="mb-6 border-b border-border pb-4 text-center sm:mb-8 sm:pb-6">
-                <h2 className="mb-2 text-xl font-bold text-[#006b42] dark:text-white sm:text-2xl lg:text-3xl xl:text-4xl">Mohamed Muaath Rifath</h2>
-                <p className="mb-3 text-base text-zinc-700 dark:text-zinc-100 sm:mb-4 sm:text-lg">Software Engineer</p>
-                <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-zinc-700 dark:text-zinc-100 sm:gap-4 sm:text-sm">
-                  <a href="mailto:me@muaathrifath.me" className="flex items-center gap-1 transition-colors hover:text-[#006b42] dark:hover:text-[#8fffaa]"><Mail className="h-3 w-3 sm:h-4 sm:w-4" /><span className="break-all">me@muaathrifath.me</span></a>
-                  <a href="tel:+918883735079" className="flex items-center gap-1 transition-colors hover:text-[#006b42] dark:hover:text-[#8fffaa]"><Phone className="h-3 w-3 sm:h-4 sm:w-4" />+91 88837 35079</a>
-                  <span className="flex items-center gap-1"><MapPin className="h-3 w-3 sm:h-4 sm:w-4" />Chennai, India</span>
+          <div
+            ref={downloadAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInRight(downloadAnimation.isVisible, 0)}
+            className="mb-6 sm:mb-8"
+          >
+            <div className="flex flex-col items-start justify-between gap-4 rounded-lg border border-border p-4 sm:flex-row sm:items-center sm:p-5">
+              <div className="flex items-center gap-3">
+                <div className="rounded-md border border-border p-2">
+                  <FileText className="h-4 w-4 text-[#006b42] dark:text-[#8fffaa]" />
                 </div>
-                <div className="mt-2 flex flex-wrap items-center justify-center gap-2 text-xs text-zinc-700 dark:text-zinc-100 sm:gap-4 sm:text-sm">
-                  <Link href="/" className="flex items-center gap-1 transition-colors hover:text-[#006b42] dark:hover:text-[#8fffaa]"><Globe className="h-3 w-3 sm:h-4 sm:w-4" />muaathrifath.me</Link>
-                  <Link href="https://linkedin.com/in/muaath-rifath" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 transition-colors hover:text-[#006b42] dark:hover:text-[#8fffaa]"><Linkedin className="h-3 w-3 sm:h-4 sm:w-4" />linkedin.com/in/muaath-rifath</Link>
-                  <Link href="https://github.com/muaath-rifath" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 transition-colors hover:text-[#006b42] dark:hover:text-[#8fffaa]"><Github className="h-3 w-3 sm:h-4 sm:w-4" />github.com/muaath-rifath</Link>
+                <div>
+                  <h2 className="text-sm font-semibold text-foreground">Download Resume</h2>
+                  <p className="text-xs text-muted-foreground sm:text-sm">Get the latest PDF version</p>
+                </div>
+              </div>
+              <Button
+                onClick={handleDownloadPDF}
+                size="sm"
+                className="gap-2 bg-[#006b42] text-white hover:bg-[#006b42]/90 dark:bg-[#8fffaa] dark:text-[#0b1a12] dark:hover:bg-[#8fffaa]/90"
+              >
+                <Download className="h-4 w-4" />
+                Download PDF
+              </Button>
+            </div>
+          </div>
+
+          <div
+            ref={contentAnimation.ref as React.RefObject<HTMLDivElement>}
+            style={fadeInLeft(contentAnimation.isVisible, 0)}
+          >
+            <article className="rounded-lg border border-border p-5 sm:p-7 md:p-8">
+              <header className="mb-8 border-b border-border pb-6 text-center">
+                <h2 className="mb-1 text-xl font-semibold tracking-tight text-foreground sm:text-2xl md:text-3xl">
+                  Mohamed Muaath Rifath
+                </h2>
+                <p className="mb-4 text-sm font-medium text-[#006b42] dark:text-[#8fffaa] sm:text-base">Software Engineer</p>
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground sm:text-sm">
+                  <a
+                    href="mailto:contact@muaathrifath.me"
+                    className="flex items-center gap-1.5 transition-colors hover:text-[#006b42] dark:text-[#8fffaa]"
+                  >
+                    <Mail className="h-3.5 w-3.5" />
+                    <span className="break-all">contact@muaathrifath.me</span>
+                  </a>
+                  <a
+                    href="tel:+918883735079"
+                    className="flex items-center gap-1.5 transition-colors hover:text-[#006b42] dark:text-[#8fffaa]"
+                  >
+                    <Phone className="h-3.5 w-3.5" />
+                    +91 88837 35079
+                  </a>
+                  <span className="flex items-center gap-1.5">
+                    <MapPin className="h-3.5 w-3.5" />
+                    Chennai, India
+                  </span>
+                </div>
+                <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground sm:text-sm">
+                  <Link href="/" className="flex items-center gap-1.5 transition-colors hover:text-[#006b42] dark:text-[#8fffaa]">
+                    <Globe className="h-3.5 w-3.5" />
+                    muaathrifath.me
+                  </Link>
+                  <Link
+                    href="https://linkedin.com/in/muaath-rifath"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 transition-colors hover:text-[#006b42] dark:text-[#8fffaa]"
+                  >
+                    <Linkedin className="h-3.5 w-3.5" />
+                    linkedin.com/in/muaath-rifath
+                  </Link>
+                  <Link
+                    href="https://github.com/muaath-rifath"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 transition-colors hover:text-[#006b42] dark:text-[#8fffaa]"
+                  >
+                    <Github className="h-3.5 w-3.5" />
+                    github.com/muaath-rifath
+                  </Link>
                 </div>
               </header>
 
-              <ResumeSection title="Professional Summary"><p className={`${bodyText} leading-relaxed`}>Software Engineer who has owned and shipped systems across payments, real-time video, identity, AI integrations, and IoT hardware. Comfortable working end-to-end across frontend, backend, database, and infrastructure. Currently building a call automation SaaS.</p></ResumeSection>
+              <ResumeSection title="Professional Summary">
+                <p className={bodyText}>
+                  Software Engineer who has owned and shipped systems across payments, real-time video,
+                  identity, AI integrations, and IoT hardware. Comfortable working end-to-end across
+                  frontend, backend, database, and infrastructure.
+                </p>
+              </ResumeSection>
 
-              <ResumeSection title="Experience"><div className="space-y-4 sm:space-y-6">
-                <div><div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between"><h3 className="text-base font-semibold text-[#004d30] dark:text-white sm:text-lg">Introspect Labs</h3><span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">Oct 2025 – Feb 2026</span></div><div className="mb-2 flex flex-col sm:flex-row sm:justify-between"><span className="text-sm italic text-zinc-700 dark:text-zinc-100">Full Stack Developer</span><span className="text-xs text-zinc-700 dark:text-zinc-100 sm:text-sm">Remote, Bengaluru, India</span></div><ResumeBullets><Bullet>Migrated uyir.ai from OTP-based sign-in to ZITADEL OIDC and synchronized existing user accounts.</Bullet><Bullet>Built therapist booking with slot validation, Razorpay payment capture, and LiveKit room creation.</Bullet><Bullet>Processed signed LiveKit webhooks to track session attendance and prevent duplicate event handling.</Bullet><Bullet>Built text- and voice-based AI journaling with Tiptap inline editing and encrypted storage; blocked journal visualization when crisis content was detected.</Bullet><Bullet>Used presigned AWS S3 uploads for therapist media and knowledge-base files, keeping uploads off the application server.</Bullet><Bullet>Added offline states and global error boundaries to the Next.js application to handle network and rendering failures.</Bullet><Bullet>Automated deployments to a DigitalOcean development environment using GitHub Actions, Docker, and Alembic migrations.</Bullet></ResumeBullets></div>
-                <div><div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between"><h3 className="text-base font-semibold text-[#004d30] dark:text-white sm:text-lg">Erlang Labs <span className="font-normal">(erlanglabs.com)</span></h3><span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">2026 – Present</span></div><div className="mb-2 flex flex-col sm:flex-row sm:justify-between"><span className="text-sm italic text-zinc-700 dark:text-zinc-100">Software Engineer, Self-Employed</span><span className="text-xs text-zinc-700 dark:text-zinc-100 sm:text-sm">Chennai, India</span></div><ResumeBullets><Bullet>Built the backend for a call automation SaaS using Go and Python microservices.</Bullet><Bullet>Enforced tenant isolation with ZITADEL authorization and PostgreSQL row-level security.</Bullet><Bullet>Configured APISIX to validate JWTs, rate-limit public routes, strip untrusted headers, and keep internal endpoints private.</Bullet><Bullet>Built an asynchronous document-ingestion pipeline with GCS and JetStream, then indexed Gemini/Vertex AI embeddings in Qdrant for retrieval during calls.</Bullet><Bullet>Built a background provisioner that initializes new organizations across services and retries failed steps independently.</Bullet><Bullet>Built LiveKit agents for inbound and outbound calls using Gemini, ElevenLabs, Cartesia, and Sarvam; captured recordings, transcripts, extracted fields, and usage for each call.</Bullet></ResumeBullets></div>
-              </div></ResumeSection>
+              <ResumeSection title="Experience">
+                <div className="space-y-7">
+                  <ExperienceItem
+                    company="Introspect Labs"
+                    period="Oct 2025 – Feb 2026"
+                    role="Full Stack Developer"
+                    location="Remote, Bengaluru, India"
+                  >
+                    <ResumeBullets>
+                      <li>
+                        Migrated uyir.ai from OTP-based sign-in to ZITADEL OIDC and synchronized existing
+                        user accounts.
+                      </li>
+                      <li>
+                        Built therapist booking with slot validation, Razorpay payment capture, and LiveKit
+                        room creation.
+                      </li>
+                      <li>
+                        Processed signed LiveKit webhooks to track session attendance and prevent duplicate
+                        event handling.
+                      </li>
+                      <li>
+                        Built text- and voice-based AI journaling with Tiptap inline editing and encrypted
+                        storage; blocked journal visualization when crisis content was detected.
+                      </li>
+                      <li>
+                        Used presigned AWS S3 uploads for therapist media and knowledge-base files, keeping
+                        uploads off the application server.
+                      </li>
+                      <li>
+                        Added offline states and global error boundaries to the Next.js application to handle
+                        network and rendering failures.
+                      </li>
+                      <li>
+                        Automated deployments to a DigitalOcean development environment using GitHub Actions,
+                        Docker, and Alembic migrations.
+                      </li>
+                    </ResumeBullets>
+                  </ExperienceItem>
 
-              <ResumeSection title="Projects"><div className="space-y-4 sm:space-y-6">
+                  <ExperienceItem
+                    company="Rafoof"
+                    period="2026 – Present"
+                    role="Freelance Software Engineer"
+                    location="Remote"
+                  >
+                    <ResumeBullets>
+                      <li>
+                        Built a multi-tenant physical library management backend with Fastify, TypeScript, and
+                        PostgreSQL 18, enforcing tenant isolation across 18 tables with PostgreSQL RLS and raw
+                        pg connection pooling.
+                      </li>
+                      <li>
+                        Developed a cross-platform mobile app using Kotlin Multiplatform (KMP) and Compose
+                        Multiplatform for Android and iOS with MVI architecture and Zitadel OIDC authentication.
+                      </li>
+                      <li>
+                        Integrated CameraX and Google ML Kit for continuous 30 FPS QR scanning, and engineered
+                        direct thermal label printing using Android PrintManager and ZXing.
+                      </li>
+                      <li>
+                        Implemented weighted full-text and trigram search with PostgreSQL GIN indexes, and
+                        prevented duplicate checkouts via Idempotency-Key headers and optimistic row versioning.
+                      </li>
+                    </ResumeBullets>
+                  </ExperienceItem>
+
+                  <ExperienceItem
+                    company={
+                      <>
+                        Erlang Labs <span className="font-normal text-muted-foreground">(erlanglabs.com)</span>
+                      </>
+                    }
+                    period="2026"
+                    role="Freelance Software Engineer"
+                    location="Remote"
+                  >
+                    <ResumeBullets>
+                      <li>Built the backend for a call automation SaaS using Go and Python microservices.</li>
+                      <li>
+                        Enforced tenant isolation with ZITADEL authorization and PostgreSQL row-level security.
+                      </li>
+                      <li>
+                        Configured APISIX to validate JWTs, rate-limit public routes, strip untrusted headers,
+                        and keep internal endpoints private.
+                      </li>
+                      <li>
+                        Built an asynchronous document-ingestion pipeline with GCS and JetStream, then indexed
+                        Gemini/Vertex AI embeddings in Qdrant for retrieval during calls.
+                      </li>
+                      <li>
+                        Built a background provisioner that initializes new organizations across services and
+                        retries failed steps independently.
+                      </li>
+                      <li>
+                        Built LiveKit agents for inbound and outbound calls using Gemini, ElevenLabs, Cartesia,
+                        and Sarvam; captured recordings, transcripts, extracted fields, and usage for each call.
+                      </li>
+                    </ResumeBullets>
+                  </ExperienceItem>
+                </div>
+              </ResumeSection>
+
+              <ResumeSection title="Projects">
                 <div>
-                  <h3 className="mb-1 text-base font-semibold text-[#004d30] dark:text-white sm:mb-2 sm:text-lg">Sol, Smart Home Ecosystem <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Go, Python, PostgreSQL, Redis, MQTT, LiveKit, Azure OpenAI</span></h3>
+                  <h3 className="text-base font-semibold text-foreground">Sol, Smart Home Ecosystem</h3>
+                  <p className="mb-3 mt-1 text-xs text-[#006b42] dark:text-[#8fffaa] sm:text-sm">
+                    Go, Python, PostgreSQL, Redis, MQTT, LiveKit, Azure OpenAI
+                  </p>
                   <ResumeBullets>
-                    <Bullet>Built the Go backend for managing homes, rooms, members, appliances, and device state with PostgreSQL (TimescaleDB) and Redis.</Bullet>
-                    <Bullet>Built a Python voice assistant with LiveKit and Azure OpenAI for natural-language device control.</Bullet>
-                    <Bullet>Secured the device platform with ZITADEL authentication, room-level access controls, and mTLS-authenticated MQTT connections.</Bullet>
-                    <Bullet>Tracked device commands with MQTT acknowledgements and control logs so the backend could confirm their outcome.</Bullet>
-                    <Bullet>Built OTA firmware updates with mTLS-protected downloads, safe retries, and device configuration preserved across updates.</Bullet>
+                    <li>
+                      Built the Go backend for managing homes, rooms, members, appliances, and device state
+                      with PostgreSQL (TimescaleDB) and Redis.
+                    </li>
+                    <li>
+                      Built a Python voice assistant with LiveKit and Azure OpenAI for natural-language device
+                      control.
+                    </li>
+                    <li>
+                      Secured the device platform with ZITADEL authentication, room-level access controls, and
+                      mTLS-authenticated MQTT connections.
+                    </li>
+                    <li>
+                      Tracked device commands with MQTT acknowledgements and built OTA firmware updates with
+                      mTLS-protected downloads and safe retries.
+                    </li>
                   </ResumeBullets>
                 </div>
-                <div>
-                  <h3 className="mb-1 text-base font-semibold text-[#004d30] dark:text-white sm:mb-2 sm:text-lg">Zylert, AI Notification Triage App <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Kotlin, Android SDK, Node.js, PostgreSQL, JSON/Zod, REST APIs</span></h3>
-                  <ResumeBullets>
-                    <Bullet>Built an Android app and Node.js backend that uses AI to classify captured notifications as important, moderate, or unwanted.</Bullet>
-                    <Bullet>Added AI-generated notification summaries and a chatbot for searching and asking questions about past alerts.</Bullet>
-                    <Bullet>Validated API payloads with Zod and stored notification history in PostgreSQL.</Bullet>
-                  </ResumeBullets>
+              </ResumeSection>
+
+              <ResumeSection title="Skills">
+                <div className={`space-y-2 ${bodyText}`}>
+                  {[
+                    ['Languages', 'TypeScript, JavaScript, Python, Go, SQL, C/C++, Kotlin, Bash, HTML/CSS'],
+                    [
+                      'Backend',
+                      'FastAPI, Fastify, Node.js, Express.js, PostgreSQL, TimescaleDB, MongoDB, Prisma, Redis, Celery, Alembic, gRPC',
+                    ],
+                    [
+                      'Frontend & Mobile',
+                      'React, Next.js, Compose Multiplatform, Vue.js, Tailwind CSS, Tiptap, Zustand, Three.js, Framer Motion',
+                    ],
+                    [
+                      'Cloud & Infrastructure',
+                      'AWS, GCP, Azure, DigitalOcean, Docker, Linux, Git, GitHub Actions, Nginx, APISIX, NATS JetStream',
+                    ],
+                    ['AI & Realtime', 'LiveKit, Gemini/Vertex AI, Azure OpenAI, Qdrant, RAG, MCP'],
+                    ['Security', 'ZITADEL OIDC/OAuth, JWT, mTLS, PostgreSQL RLS'],
+                  ].map(([label, value]) => (
+                    <p key={label}>
+                      <span className="font-medium text-foreground">{label}:</span> {value}
+                    </p>
+                  ))}
                 </div>
-              </div></ResumeSection>
+              </ResumeSection>
 
-              <ResumeSection title="Skills"><div className={`space-y-2 sm:space-y-3 ${bodyText}`}><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Languages:</span> TypeScript, JavaScript, Python, Go, SQL, C/C++, Kotlin, Bash, HTML/CSS</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Backend:</span> FastAPI, Node.js, Express.js, PostgreSQL, TimescaleDB, MongoDB, Prisma, Redis, Celery, Alembic, gRPC</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Frontend:</span> React, Next.js, Vue.js, Tailwind CSS, Tiptap, Zustand, Three.js, Framer Motion</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Cloud & Infrastructure:</span> AWS, GCP, Azure, DigitalOcean, Docker, Linux, Git, GitHub Actions, Nginx, APISIX, NATS JetStream</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">AI & Realtime:</span> LiveKit, Gemini/Vertex AI, Azure OpenAI, Qdrant, RAG, MCP</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Security:</span> ZITADEL OIDC/OAuth, JWT, mTLS, PostgreSQL RLS</p></div></ResumeSection>
+              <ResumeSection title="Certifications">
+                <ResumeBullets>
+                  <li>
+                    <strong className="font-medium text-foreground">
+                      MCP: Build Rich-Context AI Apps with Anthropic
+                    </strong>{' '}
+                    – <em>DeepLearning.AI (May 2025)</em>
+                  </li>
+                  <li>
+                    <strong className="font-medium text-foreground">
+                      Docker Foundations Professional Certificate
+                    </strong>{' '}
+                    – <em>Docker, Inc. (Feb 2026)</em>
+                  </li>
+                  <li>
+                    <strong className="font-medium text-foreground">Foundation of Cloud IoT Edge ML</strong> –{' '}
+                    <em>NPTEL (May 2024)</em>
+                  </li>
+                </ResumeBullets>
+              </ResumeSection>
 
-              <ResumeSection title="Certifications"><ResumeBullets><Bullet><strong>MCP: Build Rich-Context AI Apps with Anthropic</strong> – <em>DeepLearning.AI (May 2025)</em></Bullet><Bullet><strong>Docker Foundations Professional Certificate</strong> – <em>Docker, Inc. (Feb 2026)</em></Bullet><Bullet><strong>Foundation of Cloud IoT Edge ML</strong> – <em>NPTEL (May 2024)</em></Bullet></ResumeBullets></ResumeSection>
-
-              <section className="mb-4 sm:mb-6"><h2 className={sectionTitle}>Education</h2><div className={bodyText}><div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between"><span className="font-semibold text-[#004d30] dark:text-white">Aalim Muhammed Salegh College of Engineering</span><span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">2022 – 2026</span></div><div className="mb-1 text-xs italic sm:text-sm">Chennai, India</div><div>B.E. in Electronics & Communication Engineering</div></div></section>
-            </div>
-          </Card>
+              <ResumeSection title="Education">
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                  <span className="font-semibold text-foreground">
+                    Aalim Muhammed Salegh College of Engineering
+                  </span>
+                  <span className="text-xs tabular-nums text-muted-foreground sm:text-sm">2022 – 2026</span>
+                </div>
+                <div className={`mt-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between ${bodyText}`}>
+                  <span>B.E. in Electronics &amp; Communication Engineering</span>
+                  <span className="text-xs text-muted-foreground sm:text-sm">Chennai, India</span>
+                </div>
+              </ResumeSection>
+            </article>
+          </div>
         </div>
-      </section>
+      </div>
     </PageEntryWrapper>
   );
 }
