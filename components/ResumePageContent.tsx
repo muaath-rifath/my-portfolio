@@ -86,23 +86,106 @@ export default function ResumePageContent() {
                 </div>
               </header>
 
-              <ResumeSection title="Professional Summary"><p className={`${bodyText} leading-relaxed`}>Software Engineer who has owned and shipped systems across payments, real-time video, identity, AI integrations, and IoT hardware. Comfortable working end-to-end across frontend, backend, database, and infrastructure. Currently building a call automation SaaS.</p></ResumeSection>
+              <ResumeSection title="Professional Summary">
+                <p className={`${bodyText} leading-relaxed`}>
+                  Software Engineer who has owned and shipped systems across payments, real-time video, identity, AI integrations, and IoT hardware. Comfortable working end-to-end across frontend, backend, database, and infrastructure. Currently building a call automation SaaS.
+                </p>
+              </ResumeSection>
 
-              <ResumeSection title="Experience"><div className="space-y-4 sm:space-y-6">
-                <div><div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between"><h3 className="text-base font-semibold text-[#004d30] dark:text-white sm:text-lg">Introspect Labs</h3><span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">Oct 2025 – Feb 2026</span></div><div className="mb-2 flex flex-col sm:flex-row sm:justify-between"><span className="text-sm italic text-zinc-700 dark:text-zinc-100">Full Stack Developer</span><span className="text-xs text-zinc-700 dark:text-zinc-100 sm:text-sm">Remote, Bengaluru, India</span></div><ResumeBullets><Bullet>Migrated uyir.ai from OTP-based sign-in to ZITADEL OIDC and synchronized existing user accounts.</Bullet><Bullet>Built therapist booking with slot validation, Razorpay payment capture, and LiveKit room creation.</Bullet><Bullet>Processed signed LiveKit webhooks to track session attendance and prevent duplicate event handling.</Bullet><Bullet>Built text- and voice-based AI journaling with Tiptap inline editing and encrypted storage; blocked journal visualization when crisis content was detected.</Bullet><Bullet>Used presigned AWS S3 uploads for therapist media and knowledge-base files, keeping uploads off the application server.</Bullet><Bullet>Added offline states and global error boundaries to the Next.js application to handle network and rendering failures.</Bullet><Bullet>Automated deployments to a DigitalOcean development environment using GitHub Actions, Docker, and Alembic migrations.</Bullet></ResumeBullets></div>
-                <div><div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between"><h3 className="text-base font-semibold text-[#004d30] dark:text-white sm:text-lg">Erlang Labs <span className="font-normal">(erlanglabs.com)</span></h3><span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">2026 – Present</span></div><div className="mb-2 flex flex-col sm:flex-row sm:justify-between"><span className="text-sm italic text-zinc-700 dark:text-zinc-100">Software Engineer, Self-Employed</span><span className="text-xs text-zinc-700 dark:text-zinc-100 sm:text-sm">Chennai, India</span></div><ResumeBullets><Bullet>Built the backend for a call automation SaaS using Go and Python microservices.</Bullet><Bullet>Enforced tenant isolation with ZITADEL authorization and PostgreSQL row-level security.</Bullet><Bullet>Configured APISIX to validate JWTs, rate-limit public routes, strip untrusted headers, and keep internal endpoints private.</Bullet><Bullet>Built an asynchronous document-ingestion pipeline with GCS and JetStream, then indexed Gemini/Vertex AI embeddings in Qdrant for retrieval during calls.</Bullet><Bullet>Built a background provisioner that initializes new organizations across services and retries failed steps independently.</Bullet><Bullet>Built LiveKit agents for inbound and outbound calls using Gemini, ElevenLabs, Cartesia, and Sarvam; captured recordings, transcripts, extracted fields, and usage for each call.</Bullet></ResumeBullets></div>
-              </div></ResumeSection>
+              <ResumeSection title="Experience">
+                <div className="space-y-4 sm:space-y-6">
+                  <div>
+                    <div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                      <h3 className="text-base font-semibold text-[#004d30] dark:text-white sm:text-lg">Introspect Labs</h3>
+                      <span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">Oct 2025 – Feb 2026</span>
+                    </div>
+                    <div className="mb-2 flex flex-col sm:flex-row sm:justify-between">
+                      <span className="text-sm italic text-zinc-700 dark:text-zinc-100">Full Stack Developer</span>
+                      <span className="text-xs text-zinc-700 dark:text-zinc-100 sm:text-sm">Remote, Bengaluru, India</span>
+                    </div>
+                    <ResumeBullets>
+                      <Bullet>Migrated uyir.ai from OTP-based sign-in to ZITADEL OIDC and synchronized existing user accounts.</Bullet>
+                      <Bullet>Built therapist booking with slot validation, Razorpay payment capture, and LiveKit room creation.</Bullet>
+                      <Bullet>Processed signed LiveKit webhooks to track session attendance and prevent duplicate event handling.</Bullet>
+                      <Bullet>Built text- and voice-based AI journaling with Tiptap inline editing and encrypted storage; blocked journal visualization when crisis content was detected.</Bullet>
+                      <Bullet>Used presigned AWS S3 uploads for therapist media and knowledge-base files, keeping uploads off the application server.</Bullet>
+                      <Bullet>Added offline states and global error boundaries to the Next.js application to handle network and rendering failures.</Bullet>
+                      <Bullet>Automated deployments to a DigitalOcean development environment using GitHub Actions, Docker, and Alembic migrations.</Bullet>
+                    </ResumeBullets>
+                  </div>
+                  <div>
+                    <div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                      <h3 className="text-base font-semibold text-[#004d30] dark:text-white sm:text-lg">Erlang Labs <span className="font-normal">(erlanglabs.com)</span></h3>
+                      <span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">2026 – Present</span>
+                    </div>
+                    <div className="mb-2 flex flex-col sm:flex-row sm:justify-between">
+                      <span className="text-sm italic text-zinc-700 dark:text-zinc-100">Software Engineer, Self-Employed</span>
+                      <span className="text-xs text-zinc-700 dark:text-zinc-100 sm:text-sm">Chennai, India</span>
+                    </div>
+                    <ResumeBullets>
+                      <Bullet>Built the backend for a call automation SaaS using Go and Python microservices.</Bullet>
+                      <Bullet>Enforced tenant isolation with ZITADEL authorization and PostgreSQL row-level security.</Bullet>
+                      <Bullet>Configured APISIX to validate JWTs, rate-limit public routes, strip untrusted headers, and keep internal endpoints private.</Bullet>
+                      <Bullet>Built an asynchronous document-ingestion pipeline with GCS and JetStream, then indexed Gemini/Vertex AI embeddings in Qdrant for retrieval during calls.</Bullet>
+                      <Bullet>Built a background provisioner that initializes new organizations across services and retries failed steps independently.</Bullet>
+                      <Bullet>Built LiveKit agents for inbound and outbound calls using Gemini, ElevenLabs, Cartesia, and Sarvam; captured recordings, transcripts, extracted fields, and usage for each call.</Bullet>
+                    </ResumeBullets>
+                  </div>
+                  </div>
+                </ResumeSection>
 
-              <ResumeSection title="Projects"><div className="space-y-4 sm:space-y-6">
-                <div><h3 className="mb-1 text-base font-semibold text-[#004d30] dark:text-white sm:mb-2 sm:text-lg">Sol, Smart Home Ecosystem <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Go, Python, PostgreSQL, Redis, MQTT, LiveKit, Azure OpenAI</span></h3><ResumeBullets><Bullet>Built the Go backend for managing homes, rooms, members, appliances, and device state with PostgreSQL (TimescaleDB) and Redis.</Bullet><Bullet>Built a Python voice assistant with LiveKit and Azure OpenAI for natural-language device control.</Bullet><Bullet>Secured the device platform with ZITADEL authentication, room-level access controls, and mTLS-authenticated MQTT connections.</Bullet><Bullet>Tracked device commands with MQTT acknowledgements and control logs so the backend could confirm their outcome.</Bullet><Bullet>Built OTA firmware updates with mTLS-protected downloads, safe retries, and device configuration preserved across updates.</Bullet></ResumeBullets></div>
-                <div><h3 className="mb-1 text-base font-semibold text-[#004d30] dark:text-white sm:mb-2 sm:text-lg">Zylert, AI Notification Triage App <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Kotlin, Android SDK, Node.js, PostgreSQL, JSON/Zod, REST APIs</span></h3><ResumeBullets><Bullet>Built an Android app and Node.js backend that uses AI to classify captured notifications as important, moderate, or unwanted.</Bullet><Bullet>Added AI-generated notification summaries and a chatbot for searching and asking questions about past alerts.</Bullet><Bullet>Validated API payloads with Zod and stored notification history in PostgreSQL.</Bullet></ResumeBullets></div>
-              </div></ResumeSection>
+                <ResumeSection title="Projects">
+                  <div className="space-y-4 sm:space-y-6">
+                    <div>
+                      <h3 className="mb-1 text-base font-semibold text-[#004d30] dark:text-white sm:mb-2 sm:text-lg">Sol, Smart Home Ecosystem <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Go, Python, PostgreSQL, Redis, MQTT, LiveKit, Azure OpenAI</span></h3>
+                      <ResumeBullets>
+                        <Bullet>Built the Go backend for managing homes, rooms, members, appliances, and device state with PostgreSQL (TimescaleDB) and Redis.</                        <Bullet>Built a Python voice assistant with LiveKit and Azure OpenAI for natural-language device control.</Bullet>
+                        <Bullet>Secured the device platform with ZITADEL authentication, room-level access controls, and mTLS-authenticated MQTT connections.</Bullet>
+                        <Bullet>Tracked device commands with MQTT acknowledgements and control logs so the backend could confirm their outcome.</Bullet>
+                        <Bullet>Built OTA firmware updates with mTLS-protected downloads, safe retries, and device configuration preserved across updates.</Bullet>
+                      </ResumeBullets>
+                    </div>
+                    <div>
+                      <h3 className="mb-1 text-base font-semibold text-[#004d30] dark:text-white sm:mb-2 sm:text-lg">Zylert, AI Notification Triage App <span className="text-sm font-normal text-zinc-600 dark:text-zinc-100">– Kotlin, Android SDK, Node.js, PostgreSQL, JSON/Zod, REST APIs</span></h3>
+                      <ResumeBullets>
+                        <Bullet>Built an Android app and Node.js backend that uses AI to classify captured notifications as important, moderate, or unwanted.</Bullet>
+                        <Bullet>Added AI-generated notification summaries and a chatbot for searching and asking questions about past alerts.</Bullet>
+                        <Bullet>Validated API payloads with Zod and stored notification history in PostgreSQL.</Bullet>
+                      </ResumeBullets>
+                    </div>
+                  </div>
+                </ResumeSection>
 
-              <ResumeSection title="Skills"><div className={`space-y-2 sm:space-y-3 ${bodyText}`}><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Languages:</span> TypeScript, JavaScript, Python, Go, SQL, C/C++, Kotlin, Bash, HTML/CSS</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Backend:</span> FastAPI, Node.js, Express.js, PostgreSQL, TimescaleDB, MongoDB, Prisma, Redis, Celery, Alembic, gRPC</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Frontend:</span> React, Next.js, Vue.js, Tailwind CSS, Tiptap, Zustand, Three.js, Framer Motion</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Cloud &amp; Infrastructure:</span> AWS, GCP, Azure, DigitalOcean, Docker, Linux, Git, GitHub Actions, Nginx, APISIX, NATS JetStream</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">AI &amp; Realtime:</span> LiveKit, Gemini/Vertex AI, Azure OpenAI, Qdrant, RAG, MCP</p><p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Security:</span> ZITADEL OIDC/OAuth, JWT, mTLS, PostgreSQL RLS</p></div></ResumeSection>
+                <ResumeSection title="Skills">
+                  <div className={`space-y-2 sm:space-y-3 ${bodyText}`}>
+                    <p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Languages:</span> TypeScript, JavaScript, Python, Go, SQL, C/C++, Kotlin, Bash, HTML/CSS</p>
+                    <p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Backend:</span> FastAPI, Node.js, Express.js, PostgreSQL, TimescaleDB, MongoDB, Prisma, Redis, Celery, Alembic, gRPC</p>
+                    <p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Frontend:</span> React, Next.js, Vue.js, Tailwind CSS, Tiptap, Zustand, Three.js, Framer Motion</p>
+                    <p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Cloud & Infrastructure:</span> AWS, GCP, Azure, DigitalOcean, Docker, Linux, Git, GitHub Actions, Nginx, APISIX, NATS JetStream</p>
+                    <p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">AI & Realtime:</span> LiveKit, Gemini/Vertex AI, Azure OpenAI, Qdrant, RAG, MCP</p>
+                    <p><span className="font-semibold text-[#006b42] dark:text-[#8fffaa]">Security:</span> ZITADEL OIDC/OAuth, JWT, mTLS, PostgreSQL RLS</p>
+                  </div>
+                </ResumeSection>
 
-              <ResumeSection title="Certifications"><ResumeBullets><Bullet><strong>MCP: Build Rich-Context AI Apps with Anthropic</strong> – <em>DeepLearning.AI (May 2025)</em></Bullet><Bullet><strong>Docker Foundations Professional Certificate</strong> – <em>Docker, Inc. (Feb 2026)</em></Bullet><Bullet><strong>Foundation of Cloud IoT Edge ML</strong> – <em>NPTEL (May 2024)</em></Bullet></ResumeBullets></ResumeSection>
+                <ResumeSection title="Certifications">
+                  <ResumeBullets>
+                    <Bullet><strong>MCP: Build Rich-Context AI Apps with Anthropic</strong> – <em>DeepLearning.AI (May 2025)</em></Bullet>
+                    <Bullet><strong>Docker Foundations Professional Certificate</strong> – <em>Docker, Inc. (Feb 2026)</em></Bullet>
+                    <Bullet><strong>Foundation of Cloud IoT Edge ML</strong> – <em>NPTEL (May 2024)</em></Bullet>
+                  </ResumeBullets>
+                </ResumeSection>
 
-              <section className="mb-4 sm:mb-6"><h2 className={sectionTitle}>Education</h2><div className={bodyText}><div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between"><span className="font-semibold text-[#004d30] dark:text-white">Aalim Muhammed Salegh College of Engineering</span><span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">2022 – 2026</span></div><div className="mb-1 text-xs italic sm:text-sm">Chennai, India</div><div>B.E. in Electronics &amp; Communication Engineering</div></div></section>
+                <section className="mb-4 sm:mb-6">
+                  <h2 className={sectionTitle}>Education</h2>
+                  <div className={bodyText}>
+                    <div className="mb-1 flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                      <span className="font-semibold text-[#004d30] dark:text-white">Aalim Muhammed Salegh College of Engineering</span>
+                      <span className="mt-1 text-xs italic sm:mt-0 sm:text-sm">2022 – 2026</span>
+                    </div>
+                    <div className="mb-1 text-xs italic sm:text-sm">Chennai, India</div>
+                    <div>B.E. in Electronics & Communication Engineering</div>
+                  </div>
+                </section>
             </div>
           </Card>
         </div>
