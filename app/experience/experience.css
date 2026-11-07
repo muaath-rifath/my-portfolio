@@ -38,7 +38,7 @@
 .experience-current > span { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .experience-role-content { min-width: 0; }
 .experience-company { display: flex; align-items: center; gap: 16px; }
-.experience-company img { background: white; padding: 4px; border-radius: 6px; flex-shrink: 0; }
+.experience-company img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; background: #fff; border-radius: 6px; padding: 4px; }
 .experience-company h3 { font-size: 23px; font-weight: 550; letter-spacing: -.025em; line-height: 1.25; }
 .experience-company p { color: var(--experience-accent); font-size: 14px; margin-top: 5px; }
 .experience-role-summary { font-size: 18px; line-height: 1.6; margin-block: 24px 16px; letter-spacing: -.015em; }

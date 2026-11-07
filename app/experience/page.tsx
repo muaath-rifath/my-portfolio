@@ -23,6 +23,7 @@ const workExperience = [
       "Automated deployments to a DigitalOcean development environment using GitHub Actions, Docker, and Alembic migrations.",
     ],
     logoPath: "/assets/introspect-labs.svg",
+    logoBg: "#ffffff",
   },
   {
     company: "Erlang Labs",
@@ -39,6 +40,23 @@ const workExperience = [
       "Built LiveKit agents for inbound and outbound calls using Gemini, ElevenLabs, Cartesia, and Sarvam; captured recordings, transcripts, extracted fields, and usage for each call.",
     ],
     logoPath: "/erlanglabs-logo-mark.svg",
+    logoBg: "#ffffff",
+  },
+  {
+    company: "Rafoof",
+    role: "Freelance Software Engineer",
+    location: "Remote",
+    duration: "2026 – Present",
+    type: "Freelance",
+    bullets: [
+      "Built a multi-tenant physical library management backend with Fastify, TypeScript, and PostgreSQL 18, enforcing tenant isolation across 18 tables with PostgreSQL RLS and raw pg connection pooling.",
+      "Developed a cross-platform mobile app using Kotlin Multiplatform (KMP) and Compose Multiplatform for Android and iOS with MVI architecture and Zitadel OIDC authentication.",
+      "Integrated CameraX and Google ML Kit for continuous 30 FPS QR scanning, and engineered direct thermal label printing using Android PrintManager and ZXing.",
+      "Implemented weighted full-text and trigram search with PostgreSQL GIN indexes, and prevented duplicate checkouts via Idempotency-Key headers and optimistic row versioning.",
+      "Computed copy availability, overdue status, and dashboard counts in SQL views instead of stored flags, eliminating state drift between loans and availability.",
+    ],
+    logoPath: "/assets/rafoof-logo.png",
+    logoBg: "#094f2b",
   },
 ];
 
@@ -243,6 +261,10 @@ export const metadata = pageMetadata(
 );
 
 const roleNotes: Record<string, { summary: string; stack: string[] }> = {
+  Rafoof: {
+    summary: "Bringing physical library circulation onto mobile.",
+    stack: ["Fastify", "TypeScript", "PostgreSQL", "Zitadel", "Kotlin Multiplatform", "Compose Multiplatform"],
+  },
   "Erlang Labs": {
     summary: "Building the services behind AI-powered calls.",
     stack: ["Go", "Python", "PostgreSQL", "LiveKit", "ZITADEL", "Qdrant"],
@@ -296,7 +318,7 @@ export default function ExperiencePage() {
                 <p>{experience.location}</p>
               </div>
               <div className="experience-role-content">
-                <div className="experience-company"><Image src={experience.logoPath} width={40} height={40} alt="" /><div><h3>{experience.role}</h3><p>{experience.company}</p></div></div>
+                <div className="experience-company"><Image src={experience.logoPath} width={44} height={44} alt="" style={{ background: experience.logoBg }} /><div><h3>{experience.role}</h3><p>{experience.company}</p></div></div>
                 <p className="experience-role-summary">{note.summary}</p>
                 <ul className="experience-bullets">{experience.bullets.slice(0, 2).map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
                 <details className="experience-details">
